@@ -11,6 +11,13 @@ export class Navbar extends React.Component {
               <li><a href="badges.html">Components</a></li>
               <li><a href="collapsible.html">JavaScript</a></li>
             </ul>
+            <form>
+              <div className="input-field">
+                <input id="search" type="search" required/>
+                <label className="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i className="material-icons">close</i>
+              </div>
+            </form>
           </div>
         </nav>
     )
