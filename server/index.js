@@ -9,9 +9,11 @@ const { User } = require('./db/models');
 app.use(volleyball);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.use('/api', require('./api'));
 app.use('/auth', require('./auth/local'))
-const validFrontendRoutes = ['/', '/restaurants/:id', '/restaurants'];
+
+const validFrontendRoutes = ['/', '/login', '/restaurants/:id', '/restaurants'];
 const indexPath = path.join(__dirname, '../public/index.html');
 validFrontendRoutes.forEach(stateRoute => {
   app.get(stateRoute, (req, res, next) => {
