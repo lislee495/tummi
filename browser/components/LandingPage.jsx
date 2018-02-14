@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 
 class LandingPage extends React.Component {
