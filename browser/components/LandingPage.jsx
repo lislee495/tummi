@@ -9,10 +9,14 @@ class LandingPage extends React.Component {
         <div className="banner text-center">
           <h1>Foodie</h1>
           <h2>A foodie's best friend.</h2>
-          <button>Sign in</button>
-          <button>Log in</button>
+          <span>
+            <NavLink to="/signup" activeClassName="active">Signup</NavLink>
+            <NavLink to="/login" activeClassName="active">Login</NavLink>
+          </span>
         </div>
         <div className="about">
+          <p> BLAH BLAH BLAH
+          </p>
         </div>
       </div>
     )
