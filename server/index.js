@@ -5,6 +5,7 @@ const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const { User } = require('./db/models');
+const passport = require('passport')
 
 app.use(session({
   // this mandatory configuration ensures that session IDs are not predictable

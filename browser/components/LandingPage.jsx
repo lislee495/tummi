@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-class LandingPage extends React.Component {
+export default class LandingPage extends React.Component {
   render() {
     return(
       <div className="landing-page">
@@ -21,4 +21,3 @@ class LandingPage extends React.Component {
     )
   }
 }
-export LandingPage;

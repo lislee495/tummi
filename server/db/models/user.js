@@ -8,3 +8,5 @@ const User = db.define('user', {
     unique: true},
   password: Sequelize.STRING
 })
+
+module.exports = User; 

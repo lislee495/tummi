@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 
-const databaseURI = 'postgres://localhost:5432/foodie';
-
-const db = new Sequelize(databaseURI, {
+const db = new Sequelize('postgres://localhost:5432/foodie', {
   define: {
     timestamps: false,
     underscored: true

@@ -70,5 +70,3 @@ login: credentials => dispatch(loginFromReducer(credentials, ownProps.history))
 });
 
 export default connect(mapState, mapDispatch)(Login);
-
-}

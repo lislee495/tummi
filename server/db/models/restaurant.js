@@ -10,3 +10,5 @@ const Restaurant = db.define('restaurant', {
   phone_number: Sequelize.STRING,
   categories: Sequelize.ARRAY(Sequelize.TEXT)
 })
+
+module.exports = Restaurant;

@@ -8,3 +8,5 @@ const Dish = db.define('dish', {
   description: Sequelize.TEXT,
   price: Sequelize.FLOAT
 })
+
+module.exports = Dish;

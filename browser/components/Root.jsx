@@ -6,10 +6,7 @@ import LandingPage from './LandingPage';
 import Login from './Login';
 import Signup from './Signup';
 import Navbar from './Navbar';
-import Footer from './Footer';
 
-import { fetchUsers } from '../redux/users';
-import { fetchStories } from '../redux/stories';
 import { fetchCurrentUser } from '../redux/auth';
 
 /* -----------------    COMPONENT     ------------------ */
@@ -40,8 +37,6 @@ const mapState = null;
 
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {
-    dispatch(fetchUsers());
-    dispatch(fetchRestaurants());
     dispatch(fetchCurrentUser());
   }
 });
