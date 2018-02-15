@@ -54,5 +54,5 @@ export const fetchCurrentUser = () => dispatch => {
 
 function setUserAndRedirect (user, history, dispatch) {
   dispatch(setCurrentUser(user));
-  history.push("/")
+  history.push("/");
 }

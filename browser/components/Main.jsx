@@ -4,12 +4,16 @@ import { connect } from 'react-redux';
 import Navbar from './Navbar'
 // import RestaurantList from './restaurant/RestaurantList'
 
-export class Main extends React.Component {
+export default class Main extends React.Component {
   constructor() {
     super()
   }
 
   render() {
-    return <Navbar/>
+    return(
+      <div className="logged-in">
+        <Navbar/>
+      </div>
+    )
   }
 }

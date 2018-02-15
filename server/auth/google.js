@@ -7,7 +7,7 @@ const config = require('../config')
 const googleCredentials = {
   clientID: config.GOOGLE_CLIENT_ID,
   clientSecret: config.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'www.localhost:3000'
+  callbackURL: '/auth/google/verify'
 };
 
 // The following callback will be used when passport successfully authenticates with Google (the provider) for us, using our `clientId`, `clientSecret` and the temporary token from the client
