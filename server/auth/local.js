@@ -37,4 +37,7 @@ router.delete('/logout', (req, res, next) => {
   res.sendStatus(204);
 });
 
+router.get('/', (req, res, next) => {
+  res.send(req.user);
+})
 module.exports = router;

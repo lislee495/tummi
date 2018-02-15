@@ -2,11 +2,12 @@ const router = require('express').Router();
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const passport = require('passport');
 const { User } = require('../db/models');
+const config = require('../config')
 
 const googleCredentials = {
-  clientID: 'YOUR_CLIENT_ID',
-  clientSecret: 'YOUR_CLIENT_SECRET',
-  callbackURL: 'YOUR_CALLBACK_URL'
+  clientID: config.GOOGLE_CLIENT_ID
+  clientSecret: config.GOOGLE_CLIENT_SECRET
+  callbackURL: 'www.localhost:3000'
 };
 
 // The following callback will be used when passport successfully authenticates with Google (the provider) for us, using our `clientId`, `clientSecret` and the temporary token from the client

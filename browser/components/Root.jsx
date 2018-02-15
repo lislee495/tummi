@@ -1,4 +1,5 @@
 import React from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
@@ -8,6 +9,9 @@ import Signup from './Signup';
 import Navbar from './Navbar';
 
 import { fetchCurrentUser } from '../redux/auth';
+
+// remove tap delay, essential for MaterialUI to work properly
+injectTapEventPlugin();
 
 /* -----------------    COMPONENT     ------------------ */
 

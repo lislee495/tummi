@@ -8,10 +8,9 @@ class Login extends React.Component {
   }
 
   render() {
-    const { message } = this.props;
     return (
       <div className="signin-container">
-        <div className="buffer local">
+        <div className="local">
           <form onSubmit={this.onLoginSubmit}>
             <div className="form-group">
               <label>email</label>
@@ -31,7 +30,7 @@ class Login extends React.Component {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-block btn-primary">{message}</button>
+            <button type="submit" className="btn btn-block btn-primary">{this.props.message}</button>
           </form>
         </div>
         <div className="or buffer">
@@ -46,7 +45,7 @@ class Login extends React.Component {
               href="/auth/google"
               className="btn btn-social btn-google">
               <i className="fa fa-google" />
-              <span>{message} with Google</span>
+              <span>{this.props.message} with Google</span>
             </a>
           </p>
       </div>
