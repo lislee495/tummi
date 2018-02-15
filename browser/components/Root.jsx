@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import Login from './Login';
 import Signup from './Signup';
-import Navbar from './Navbar';
+import Main from './Main';
 
 import { fetchCurrentUser } from '../redux/auth';
 
@@ -17,13 +17,15 @@ injectTapEventPlugin();
 
 class Root extends Component {
 	componentDidMount() {
-		// this.props.fetchInitialData();
+		this.props.fetchInitialData();
 	}
+
 	render () {
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
-			    <Route exact path="/" component={LandingPage} />
+        {this.props.currentUser.id ? <Route exact path="/" component={Main} /> :
+        <Route exact path="/" component={LandingPage} />}
 			    <Route path="/login" component={Login} />
 			    <Route path="/signup" component={Signup} />
 			  </div>
@@ -34,14 +36,14 @@ class Root extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = null;
+const mapState = ({currentUser}) => ({ currentUser });
 
-// const mapDispatch = dispatch => ({
-//   fetchInitialData: () => {
-//     dispatch(fetchCurrentUser());
-//   }
-// });
+const mapDispatch = dispatch => ({
+  fetchInitialData: () => {
+    dispatch(fetchCurrentUser());
+  }
+});
 
-export default connect(mapState)(Root);
+export default connect(mapState, mapDispatch)(Root);
 /* //<Route exact path="/restaurants" component={RestaurantList} />
  // <Route exact path="/restaurants/:id" component={RestaurantDetail} /> */

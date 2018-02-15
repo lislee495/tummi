@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signup } from '../redux/auth';
+import { signup as signupFromReducer} from '../redux/auth';
 
 class Signup extends React.Component {
   render() {
@@ -35,7 +35,7 @@ class Signup extends React.Component {
 
 const mapState = () => ({ message: 'Signup' });
 const mapDispatch = (dispatch, ownProps) => ({
-login: credentials => dispatch(loginFromReducer(credentials, ownProps.history))
+signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history))
 });
 
 export default connect(mapState, mapDispatch)(Signup);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 //fix search bar, two fields, find near ...
-export class Navbar extends React.Component {
+export default class Navbar extends React.Component {
   render() {
     return(
       <nav>

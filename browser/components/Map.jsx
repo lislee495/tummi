@@ -1,15 +1,21 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 
-class Map extends React.Component {
+export default class Map extends React.Component {
+  componentDidMount(){
+    this.map = new mapboxgl.Map({
+        container: this.mapContainer,
+        style: 'mapbox://styles/mapbox/streets-v9'
+    })
+  }
+
+  componentWillUnmount() {
+    this.map.remove();
+  }
   render(){
     mapboxgl.accessToken = config.MAPBOX_KEY;
-    const map = new mapboxgl.Map({
-        container: '<App/>',
-        style: 'mapbox://styles/mapbox/streets-v9'
-    });
-    return (
-      {map}
+
+    return <div ref={el => this.mapContainer = el} />
     )
   }
 }
