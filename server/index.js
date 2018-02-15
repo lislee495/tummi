@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api', require('./api'));
-app.use('/auth', require('./auth/local'))
+app.use('/auth', require('./auth'))
 
 const validFrontendRoutes = ['/', '/login', '/restaurants/:id', '/restaurants'];
 const indexPath = path.join(__dirname, '../public/index.html');
