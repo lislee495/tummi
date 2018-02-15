@@ -15,6 +15,5 @@ module.exports = {
 	db,
 	Restaurant,
 	User,
-  Menu,
   Dish
 };
