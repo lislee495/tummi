@@ -5,8 +5,8 @@ const { User } = require('../db/models');
 const config = require('../config')
 
 const googleCredentials = {
-  clientID: config.GOOGLE_CLIENT_ID
-  clientSecret: config.GOOGLE_CLIENT_SECRET
+  clientID: config.GOOGLE_CLIENT_ID,
+  clientSecret: config.GOOGLE_CLIENT_SECRET,
   callbackURL: 'www.localhost:3000'
 };
 
@@ -40,7 +40,7 @@ router.get('/', passport.authenticate('google', { scope: 'email' }));
 router.get('/verify',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => { // a successRedirect is fine, but with this we can use `req` for a more meaningful redirect
-    res.redirect(`/users/${req.user.id}`);
+    res.redirect("/");
   }
 );
 

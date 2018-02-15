@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import { login as loginFromReducer} from '../redux/auth';
 
 class Login extends React.Component {
   constructor(props) {

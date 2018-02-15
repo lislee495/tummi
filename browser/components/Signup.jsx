@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { signup } from '../redux/auth';
 
 class Signup extends React.Component {
   render() {
@@ -24,11 +26,16 @@ class Signup extends React.Component {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-block btn-primary">{message}</button>
+            <button type="submit" className="btn btn-block btn-primary">{this.props.message}</button>
           </form>
         </div>
       </div>
     )}
 }
 
-export default Signup;
+const mapState = () => ({ message: 'Signup' });
+const mapDispatch = (dispatch, ownProps) => ({
+login: credentials => dispatch(loginFromReducer(credentials, ownProps.history))
+});
+
+export default connect(mapState, mapDispatch)(Signup);

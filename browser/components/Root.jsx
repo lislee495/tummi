@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
@@ -17,7 +17,7 @@ injectTapEventPlugin();
 
 class Root extends Component {
 	componentDidMount() {
-		this.props.fetchInitialData();
+		// this.props.fetchInitialData();
 	}
 	render () {
 		return (
@@ -26,9 +26,6 @@ class Root extends Component {
 			    <Route exact path="/" component={LandingPage} />
 			    <Route path="/login" component={Login} />
 			    <Route path="/signup" component={Signup} />
-			    <Route exact path="/restaurants" component={RestaurantList} />
-			    <Route exact path="/restaurants/:id" component={RestaurantDetail} />
-			    <Footer />
 			  </div>
 		  </Router>
 		)
@@ -39,10 +36,12 @@ class Root extends Component {
 
 const mapState = null;
 
-const mapDispatch = dispatch => ({
-  fetchInitialData: () => {
-    dispatch(fetchCurrentUser());
-  }
-});
+// const mapDispatch = dispatch => ({
+//   fetchInitialData: () => {
+//     dispatch(fetchCurrentUser());
+//   }
+// });
 
-export default connect(mapState, mapDispatch)(Root);
+export default connect(mapState)(Root);
+/* //<Route exact path="/restaurants" component={RestaurantList} />
+ // <Route exact path="/restaurants/:id" component={RestaurantDetail} /> */
