@@ -28554,7 +28554,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-_mapboxGl2.default.accessToken = _config2.default.MAPBOX_KEY;
+_mapboxGl2.default.accessToken = "pk.eyJ1IjoibGlzYWxlZTExNjIiLCJhIjoiY2pkbmFxY3FhMHY1ZTJ3bDcweGFjOXA3OSJ9._JBmBu2Wl2EzbYxSBejtIw";
 
 var Map = function (_React$Component) {
   _inherits(Map, _React$Component);
@@ -28567,7 +28567,7 @@ var Map = function (_React$Component) {
     _this.state = {
       lat: 41.928074,
       lng: -87.654666,
-      zoom: 5
+      zoom: 12
     };
     return _this;
   }
@@ -28585,14 +28585,14 @@ var Map = function (_React$Component) {
       var map = new _mapboxGl2.default.Map({
         container: this.mapContainer,
         style: "mapbox://styles/mapbox/streets-v10",
-        center: [lat, lng],
+        center: [lng, lat],
         zoom: zoom
       });
 
       map.on('move', function () {
         var _map$getCenter = map.getCenter(),
-            lat = _map$getCenter.lat,
-            lng = _map$getCenter.lng;
+            lng = _map$getCenter.lng,
+            lat = _map$getCenter.lat;
 
         _this2.setState({
           lng: lng.toFixed(4),
@@ -28620,7 +28620,8 @@ var Map = function (_React$Component) {
         position: 'absolute',
         top: 100,
         bottom: 0,
-        width: '60%'
+        left: 300,
+        width: '100%'
       };
       return _react2.default.createElement(
         'div',

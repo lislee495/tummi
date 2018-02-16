@@ -2,15 +2,14 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import config from '../config';
 import 'mapbox-gl/dist/mapbox-gl.css';
-mapboxgl.accessToken = config.MAPBOX_KEY;
-
+mapboxgl.accessToken = config.MAPBOX_KEY
 export default class Map extends React.Component {
   constructor(){
     super()
     this.state = {
       lat: 41.928074,
       lng: -87.654666,
-      zoom: 5
+      zoom: 12
     }
   }
   componentDidMount(){
@@ -18,12 +17,12 @@ export default class Map extends React.Component {
     const map = new mapboxgl.Map({
         container: this.mapContainer,
         style: "mapbox://styles/mapbox/streets-v10",
-        center: [lat, lng],
+        center: [lng, lat],
         zoom: zoom,
     })
 
     map.on('move', () => {
-      const { lat, lng } = map.getCenter();
+      const { lng, lat } = map.getCenter();
       this.setState({
         lng: lng.toFixed(4),
         lat: lat.toFixed(4),
@@ -40,7 +39,8 @@ export default class Map extends React.Component {
       position: 'absolute',
       top: 100,
       bottom: 0,
-      width: '60%'
+      left: 300,
+      width: '100%'
     };
     return (
       <div>
