@@ -10,7 +10,8 @@ const SEARCH_LOCATION = "SEARCH_LOCATION"
 /* ------------     ACTION CREATORS      ------------------ */
 
 const set_current_restaurant = restaurant => ({type: SET_CURRENT_RESTAURANT, restaurant})
-const search_restaurant_category = category => ({type: SEARCH_RESTAURANT, category})
+export const searchCategory = category => ({type: SEARCH_CATEGORY, category})
+export const searchLocation = location => ({type: SEARCH_LOCATION, location})
 
 
 /* ------------          REDUCER         ------------------ */

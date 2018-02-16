@@ -1,20 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {searchCategory, searchLocation} from './redux/restaurants'
 
-export default class Searchbar extends React.Component {
-
+function Searchbar(props) {
   render(){
     return(
-      <form className="form-inline">
+      <form className="form-inline" onSubmit={handleSubmit}>
         <div className="form-group">
           <input type="text"
           class="form-control"
-          onChange={this.handleCategoryChange}
+          onChange={handleCategoryChange}
+          value={category}
           placeholder="Category"/>
         </div>
         <div className="form-group">
           <input type="text"
           className="form-control"
-          onChange={this.handleLocationChange}
+          value={location}
+          onChange={handleLocationChange}
           placeholder="Location"/>
         </div>
         <button type="submit" className="btn btn-default">Search</button>
@@ -22,3 +25,31 @@ export default class Searchbar extends React.Component {
     )
   }
 }
+const mapStateToProps = function (state) {
+  return {
+    location: state.location,
+    category: state.category,
+  };
+};
+
+const mapDispatchToProps = function (dispatch) {
+  return {
+    handleCategoryChange (evt) {
+      dispatch(search_category(evt.target.value));
+    },
+    handleLocationChange(evt) {
+      dispatch(search_location(evt.target.value));
+    },
+    handleSubmit (category, location, evt) {
+      evt.preventDefault();
+      dispatch(findRestaurants({ category, location }));
+      dispatch(search_category(''));
+      dispatch(search_location(''));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Searchbar);
