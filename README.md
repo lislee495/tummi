@@ -1,3 +1,3 @@
-# Tummi : Your tummy's best friend
+# Tummi : Your stomach's best friend
 
 ## About

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import Login from './Login';
 import Signup from './Signup';
-import Main from './Main';
+import Home from './Home';
 
 import { fetchCurrentUser } from '../redux/auth';
 
@@ -29,7 +29,7 @@ class Root extends Component {
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
-        {this.props.currentUser.email ? <Route exact path="/" component={Main} /> :
+        {this.props.currentUser.id ? <Route exact path="/" component={Home} /> :
         <Route exact path="/" component={LandingPage} />}
 			    <Route path="/login" component={Login} />
 			    <Route path="/signup" component={Signup} />
