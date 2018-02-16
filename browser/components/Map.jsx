@@ -9,7 +9,7 @@ export default class Map extends React.Component {
     this.state = {
       lat: 41.928074,
       lng: -87.654666,
-      zoom: 12
+      zoom: 15
     }
   }
   componentDidMount(){
@@ -39,15 +39,14 @@ export default class Map extends React.Component {
       position: 'absolute',
       top: 100,
       bottom: 0,
-      left: 300,
-      width: '100%'
+      width: '90%'
     };
     return (
       <div>
         <div>
           <div>{`Latitude: ${lat} Longitude: ${lng} Zoom: ${zoom}`}</div>
         </div>
-        <div ref={el => this.mapContainer = el} style={style} />
+        <div ref={el => this.mapContainer = el} style={style}/>
       </div>
     )
   }

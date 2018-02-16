@@ -24469,7 +24469,8 @@ var Root = function (_Component) {
           { id: 'main', className: 'container-fluid' },
           this.props.currentUser.id ? _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }) : _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _LandingPage2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default })
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/home', component: _Home2.default })
         )
       );
     }
@@ -28554,7 +28555,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-_mapboxGl2.default.accessToken = "pk.eyJ1IjoibGlzYWxlZTExNjIiLCJhIjoiY2pkbmFxY3FhMHY1ZTJ3bDcweGFjOXA3OSJ9._JBmBu2Wl2EzbYxSBejtIw";
+_mapboxGl2.default.accessToken = _config2.default.MAPBOX_KEY;
 
 var Map = function (_React$Component) {
   _inherits(Map, _React$Component);
@@ -28567,7 +28568,7 @@ var Map = function (_React$Component) {
     _this.state = {
       lat: 41.928074,
       lng: -87.654666,
-      zoom: 12
+      zoom: 15
     };
     return _this;
   }
@@ -28620,8 +28621,7 @@ var Map = function (_React$Component) {
         position: 'absolute',
         top: 100,
         bottom: 0,
-        left: 300,
-        width: '100%'
+        width: '90%'
       };
       return _react2.default.createElement(
         'div',
@@ -29347,6 +29347,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(23);
 
+var _Searchbar = __webpack_require__(160);
+
+var _Searchbar2 = _interopRequireDefault(_Searchbar);
+
 var _reactRedux = __webpack_require__(8);
 
 var _auth = __webpack_require__(10);
@@ -29390,12 +29394,6 @@ var Navbar = function (_React$Component) {
             _react2.default.createElement(
               'li',
               null,
-              'Welcome ',
-              name
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
               _react2.default.createElement(
                 _reactRouterDom.NavLink,
                 { to: '/', activeClassName: 'active' },
@@ -29416,33 +29414,24 @@ var Navbar = function (_React$Component) {
               null,
               _react2.default.createElement(
                 _reactRouterDom.NavLink,
+                { to: '/trends', activeClassName: 'active' },
+                'Trends'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
                 { to: '/logout', onClick: this.props.logout },
                 'Logout'
               )
             )
           ),
           _react2.default.createElement(
-            'form',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: 'input-field right' },
-              _react2.default.createElement('input', { id: 'search', type: 'search', required: true }),
-              _react2.default.createElement(
-                'label',
-                { className: 'label-icon' },
-                _react2.default.createElement(
-                  'i',
-                  { className: 'material-icons' },
-                  'search'
-                )
-              ),
-              _react2.default.createElement(
-                'i',
-                { className: 'material-icons' },
-                'close'
-              )
-            )
+            'div',
+            { className: 'right' },
+            _react2.default.createElement(_Searchbar2.default, null)
           )
         )
       );
@@ -29466,6 +29455,76 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapState, mapDispatch)(Navbar));
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Searchbar = function (_React$Component) {
+  _inherits(Searchbar, _React$Component);
+
+  function Searchbar() {
+    _classCallCheck(this, Searchbar);
+
+    return _possibleConstructorReturn(this, (Searchbar.__proto__ || Object.getPrototypeOf(Searchbar)).apply(this, arguments));
+  }
+
+  _createClass(Searchbar, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "form",
+        { className: "form-inline" },
+        _react2.default.createElement(
+          "div",
+          { className: "form-group" },
+          _react2.default.createElement("input", { type: "text",
+            "class": "form-control",
+            onChange: this.handleCategoryChange,
+            placeholder: "Category" })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "form-group" },
+          _react2.default.createElement("input", { type: "text",
+            className: "form-control",
+            onChange: this.handleLocationChange,
+            placeholder: "Location" })
+        ),
+        _react2.default.createElement(
+          "button",
+          { type: "submit", className: "btn btn-default" },
+          "Search"
+        )
+      );
+    }
+  }]);
+
+  return Searchbar;
+}(_react2.default.Component);
+
+exports.default = Searchbar;
 
 /***/ })
 /******/ ]);

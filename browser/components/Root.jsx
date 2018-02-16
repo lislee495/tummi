@@ -33,6 +33,7 @@ class Root extends Component {
         <Route exact path="/" component={LandingPage} />}
 			    <Route path="/login" component={Login} />
 			    <Route path="/signup" component={Signup} />
+          <Route exact path="/home" component={Home} />
 			  </div>
 		  </Router>
 		)
