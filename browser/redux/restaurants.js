@@ -16,27 +16,26 @@ export const searchLocation = location => ({type: SEARCH_LOCATION, location})
 
 /* ------------          REDUCER         ------------------ */
 
-export default function reducer (state = {
+export default function reducer (restaurants = {
   current_restaurant: {},
   category: "",
   location: ""
 }, action) {
   switch (action.type) {
     case SET_CURRENT_RESTAURANT:
-      return Object.assign({}, state, {current_restaurant: action.restaurant})
+      return Object.assign({}, restaurants, {current_restaurant: action.restaurant})
     case SEARCH_CATEGORY:
-      return Object.assign({}, state, {category: action.category})
+      return Object.assign({}, restaurants, {category: action.category})
     case SEARCH_LOCATION:
-      return Object.assign({}, state, {location: action.location})
+      return Object.assign({}, restaurants, {location: action.location})
     default:
-      return current_restaurant;
+      return restaurants;
   }
 }
 
 /* ------------       THUNK CREATORS     ------------------ */
 
-// export const login = (credentials, history) => dispatch => {
-//   axios.put("/auth/local/login", credentials)
-//        .then(user => dispatch(set_current(user)))
-//        .catch(err => console.error(`User not found`, err));
-// };
+export const searchRestaurants = (searchTerms, history) => dispatch => {
+  console.log("checking thunk:", searchTerms);
+  //Locu api insert here
+}

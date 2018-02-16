@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {searchCategory, searchLocation} from './redux/restaurants'
+import {searchCategory, searchLocation, searchRestaurants} from '../redux/restaurants'
 
 function Searchbar(props) {
-  render(){
+  const {location, category, handleLocationChange, handleCategoryChange, handleSubmit} = props
     return(
-      <form className="form-inline" onSubmit={handleSubmit}>
+      <form className="form-inline" onSubmit={evt => handleSubmit(category, location, evt)}>
         <div className="form-group">
           <input type="text"
-          class="form-control"
+          className="form-control"
           onChange={handleCategoryChange}
           value={category}
           placeholder="Category"/>
@@ -23,28 +23,27 @@ function Searchbar(props) {
         <button type="submit" className="btn btn-default">Search</button>
       </form>
     )
-  }
 }
 const mapStateToProps = function (state) {
   return {
-    location: state.location,
-    category: state.category,
+    location: state.restaurants.location,
+    category: state.restaurants.category,
   };
 };
 
 const mapDispatchToProps = function (dispatch) {
   return {
     handleCategoryChange (evt) {
-      dispatch(search_category(evt.target.value));
+      dispatch(searchCategory(evt.target.value));
     },
     handleLocationChange(evt) {
-      dispatch(search_location(evt.target.value));
+      dispatch(searchLocation(evt.target.value));
     },
     handleSubmit (category, location, evt) {
-      evt.preventDefault();
-      dispatch(findRestaurants({ category, location }));
-      dispatch(search_category(''));
-      dispatch(search_location(''));
+      evt.preventDefault(); 
+      dispatch(searchRestaurants({ category: category, location: location }));
+      dispatch(searchCategory(''));
+      dispatch(searchLocation(''));
     }
   };
 };

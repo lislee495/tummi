@@ -23536,15 +23536,39 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(14);
-
 var _auth = __webpack_require__(10);
+
+Object.keys(_auth).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _auth[key];
+    }
+  });
+});
+
+var _restaurants = __webpack_require__(161);
+
+Object.keys(_restaurants).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _restaurants[key];
+    }
+  });
+});
+
+var _redux = __webpack_require__(14);
 
 var _auth2 = _interopRequireDefault(_auth);
 
+var _restaurants2 = _interopRequireDefault(_restaurants);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.combineReducers)({ currentUser: _auth2.default });
+exports.default = (0, _redux.combineReducers)({ currentUser: _auth2.default, restaurants: _restaurants2.default });
 
 /***/ }),
 /* 101 */
@@ -29467,64 +29491,146 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(8);
+
+var _restaurants = __webpack_require__(161);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function Searchbar(props) {
+  var location = props.location,
+      category = props.category,
+      handleLocationChange = props.handleLocationChange,
+      handleCategoryChange = props.handleCategoryChange,
+      handleSubmit = props.handleSubmit;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  return _react2.default.createElement(
+    'form',
+    { className: 'form-inline', onSubmit: function onSubmit(evt) {
+        return handleSubmit(category, location, evt);
+      } },
+    _react2.default.createElement(
+      'div',
+      { className: 'form-group' },
+      _react2.default.createElement('input', { type: 'text',
+        className: 'form-control',
+        onChange: handleCategoryChange,
+        value: category,
+        placeholder: 'Category' })
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'form-group' },
+      _react2.default.createElement('input', { type: 'text',
+        className: 'form-control',
+        value: location,
+        onChange: handleLocationChange,
+        placeholder: 'Location' })
+    ),
+    _react2.default.createElement(
+      'button',
+      { type: 'submit', className: 'btn btn-default' },
+      'Search'
+    )
+  );
+}
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    location: state.restaurants.location,
+    category: state.restaurants.category
+  };
+};
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Searchbar = function (_React$Component) {
-  _inherits(Searchbar, _React$Component);
-
-  function Searchbar() {
-    _classCallCheck(this, Searchbar);
-
-    return _possibleConstructorReturn(this, (Searchbar.__proto__ || Object.getPrototypeOf(Searchbar)).apply(this, arguments));
-  }
-
-  _createClass(Searchbar, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "form",
-        { className: "form-inline" },
-        _react2.default.createElement(
-          "div",
-          { className: "form-group" },
-          _react2.default.createElement("input", { type: "text",
-            "class": "form-control",
-            onChange: this.handleCategoryChange,
-            placeholder: "Category" })
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "form-group" },
-          _react2.default.createElement("input", { type: "text",
-            className: "form-control",
-            onChange: this.handleLocationChange,
-            placeholder: "Location" })
-        ),
-        _react2.default.createElement(
-          "button",
-          { type: "submit", className: "btn btn-default" },
-          "Search"
-        )
-      );
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    handleCategoryChange: function handleCategoryChange(evt) {
+      dispatch((0, _restaurants.searchCategory)(evt.target.value));
+    },
+    handleLocationChange: function handleLocationChange(evt) {
+      dispatch((0, _restaurants.searchLocation)(evt.target.value));
+    },
+    handleSubmit: function handleSubmit(category, location, evt) {
+      evt.preventDefault();
+      dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
+      dispatch((0, _restaurants.searchCategory)(''));
+      dispatch((0, _restaurants.searchLocation)(''));
     }
-  }]);
+  };
+};
 
-  return Searchbar;
-}(_react2.default.Component);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Searchbar);
 
-exports.default = Searchbar;
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.searchRestaurants = exports.searchLocation = exports.searchCategory = undefined;
+exports.default = reducer;
+
+var _axios = __webpack_require__(101);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* -----------------    ACTION TYPES    ------------------ */
+
+var SET_CURRENT_RESTAURANT = "SET_CURRENT_RESTAURANT";
+var SEARCH_CATEGORY = "SEARCH_CATEGORY";
+var SEARCH_LOCATION = "SEARCH_LOCATION";
+
+/* ------------     ACTION CREATORS      ------------------ */
+
+var set_current_restaurant = function set_current_restaurant(restaurant) {
+  return { type: SET_CURRENT_RESTAURANT, restaurant: restaurant };
+};
+var searchCategory = exports.searchCategory = function searchCategory(category) {
+  return { type: SEARCH_CATEGORY, category: category };
+};
+var searchLocation = exports.searchLocation = function searchLocation(location) {
+  return { type: SEARCH_LOCATION, location: location };
+};
+
+/* ------------          REDUCER         ------------------ */
+
+function reducer() {
+  var restaurants = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    current_restaurant: {},
+    category: "",
+    location: ""
+  };
+  var action = arguments[1];
+
+  switch (action.type) {
+    case SET_CURRENT_RESTAURANT:
+      return Object.assign({}, restaurants, { current_restaurant: action.restaurant });
+    case SEARCH_CATEGORY:
+      return Object.assign({}, restaurants, { category: action.category });
+    case SEARCH_LOCATION:
+      return Object.assign({}, restaurants, { location: action.location });
+    default:
+      return restaurants;
+  }
+}
+
+/* ------------       THUNK CREATORS     ------------------ */
+
+var searchRestaurants = exports.searchRestaurants = function searchRestaurants(searchTerms, history) {
+  return function (dispatch) {
+    console.log("checking thunk:", searchTerms);
+    //Locu api insert here
+  };
+};
 
 /***/ })
 /******/ ]);
