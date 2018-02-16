@@ -48,7 +48,7 @@ export const signup = credentials => dispatch => {
 
 export const fetchCurrentUser = () => dispatch => {
   axios.get('/auth/local')
-    .then(res => setCurrentUser(res.data))
+    .then(res => setUserAndRedirect(res.data, history, dispatch))
     .catch(err => console.error('Fetching current user failed', err));
 };
 

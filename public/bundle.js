@@ -1013,7 +1013,7 @@ var signup = exports.signup = function signup(credentials) {
 var fetchCurrentUser = exports.fetchCurrentUser = function fetchCurrentUser() {
   return function (dispatch) {
     _axios2.default.get('/auth/local').then(function (res) {
-      return setCurrentUser(res.data);
+      return setUserAndRedirect(res.data, history, dispatch);
     }).catch(function (err) {
       return console.error('Fetching current user failed', err);
     });
