@@ -8,6 +8,7 @@ export default class RestaurantList extends React.Component {
 
   render() {
   }
+}
 
 
 /* -----------------    CONTAINER     ------------------ */

@@ -10,9 +10,8 @@ class Navbar extends React.Component {
     return(
       <nav>
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo center">Foodie</a>
+          <div className="brand-logo center">Foodie</div>
             <ul id="nav-mobile" className="left hide-on-med-and-down">
-    
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
               <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
               <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
