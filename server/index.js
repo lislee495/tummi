@@ -7,6 +7,7 @@ const session = require('express-session');
 const { User } = require('./db/models');
 const passport = require('passport')
 
+
 app.use(session({
   // this mandatory configuration ensures that session IDs are not predictable
   secret: 'l33sa', // or whatever you like
@@ -22,7 +23,6 @@ app.use(passport.session()); // hooks into the persistent sessions we are using
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
-
 passport.deserializeUser(function (id, done) {
   User.findById(id)
     .then(function (user) {

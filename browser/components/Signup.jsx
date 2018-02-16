@@ -59,13 +59,14 @@ class Signup extends React.Component {
         password: event.target.password.value
       })
     }
+
 }
 
 
 
 const mapState = () => ({ message: 'Signup' });
 const mapDispatch = (dispatch, ownProps) => ({
-signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history))
+signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history)),
 });
 
 export default connect(mapState, mapDispatch)(Signup);

@@ -16,15 +16,20 @@ injectTapEventPlugin();
 /* -----------------    COMPONENT     ------------------ */
 
 class Root extends Component {
+  constructor(props) {
+    super(props);
+  }
+
 	componentDidMount() {
 		this.props.fetchInitialData();
 	}
 
 	render () {
+    console.log(this.props.currentUser)
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
-        {this.props.currentUser.id ? <Route exact path="/" component={Main} /> :
+        {this.props.currentUser.email ? <Route exact path="/" component={Main} /> :
         <Route exact path="/" component={LandingPage} />}
 			    <Route path="/login" component={Login} />
 			    <Route path="/signup" component={Signup} />
@@ -36,7 +41,11 @@ class Root extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = ({currentUser}) => ({ currentUser });
+const mapState = state => {
+  return {
+    currentUser: state.currentUser
+  };
+};
 
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {

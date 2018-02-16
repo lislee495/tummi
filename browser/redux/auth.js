@@ -7,7 +7,8 @@ const REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
 
 /* ------------     ACTION CREATORS      ------------------ */
 
-const setCurrentUser = user => ({ type: SET_CURRENT_USER, user });
+const setCurrentUser = user => ({ type: SET_CURRENT_USER,
+  user: user });
 const removeCurrentUser  = () => ({ type: REMOVE_CURRENT_USER });
 
 /* ------------          REDUCER         ------------------ */
@@ -15,7 +16,7 @@ const removeCurrentUser  = () => ({ type: REMOVE_CURRENT_USER });
 export default function reducer (currentUser = {}, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
-      return action.user;
+      return action.user
     case REMOVE_CURRENT_USER:
     	return {};
     default:
@@ -44,8 +45,9 @@ export const signup = credentials => dispatch => {
     .catch(err => console.error(`Signing up with ${credentials.email} and ${credentials.password} was unsuccesful`, err));
 };
 
+
 export const fetchCurrentUser = () => dispatch => {
-  axios.get('/auth/')
+  axios.get('/auth/local')
     .then(res => setCurrentUser(res.data))
     .catch(err => console.error('Fetching current user failed', err));
 };
