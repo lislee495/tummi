@@ -11,7 +11,7 @@ const FOUND_RESTAURANTS = "FOUND_RESTAURANTS"
 
 /* ------------     ACTION CREATORS      ------------------ */
 
-const set_current_restaurant = restaurant => ({type: SET_CURRENT_RESTAURANT, restaurant})
+const setCurrentRestaurant = restaurant => ({type: SET_CURRENT_RESTAURANT, restaurant})
 export const searchCategory = category => ({type: SEARCH_CATEGORY, category})
 export const searchLocation = location => ({type: SEARCH_LOCATION, location})
 const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
