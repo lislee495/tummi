@@ -1,20 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RestaurantDiv from './RestaurantDiv'
-import setCurrentRestaurant from '../redux/restaurants'
+import {setCurrentRestaurant} from '../../redux/restaurants'
 
 function RestaurantList(props) {
-  const foundRestaurants = props.foundRestaurants
+  const {foundRestaurants, selectRestaurant} = props
   return(
-    <div className="restaurant-list">
-      <h3>Found {foundRestaurants.length} results:</h3>
+    <div className='restaurant-list'>
+      <h5>Found {foundRestaurants.length} results:</h5>
       <ul>
-      {foundRestaurants.map(restaurant => {
-        return (
-          <li key={restaurant.id}>
-          <RestaurantDiv restaurant={restaurant} onClick={props.selectRestaurant(restaurant)}/>
-          </li>
-        )})}
+      {foundRestaurants.map(ele => {
+        return <RestaurantDiv restaurant={ele.restaurant} key={ele.restaurant.id} />
+        })}
       </ul>
     </div>
   )
@@ -22,7 +19,8 @@ function RestaurantList(props) {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => ({
   selectRestaurant: (restaurant) => dispatch(setCurrentRestaurant(restaurant))
-}
+})
 export default connect(null, mapDispatchToProps)(RestaurantList)
+// onClick={(restaurant)=> (selectRestaurant(restaurant))}

@@ -30,9 +30,9 @@ export default class Map extends React.Component {
       });
     });
   }
-  componentWillUnmount() {
-    this.map.remove();
-  }
+  // componentWillUnmount() {
+  //   this.map.remove();
+  // }
   render(){
     const { lat, lng, zoom } = this.state;
     const style = {

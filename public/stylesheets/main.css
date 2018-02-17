@@ -1,2 +1,9 @@
 html {
   background-color: #f8f8f8; }
+
+.restaurant-list {
+  z-index: 10 !important;
+}
+#map {
+  z-index: -1 !important;
+}

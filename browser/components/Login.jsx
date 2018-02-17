@@ -53,7 +53,7 @@ class Login extends React.Component {
     </div>
     );
   }
-    onLoginSubmit(event) {
+  onLoginSubmit(event) {
     event.preventDefault();
     this.props.login({
       email: event.target.email.value,
@@ -66,7 +66,7 @@ class Login extends React.Component {
 
 const mapState = () => ({ message: 'Log in' });
 const mapDispatch = (dispatch, ownProps) => ({
-login: credentials => dispatch(loginFromReducer(credentials, ownProps.history))
+login: (credentials) => (dispatch(loginFromReducer(credentials, ownProps.history)))
 });
 
 export default connect(mapState, mapDispatch)(Login);
