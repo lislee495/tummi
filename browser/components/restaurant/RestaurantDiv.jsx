@@ -5,7 +5,7 @@ export default function RestaurantDiv(props) {
   const restaurant = props.restaurant
   return(
     <li>
-      <div className="restaurant-div" >
+      <div>
         <h6>{restaurant.name}</h6>
       </div>
     </li>

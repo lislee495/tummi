@@ -28623,7 +28623,8 @@ function Home(props) {
     'div',
     { className: 'logged-in' },
     _react2.default.createElement(_Navbar2.default, null),
-    foundRestaurants && _react2.default.createElement(_RestaurantList2.default, { foundRestaurants: foundRestaurants })
+    foundRestaurants && _react2.default.createElement(_RestaurantList2.default, { foundRestaurants: foundRestaurants }),
+    _react2.default.createElement(_Map2.default, null)
   );
 }
 var mapStateToProps = function mapStateToProps(state) {
@@ -29681,9 +29682,10 @@ function RestaurantList(props) {
       foundRestaurants.map(function (ele) {
         return _react2.default.createElement(
           'div',
-          { onClick: function onClick() {
+          { className: 'restaurant-div', onClick: function onClick() {
               return selectRestaurant(ele.restaurant);
-            }, key: ele.restaurant.id },
+            }, key: ele.restaurant.id,
+            style: { cursor: "pointer" } },
           _react2.default.createElement(_RestaurantDiv2.default, { restaurant: ele.restaurant })
         );
       })
@@ -29730,7 +29732,7 @@ function RestaurantDiv(props) {
     null,
     _react2.default.createElement(
       'div',
-      { className: 'restaurant-div' },
+      null,
       _react2.default.createElement(
         'h6',
         null,

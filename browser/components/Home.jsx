@@ -10,6 +10,7 @@ function Home(props) {
     <div className="logged-in">
       <Navbar/>
       { foundRestaurants && <RestaurantList foundRestaurants={foundRestaurants}/>}
+      <Map/>
     </div>)
 }
 const mapStateToProps = function (state) {

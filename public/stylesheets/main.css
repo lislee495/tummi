@@ -3,7 +3,16 @@ html {
 
 .restaurant-list {
   z-index: 10 !important;
+  width: 300px;
+  border-style: solid;
+  border-width: 1px;
+  position: absolute;
+  background-color: white;
 }
 #map {
   z-index: -1 !important;
+}
+.restaurant-div:hover {
+  background-color: gray;
+
 }
