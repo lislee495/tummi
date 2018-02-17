@@ -10,7 +10,11 @@ function RestaurantList(props) {
       <h5>Found {foundRestaurants.length} results:</h5>
       <ul>
       {foundRestaurants.map(ele => {
-        return <RestaurantDiv restaurant={ele.restaurant} key={ele.restaurant.id} />
+        return(
+          <div onClick={() => selectRestaurant(ele.restaurant)} key={ele.restaurant.id}>
+            <RestaurantDiv restaurant={ele.restaurant}/>
+          </div>
+        )
         })}
       </ul>
     </div>
@@ -20,7 +24,7 @@ function RestaurantList(props) {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapDispatchToProps = (dispatch) => ({
-  selectRestaurant: (restaurant) => dispatch(setCurrentRestaurant(restaurant))
+  selectRestaurant: restaurant => dispatch(setCurrentRestaurant(restaurant))
 })
 export default connect(null, mapDispatchToProps)(RestaurantList)
 // onClick={(restaurant)=> (selectRestaurant(restaurant))}
