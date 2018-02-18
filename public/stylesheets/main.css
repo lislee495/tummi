@@ -32,5 +32,23 @@ html {
 /*****RESTAURANT DIV******/
 
 .restaurant-div:hover {
-  background-color: gray;
+  background-color: #b8b8b8;
+}
+
+/********RESTAURANT DETAIL**********/
+
+.restaurant-detail {
+  opacity: 0.8;
+  background-color: #b8b8b8;
+  width: 300px;
+  height: 400px;
+  position: absolute;
+  right: 50px;
+  top: 100px;
+  z-index: 3;
+}
+
+.restaurant-detail-container {
+  margin: 20px;
+  color: white;
 }
