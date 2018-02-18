@@ -9,6 +9,6 @@ export default function Home(props) {
     <div className="logged-in">
       <Navbar/>
         <Route path="/home" component={MapPage} />
-        <Route path="/restaurant/info" component={RestaurantInfo} />
+        <Route path="/restaurants/info" component={RestaurantInfo} />
     </div>)
 }
