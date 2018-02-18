@@ -55,5 +55,3 @@ const mapDispatch = dispatch => ({
 });
 
 export default connect(mapState, mapDispatch)(Root);
-/* //<Route exact path="/restaurants" component={RestaurantList} />
- // <Route exact path="/restaurants/:id" component={RestaurantDetail} /> */

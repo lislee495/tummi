@@ -1,14 +1,6 @@
 html {
   background-color: #f8f8f8; }
 
-.restaurant-list {
-  z-index: 10 !important;
-  width: 300px;
-  border-style: solid;
-  border-width: 1px;
-  position: absolute;
-  background-color: white;
-}
 /********MAP************/
 #map {
   z-index: -1 !important;
@@ -30,6 +22,17 @@ html {
   font-family: 'Open Sans', sans-serif;
 }
 /*****RESTAURANT DIV******/
+
+.restaurant-list {
+  margin-top: 10px;
+  z-index: 2;
+  width: 300px;
+  border-style: solid;
+  border-width: 1px;
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+}
 
 .restaurant-div:hover {
   background-color: #b8b8b8;
