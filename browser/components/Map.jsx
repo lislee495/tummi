@@ -2,8 +2,10 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import config from '../config';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { connect } from 'react-redux';
 mapboxgl.accessToken = config.MAPBOX_KEY
-export default class Map extends React.Component {
+
+class Map extends React.Component {
   constructor(){
     super()
     this.state = {
@@ -20,7 +22,6 @@ export default class Map extends React.Component {
         center: [lng, lat],
         zoom: zoom,
     })
-
     map.on('move', () => {
       const { lng, lat } = map.getCenter();
       this.setState({
@@ -29,10 +30,42 @@ export default class Map extends React.Component {
         zoom: map.getZoom().toFixed(2)
       });
     });
+    if (this.props.restaurants) {
+      const geojson = {
+        "type": "FeatureCollection",
+        "features": this.props.restaurants.map(ele => {
+          return {
+                "type": "Feature",
+                "properties": {
+                    "message": ele.restaurant.name,
+                    "iconSize": [60, 60]
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        ele.restaurant.location.longitude.parseFloat(),
+                        ele.restaurant.location.latitude.parseFloat()
+                    ]
+                }
+            }
+        })
+      };
+      geojson.features.forEach(function(marker) {
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+        .setLngLat(marker.geometry.coordinates)
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        .setHTML('<h3>' + marker.properties.message + '</h3>'))
+        .addTo(map);
+        console.log("Created")
+      });
+    }
   }
-  // componentWillUnmount() {
-  //   this.map.remove();
-  // }
+
   render(){
     const { lat, lng, zoom } = this.state;
     const style = {
@@ -51,3 +84,7 @@ export default class Map extends React.Component {
     )
   }
 }
+const mapStateToProps = (state) => ({
+  restaurants: state.restaurants.foundRestaurants.restaurants
+})
+export default connect(mapStateToProps)(Map);
