@@ -20,14 +20,14 @@ const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
 /* ------------          REDUCER         ------------------ */
 
 export default function reducer (restaurants = {
-  current_restaurant: {},
+  currentRestaurant: {},
   category: "",
   location: "",
   foundRestaurants: []
 }, action) {
   switch (action.type) {
     case SET_CURRENT_RESTAURANT:
-      return Object.assign({}, restaurants, {current_restaurant: action.restaurant})
+      return Object.assign({}, restaurants, {currentRestaurant: action.restaurant})
     case SEARCH_CATEGORY:
       return Object.assign({}, restaurants, {category: action.category})
     case SEARCH_LOCATION:

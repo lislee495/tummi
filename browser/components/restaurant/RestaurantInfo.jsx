@@ -16,7 +16,7 @@ function RestaurantInfo(props){
 
 const mapStateToProps = function (state) {
   return {
-    currentRestaurant: state.restaurants.current_restaurant
+    currentRestaurant: state.restaurants.currentRestaurant
   };
 };
 export default connect(mapStateToProps)(RestaurantInfo);
