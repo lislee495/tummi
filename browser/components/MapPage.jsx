@@ -16,7 +16,7 @@ function MapPage(props) {
 const mapStateToProps = function (state) {
   return {
     foundRestaurants: state.restaurants.foundRestaurants.restaurants,
-    currentRestaurant: state.restaurants.current_restaurant
+    currentRestaurant: state.restaurants.currentRestaurant
   };
 };
 export default connect(mapStateToProps)(MapPage)

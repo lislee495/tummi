@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 mapboxgl.accessToken = config.MAPBOX_KEY
 
 class Map extends React.Component {
-  map;
   constructor(){
     super()
     this.state = {
@@ -17,33 +16,31 @@ class Map extends React.Component {
   }
   componentDidMount(){
     const { lat, lng, zoom } = this.state;
-    this.map = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
         container: this.mapContainer,
         style: "mapbox://styles/mapbox/streets-v10",
         center: [lng, lat],
         zoom: zoom,
     })
-    this.map.on('move', () => {
-      const { lng, lat } = this.map.getCenter();
+    map.on('move', () => {
+      const { lng, lat } = map.getCenter();
       this.setState({
         lng: lng.toFixed(4),
         lat: lat.toFixed(4),
-        zoom: this.map.getZoom().toFixed(2)
+        zoom: map.getZoom().toFixed(2)
       });
     });
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.restaurants !== nextProps.restaurants) {
-
-      const restaurantLocation = nextProps.restaurants[0].restaurant.location;
-      const map = new mapboxgl.Map({
+      var restaurantLocation = nextProps.restaurants[0].restaurant.location;
+      var map = new mapboxgl.Map({
           container: this.mapContainer,
           style: "mapbox://styles/mapbox/streets-v10",
           center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)],
           zoom: 17,
       })
-
       const geojson = {
           "type": "FeatureCollection",
           "features": nextProps.restaurants.map(ele => {
@@ -63,7 +60,6 @@ class Map extends React.Component {
               }
           })
         };
-
         geojson.features.forEach(function(marker) {
           // create a HTML element for each feature
           var el = document.createElement('div');
@@ -75,9 +71,18 @@ class Map extends React.Component {
           .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
           .setHTML('<h7>' + marker.properties.message + '</h7>'))
           .addTo(map);
-        });
+        })
+      }
+     else if (this.props.currentRestaurant !== nextProps.currentRestaurant) {
+      var restaurantLocation = nextProps.currentRestaurant.location;
+      var map = new mapboxgl.Map({
+          container: this.mapContainer,
+          style: "mapbox://styles/mapbox/streets-v10",
+          center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)],
+          zoom: 17,
+      })
     }
-  }
+  };
 
 
   render(){
@@ -100,6 +105,6 @@ class Map extends React.Component {
 }
 const mapStateToProps = (state) => ({
   restaurants: state.restaurants.foundRestaurants.restaurants,
-  currentRestaurant: state.restaurants.currentRestaurant
+  currentRestaurant: state.restaurants.currentRestaurant || {}
 })
 export default connect(mapStateToProps)(Map);
