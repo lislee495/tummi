@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../config'
 
+
 /* -----------------    ACTION TYPES    ------------------ */
 
 const SET_CURRENT_RESTAURANT = "SET_CURRENT_RESTAURANT"
@@ -48,11 +49,8 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
   })
   .then(res => res.data)
   .then(data => {
-    data.restaurants.map(ele => {
-      Restaurant.findOrCreate(ele.restaurant)
-    })})
-    .then(restaurants => {
-      dispatch(foundRestaurants(restaurants))
-      history.push('/')
-    })
+    axios.post('/api/restaurants', data.restaurants)})
+    .then(res => {
+      dispatch(foundRestaurants(res.data))
+      history.push('/')})
 }
