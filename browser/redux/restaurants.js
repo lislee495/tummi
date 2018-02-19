@@ -47,7 +47,12 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
     headers: {'user-key': config.ZOMATO_KEY}
   })
   .then(res => res.data)
-  .then(restaurants => dispatch(foundRestaurants(restaurants)))
-  //count=20&lat=41.928074&lon=-87.654666&radius=500"
-  //Locu api insert here
+  .then(data => {
+    data.restaurants.map(ele => {
+      Restaurant.findOrCreate(ele.restaurant)
+    })})
+    .then(restaurants => {
+      dispatch(foundRestaurants(restaurants))
+      history.push('/')
+    })
 }

@@ -8,7 +8,7 @@ import Login from './Login';
 import Signup from './Signup';
 import MapPage from './MapPage'
 import Navbar from './Navbar'
-import RestaurantPage from './RestaurantPage'
+import RestaurantPage from './restaurant/RestaurantPage'
 
 import { fetchCurrentUser } from '../redux/auth';
 
