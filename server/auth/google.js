@@ -40,7 +40,7 @@ router.get('/', passport.authenticate('google', { scope: 'email' }));
 router.get('/verify',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => { // a successRedirect is fine, but with this we can use `req` for a more meaningful redirect
-    res.redirect('/home')
+    res.redirect('/')
   }
 );
 

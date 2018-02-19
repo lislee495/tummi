@@ -7,6 +7,7 @@ import LandingPage from './LandingPage';
 import Login from './Login';
 import Signup from './Signup';
 import MapPage from './MapPage'
+import Navbar from './Navbar'
 import RestaurantPage from './RestaurantPage'
 
 import { fetchCurrentUser } from '../redux/auth';
@@ -30,20 +31,21 @@ class Root extends Component {
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
-          {if (this.props.currentUser.id) {
-            return (
+          {this.props.currentUser.id ?
+             (
               <div className="logged-in">
                 <Navbar/>
                     <Route exact path="/restaurant" component={RestaurantPage} />
                     <Route exact path="/" component={MapPage} />
-              </div> />)
-          } else {
-            return (
-              <Route exact path="/" component={LandingPage} />
-    			    <Route path="/login" component={Login} />
-    			    <Route path="/signup" component={Signup} />
+              </div>) :
+            (
+              <div>
+                <Route exact path="/" component={LandingPage} />
+      			    <Route path="/login" component={Login} />
+      			    <Route path="/signup" component={Signup} />
+              </div>
             )
-          }}
+          }
 			  </div>
 
 		  </Router>
