@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { User } = require('./db/models');
 const passport = require('passport')
-
+var sess = {
+  secret: 'l33sa',
+  cookie: {}
+}
 
 app.use(session({
   // this mandatory configuration ensures that session IDs are not predictable
@@ -14,7 +17,8 @@ app.use(session({
   // this option says if you haven't changed anything, don't resave. It is recommended and reduces session concurrency issues
   resave: false,
   // this option says if I am new but not modified still save
-  saveUninitialized: true
+  saveUninitialized: true,
+  // cookie: { secure: true }
 })); // this gives us req.session!
 
 app.use(passport.initialize()); // middleware required to initialize Passport
@@ -42,6 +46,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+// if (app.get('env') === 'production') {
+//   app.set('trust proxy', 1) // trust first proxy
+//   sess.cookie.secure = true // serve secure cookies
+// }
+//
+// app.use(session(sess))
+
 app.use(volleyball);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -49,7 +60,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', require('./api'));
 app.use('/auth', require('./auth'))
 
-const validFrontendRoutes = ['/', '/login', '/home', '/signup', '/restaurants/:id', '/restaurants', '/restaurants/info'];
+const validFrontendRoutes = ['/', '/login', '/home', '/signup', '/restaurants/:id', '/restaurant', '/restaurants/info'];
 const indexPath = path.join(__dirname, '../public/index.html');
 validFrontendRoutes.forEach(stateRoute => {
   app.get(stateRoute, (req, res, next) => {

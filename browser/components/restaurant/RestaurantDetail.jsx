@@ -9,7 +9,7 @@ export default function RestaurantDetail(props){
         <h4>{restaurant.name}</h4>
         <p>Price: {Array(restaurant.price_range + 1).join("$")}</p>
         <p>Address: {restaurant.location.address}</p>
-        <p><button><NavLink to="/restaurants/info" activeClassName="active">See More</NavLink></button></p>
+        <p><button><NavLink to="/restaurant" activeClassName="active">See More</NavLink></button></p>
       </div>
     </div>
   );
