@@ -28767,8 +28767,6 @@ var Map = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      var _this3 = this;
-
       if (this.props.restaurants !== nextProps.restaurants) {
         var restaurantLocation = nextProps.restaurants[0].restaurant.location;
         // var newMap = new mapboxgl.Map({
@@ -28797,20 +28795,23 @@ var Map = function (_React$Component) {
             };
           })
         };
-
-        geojson.features.forEach(function (marker) {
-          // create a HTML element for each feature
-          var el = document.createElement('div');
-          el.className = 'marker';
-
-          // make a marker for each feature and add to the map
-          new _mapboxGl2.default.Marker(el).setLngLat(marker.geometry.coordinates).setPopup(new _mapboxGl2.default.Popup({ offset: 25 }) // add popups
-          .setHTML('<h7>' + marker.properties.message + '</h7>')).addTo(_this3.state.map);
-        });
-      } else if (this.props.currentRestaurant !== nextProps.currentRestaurant) {
-        var restaurantLocation = nextProps.currentRestaurant.location;
-        this.state.map.flyTo({ center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
-        });
+        //       geojson.features.forEach(function(marker) {
+        //         // create a HTML element for each feature
+        //         var el = document.createElement('div');
+        //         el.className = 'marker';
+        //
+        //         // make a marker for each feature and add to the map
+        //         new mapboxgl.Marker(el)
+        //           .setLngLat(marker.geometry.coordinates)
+        //           .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+        //           .setHTML('<h7>' + marker.properties.message + '</h7>'))
+        //           .addTo(this.state.map);
+        //         })
+        //       }
+        //    else if (this.props.currentRestaurant !== nextProps.currentRestaurant) {
+        //     var restaurantLocation = nextProps.currentRestaurant.location;
+        //     this.state.map.flyTo({center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
+        // })
         // var map = new mapboxgl.Map({
         //     container: this.mapContainer,
         //     style: "mapbox://styles/mapbox/streets-v10",
@@ -28822,7 +28823,7 @@ var Map = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var _state2 = this.state,
           lat = _state2.lat,
@@ -28848,7 +28849,7 @@ var Map = function (_React$Component) {
           )
         ),
         _react2.default.createElement('div', { ref: function ref(el) {
-            return _this4.mapContainer = el;
+            return _this3.mapContainer = el;
           }, style: style })
       );
     }
