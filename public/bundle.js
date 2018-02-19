@@ -1797,6 +1797,9 @@ var searchRestaurants = exports.searchRestaurants = function searchRestaurants(s
   return function (dispatch) {
     var category = searchTerms.category,
         location = searchTerms.location;
+    // location = location.split(" ").join("+")
+    // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
+    // .then(result => )
 
     _axios2.default.get('https://developers.zomato.com/api/v2.1/search?count=10&q=' + category, {
       headers: { 'user-key': _config2.default.ZOMATO_KEY }
@@ -1805,7 +1808,7 @@ var searchRestaurants = exports.searchRestaurants = function searchRestaurants(s
     }).then(function (data) {
       _axios2.default.post('/api/restaurants', data.restaurants);
     }).then(function (res) {
-      dispatch(foundRestaurants(res.data));
+      dispatch(foundRestaurants(res));
       history.push('/');
     });
   };
@@ -3896,7 +3899,8 @@ var config = {
   FACEBOOK_KEY: "",
   GOOGLE_CLIENT_ID: "918698961959-ujme93g4ibis927d0liqe4r9c1hgeh56.apps.googleusercontent.com",
   GOOGLE_CLIENT_SECRET: "4Da-sFTBTy1vjM8cwHsKYGC0",
-  ZOMATO_KEY: "d7cff0aba466d344a25b2f423de86439" //need API key and restaurant id 
+  GOOGLE_GEOCODE_API_KEY: "AIzaSyDPZASh_7KpOEq0U3somO7gVqKYN6zFj50",
+  ZOMATO_KEY: "d7cff0aba466d344a25b2f423de86439" //need API key and restaurant id
 };
 module.exports = config;
 
@@ -24614,7 +24618,8 @@ var Root = function (_Component) {
           ) : _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _LandingPage2.default }),
+            _react2.default.createElement(_Navbar2.default, null),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default })
           )

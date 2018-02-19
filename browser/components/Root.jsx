@@ -40,7 +40,8 @@ class Root extends Component {
               </div>) :
             (
               <div>
-                <Route exact path="/" component={LandingPage} />
+                <Navbar/>
+                <Route exact path="/" component={MapPage} />
       			    <Route path="/login" component={Login} />
       			    <Route path="/signup" component={Signup} />
               </div>

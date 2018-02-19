@@ -44,6 +44,9 @@ export default function reducer (restaurants = {
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
   const {category, location} = searchTerms
+  // location = location.split(" ").join("+")
+  // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
+  // .then(result => )
   axios.get(`https://developers.zomato.com/api/v2.1/search?count=10&q=${category}`, {
     headers: {'user-key': config.ZOMATO_KEY}
   })
@@ -51,6 +54,6 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
   .then(data => {
     axios.post('/api/restaurants', data.restaurants)})
     .then(res => {
-      dispatch(foundRestaurants(res.data))
+      dispatch(foundRestaurants(res))
       history.push('/')})
 }
