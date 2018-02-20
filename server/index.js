@@ -6,10 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { User } = require('./db/models');
 const passport = require('passport')
-var sess = {
-  secret: 'l33sa',
-  cookie: {}
-}
+
 
 app.use(session({
   // this mandatory configuration ensures that session IDs are not predictable
@@ -60,7 +57,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', require('./api'));
 app.use('/auth', require('./auth'))
 
-const validFrontendRoutes = ['/', '/login', '/home', '/signup', '/restaurants/:id', '/restaurant', '/restaurants/info'];
+const validFrontendRoutes = ['/', '/login', '/home', '/signup', '/restaurants/:id', '/restaurant', '/restaurants/:id/menu'];
 const indexPath = path.join(__dirname, '../public/index.html');
 validFrontendRoutes.forEach(stateRoute => {
   app.get(stateRoute, (req, res, next) => {

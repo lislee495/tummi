@@ -2,9 +2,13 @@ const router = require('express').Router();
 const HttpError = require('../utils/HttpError');
 const { Restaurant } = require('../db/models');
 
+router.get('/:id', (req, res, next)=>{
+  let id=req.param.id
+  Restaurant.findById(id)
+  .then(result => res.status(201).json(result))
+})
 
 router.post('/', (req, res, next) => {
-
   const info = {
     name: req.body.restaurant.name,
     address: req.body.restaurant.location.address,
