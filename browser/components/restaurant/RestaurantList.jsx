@@ -11,9 +11,9 @@ function RestaurantList(props) {
       <ul>
       {foundRestaurants.map(ele => {
         return(
-          <div className="restaurant-div" onClick={() => selectRestaurant(ele.restaurant)} key={ele.restaurant.id}
+          <div className="restaurant-div" onClick={() => selectRestaurant(ele)} key={ele.id}
           style={{cursor: "pointer"}}>
-            <RestaurantDiv restaurant={ele.restaurant}/>
+            <RestaurantDiv restaurant={ele}/>
           </div>
         )
         })}

@@ -1789,7 +1789,7 @@ function reducer() {
     case SEARCH_LOCATION:
       return Object.assign({}, restaurants, { location: action.location });
     case FOUND_RESTAURANTS:
-      return Object.assign({}, restaurants, { foundRestaurants: action });
+      return Object.assign({}, restaurants, { foundRestaurants: action.restaurants });
     default:
       return restaurants;
   }
@@ -1818,7 +1818,7 @@ var searchRestaurants = exports.searchRestaurants = function searchRestaurants(s
         return ele.data;
       });
     }).then(function (restaurants) {
-      dispatch(foundRestaurants(res));
+      dispatch(foundRestaurants(restaurants));
       history.push('/');
     });
   };
@@ -33813,14 +33813,14 @@ function MapPage(props) {
   return _react2.default.createElement(
     'div',
     null,
-    foundRestaurants && _react2.default.createElement(_RestaurantList2.default, { foundRestaurants: foundRestaurants }),
+    foundRestaurants[1] && _react2.default.createElement(_RestaurantList2.default, { foundRestaurants: foundRestaurants }),
     currentRestaurant.name && _react2.default.createElement(_RestaurantDetail2.default, { currentRestaurant: currentRestaurant }),
     _react2.default.createElement(_Map2.default, null)
   );
 }
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    foundRestaurants: state.restaurants.foundRestaurants.restaurants,
+    foundRestaurants: state.restaurants.foundRestaurants,
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };
@@ -33913,7 +33913,7 @@ var Map = function (_React$Component) {
       var _this3 = this;
 
       if (this.props.restaurants !== nextProps.restaurants) {
-        var restaurantLocation = nextProps.restaurants[0].restaurant.location;
+        var restaurantLocation = nextProps.restaurants[0];
         // var newMap = new mapboxgl.Map({
         //     container: this.mapContainer,
         //     style: "mapbox://styles/mapbox/streets-v10",
@@ -33932,12 +33932,12 @@ var Map = function (_React$Component) {
             return {
               "type": "Feature",
               "properties": {
-                "message": ele.restaurant.name,
+                "message": ele.name,
                 "iconSize": [10, 10]
               },
               "geometry": {
                 "type": "Point",
-                "coordinates": [parseFloat(ele.restaurant.location.longitude), parseFloat(ele.restaurant.location.latitude)]
+                "coordinates": [parseFloat(ele.longitude), parseFloat(ele.latitude)]
               }
             };
           })
@@ -33953,7 +33953,7 @@ var Map = function (_React$Component) {
           setHTML('<h7>' + marker.properties.message + '</h7>')).addTo(_this3.state.map);
         });
       } else if (this.props.currentRestaurant !== nextProps.currentRestaurant) {
-        var restaurantLocation = nextProps.currentRestaurant.location;
+        var restaurantLocation = nextProps.currentRestaurant;
         this.state.map.flyTo({
           center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
         });
@@ -33999,7 +33999,7 @@ var Map = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    restaurants: state.restaurants.foundRestaurants.restaurants,
+    restaurants: state.restaurants.foundRestaurants,
     currentRestaurant: state.restaurants.currentRestaurant || {}
   };
 };
@@ -34713,7 +34713,7 @@ function RestaurantDetail(props) {
         'p',
         null,
         'Address: ',
-        restaurant.location.address
+        restaurant.address
       ),
       _react2.default.createElement(
         'p',
@@ -34778,10 +34778,10 @@ function RestaurantList(props) {
         return _react2.default.createElement(
           'div',
           { className: 'restaurant-div', onClick: function onClick() {
-              return selectRestaurant(ele.restaurant);
-            }, key: ele.restaurant.id,
+              return selectRestaurant(ele);
+            }, key: ele.id,
             style: { cursor: "pointer" } },
-          _react2.default.createElement(_RestaurantDiv2.default, { restaurant: ele.restaurant })
+          _react2.default.createElement(_RestaurantDiv2.default, { restaurant: ele })
         );
       })
     )
@@ -35088,7 +35088,7 @@ function RestaurantPage(props) {
       'p',
       null,
       'Address: ',
-      currentRestaurant.location.address
+      currentRestaurant.address
     )
   );
 }

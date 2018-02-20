@@ -25,14 +25,6 @@ router.post('/', (req, res, next) => {
   res.status(201).json(result)})
     .catch(next);
 });
-// ({
-//     where: { googleId: profile.id }, // find this user
-//     defaults: info // if we don't find them, then create with this information
-//   })
-//   .spread((user, createdBool) => {
-//     done(null, user);
-//   })
-//   .catch(done);
-// res.status(201).json(restaurants
+
 
 module.exports = router;

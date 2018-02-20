@@ -8,14 +8,14 @@ function MapPage(props) {
   const {foundRestaurants, currentRestaurant} = props;
   return (
     <div>
-      { foundRestaurants && <RestaurantList foundRestaurants={foundRestaurants}/>}
+      { foundRestaurants[1] && <RestaurantList foundRestaurants={foundRestaurants}/>}
       { currentRestaurant.name && <RestaurantDetail currentRestaurant={currentRestaurant}/>}
       <Map/>
     </div>)
 }
 const mapStateToProps = function (state) {
   return {
-    foundRestaurants: state.restaurants.foundRestaurants.restaurants,
+    foundRestaurants: state.restaurants.foundRestaurants,
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import config from '../config'
 import Promise from 'bluebird'
 
@@ -34,7 +34,7 @@ export default function reducer (restaurants = {
     case SEARCH_LOCATION:
       return Object.assign({}, restaurants, {location: action.location})
     case FOUND_RESTAURANTS:
-      return Object.assign({}, restaurants, {foundRestaurants: action})
+      return Object.assign({}, restaurants, {foundRestaurants: action.restaurants})
     default:
       return restaurants;
   }
@@ -57,6 +57,6 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
     })
     }).then(res => res.map(ele => ele.data))
     .then(restaurants => {
-      dispatch(foundRestaurants(res))
+      dispatch(foundRestaurants(restaurants))
       history.push('/')})
 }
