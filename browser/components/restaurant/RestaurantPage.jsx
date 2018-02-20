@@ -1,23 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {changeRestaurant} from '../redux/restaurants'
+import {changeRestaurant} from '../../redux/restaurants'
 
 class RestaurantPage extends React.Component {
-  componentWillMount(){
-
+  componentDidMount() {
+    this.props.changeRestaurant(this.props.restaurantId)
   }
+  //
+  // componentWillReceiveProps(nextProps){
+  //   if (nextProps.currentRestaurant !== this.props.currentRestaurant) {
+  //     this.props.changeRestaurant(nextProps.currentRestaurant.id)
+  //   }
+  // }
   render() {
-  const currentRestaurant = this.props.match.params || this.props.currentRestaurant;
+  const currentRestaurant = this.props.currentRestaurant;
+
   return (
     <div>
       <h4>{currentRestaurant.name}</h4>
-      <p>Price: {Array(currentRestaurant.price_range + 1).join("$")}</p>
+      <p>Price: {currentRestaurant.price_range}</p>
       <p>Address: {currentRestaurant.address}</p>
     </div>)
   }
 }
-const mapStateToProps = function (state) {
+const mapStateToProps = function (state, ownProps) {
+  const restaurantId = Number(ownProps.match.params.id);
   return {
+    restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };

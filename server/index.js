@@ -57,7 +57,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', require('./api'));
 app.use('/auth', require('./auth'))
 
-const validFrontendRoutes = ['/', '/login', '/home', '/signup', '/restaurants/:id', '/restaurant', '/restaurants/:id/menu'];
+const validFrontendRoutes = ['/', '/login', '/home', '/signup', '/restaurants/:id', '/restaurants/:id/menu'];
 const indexPath = path.join(__dirname, '../public/index.html');
 validFrontendRoutes.forEach(stateRoute => {
   app.get(stateRoute, (req, res, next) => {

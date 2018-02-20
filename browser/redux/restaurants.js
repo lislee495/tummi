@@ -42,9 +42,11 @@ export default function reducer (restaurants = {
 
 /* ------------       THUNK CREATORS     ------------------ */
 export const changeRestaurant = (id) => dispatch => {
-  axios.get(`/restaurants/${id}`)
-  .then(res => res.data)
-  .then(restaurant => dispatch(setCurrentRestaurant(restaurant)))
+  axios.get(`/api/restaurants/${id}`)
+    // .then(res => console.log(res))
+  .then(restaurant => {
+    dispatch(setCurrentRestaurant(restaurant.data))
+  })
 }
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
