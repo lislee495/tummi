@@ -1,11 +1,19 @@
 const router = require('express').Router();
 const HttpError = require('../utils/HttpError');
-const { Restaurant } = require('../db/models');
+const { Restaurant, Dish } = require('../db/models');
 
 router.get('/:id', (req, res, next)=>{
   let id=req.param.id
   Restaurant.findById(id)
   .then(result => res.status(201).json(result))
+  .catch(next)
+})
+
+router.get('/:id/menu', (req, res, next) => {
+  let restaurantId = req.param.id;
+  Dish.findAll({where: {restaurantId}})
+  .then(menu => res.status(201).json(menu))
+  .catch(next)
 })
 
 router.post('/', (req, res, next) => {
