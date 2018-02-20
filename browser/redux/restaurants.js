@@ -41,6 +41,11 @@ export default function reducer (restaurants = {
 }
 
 /* ------------       THUNK CREATORS     ------------------ */
+export const changeRestaurant = (id) => dispatch => {
+  axios.get(`/restaurants/${id}`)
+  .then(res => res.data)
+  .then(restaurant => dispatch(setCurrentRestaurant(restaurant)))
+}
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
   const {category, location} = searchTerms

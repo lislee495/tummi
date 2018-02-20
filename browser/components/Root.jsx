@@ -35,7 +35,7 @@ class Root extends Component {
              (
               <div className="logged-in">
                 <Navbar/>
-                    <Route exact path="/restaurant" component={RestaurantPage} />
+                    <Route path="/restaurants/:id" component={RestaurantPage} />
                     <Route exact path="/" component={MapPage} />
               </div>) :
             (
