@@ -1,9 +1,8 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, browserHistory } from 'react-router-dom';
 import Searchbar from './Searchbar'
 import { connect } from 'react-redux';
-import {logout} from '../redux/auth'
-//fix search bar, two fields, find near ...
+import {logout} from '../redux/auth';
 class Navbar extends React.Component {
   render() {
     const name = this.props.currentUser.email
@@ -18,7 +17,7 @@ class Navbar extends React.Component {
               <li><NavLink to="/logout" onClick={this.props.logout}>Logout</NavLink></li>
             </ul>
               <div className="right">
-                <Searchbar/>
+                <Searchbar history={this.props.history}/>
               </div>
           </div>
         </nav>

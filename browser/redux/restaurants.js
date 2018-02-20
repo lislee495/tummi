@@ -1,6 +1,7 @@
 import axios from 'axios'
 import config from '../config'
 import Promise from 'bluebird'
+import { browserHistory } from 'react-router'
 
 /* -----------------    ACTION TYPES    ------------------ */
 
@@ -65,5 +66,5 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
     }).then(res => res.map(ele => ele.data))
     .then(restaurants => {
       dispatch(foundRestaurants(restaurants))
-      history.push('/')})
+      })
 }

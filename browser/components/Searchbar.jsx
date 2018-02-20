@@ -31,7 +31,7 @@ const mapStateToProps = function (state) {
   };
 };
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleCategoryChange (evt) {
       dispatch(searchCategory(evt.target.value));
@@ -40,10 +40,12 @@ const mapDispatchToProps = function (dispatch) {
       dispatch(searchLocation(evt.target.value));
     },
     handleSubmit (category, location, evt) {
-      evt.preventDefault(); 
+      evt.preventDefault();
       dispatch(searchRestaurants({ category: category, location: location }));
       dispatch(searchCategory(''));
       dispatch(searchLocation(''));
+      console.log(ownProps.history)
+      ownProps.history.push('/')
     }
   };
 };

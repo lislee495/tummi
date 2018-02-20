@@ -18,7 +18,7 @@ class RestaurantPage extends React.Component {
   return (
     <div>
       <h4>{currentRestaurant.name}</h4>
-      <p>Price: {currentRestaurant.price_range}</p>
+      <p>Price: {"$".repeat(parseInt(currentRestaurant.price_range))}</p>
       <p>Address: {currentRestaurant.address}</p>
     </div>)
   }
