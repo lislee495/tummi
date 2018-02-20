@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from '../config'
-
+import Promise from 'bluebird'
 
 /* -----------------    ACTION TYPES    ------------------ */
 
@@ -34,7 +34,7 @@ export default function reducer (restaurants = {
     case SEARCH_LOCATION:
       return Object.assign({}, restaurants, {location: action.location})
     case FOUND_RESTAURANTS:
-      return Object.assign({}, restaurants, {foundRestaurants: action.restaurants})
+      return Object.assign({}, restaurants, {foundRestaurants: action})
     default:
       return restaurants;
   }
@@ -52,8 +52,11 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
   })
   .then(res => res.data)
   .then(data => {
-    axios.post('/api/restaurants', data.restaurants)})
-    .then(res => {
+    return Promise.map(data.restaurants, function(restaurant) {
+      return axios.post('/api/restaurants', restaurant)
+    })
+    }).then(res => res.map(ele => ele.data))
+    .then(restaurants => {
       dispatch(foundRestaurants(res))
       history.push('/')})
 }

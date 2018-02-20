@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.0",
-    "bluebird": "^2.10.2",
+    "bluebird": "^2.11.0",
     "bootstrap": "^3.3.7",
     "bootstrap-social": "^5.0.0",
     "css-loader": "^0.28.9",
