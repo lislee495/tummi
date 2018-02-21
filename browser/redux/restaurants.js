@@ -71,8 +71,9 @@ export const searchMenus = (searchTerms) => {
       "X-Mashape-Key": "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY",
       "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
     }
-  }).then(res => {
-    return Promise.map(res.results, function(dish) {
+  }).then(res =>
+    {
+    return Promise.map(res.data.results, function(dish) {
       return axios.post('/api/dishes', {dish: dish, category: category})
     })
     }).then(res => res.map(ele => ele.data))

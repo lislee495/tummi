@@ -4,10 +4,12 @@ const { Dish } = require('../db/models');
 
 router.post('/', (req, res, next) => {
   const categoryArray = ["spicy", "gluten-free", "vegan", "dairy-free", "vegetarian", "nut-free"]
+  let random = Math.floor(Math.random()*(categoryArray.length + 3))
+  console.log(req.body)
   const info = {
     name: req.body.dish.title,
-    price: Math.random() * (17.00 - 5.00) + 17.00,
-    category: [...res.body.category, categoryArray[Math.floor(Math.random()*categoryArray.length)]]
+    price: (Math.random() * (5.00 - 17.00) + 17.00).toFixed(2),
+    category: (random < categoryArray.length) ? [req.body.category, categoryArray[random]] : [req.body.category]
   }
   Dish.findOrCreate({
   where: {name: req.body.dish.title},
