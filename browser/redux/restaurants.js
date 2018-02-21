@@ -9,6 +9,7 @@ const SET_CURRENT_RESTAURANT = "SET_CURRENT_RESTAURANT"
 const SEARCH_CATEGORY = "SEARCH_CATEGORY"
 const SEARCH_LOCATION = "SEARCH_LOCATION"
 const FOUND_RESTAURANTS = "FOUND_RESTAURANTS"
+const GET_MENU = "GET_MENU"
 
 
 /* ------------     ACTION CREATORS      ------------------ */
@@ -17,6 +18,7 @@ export const setCurrentRestaurant = restaurant => ({type: SET_CURRENT_RESTAURANT
 export const searchCategory = category => ({type: SEARCH_CATEGORY, category})
 export const searchLocation = location => ({type: SEARCH_LOCATION, location})
 const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
+export const getMenu = menu => ({ type: GET_MENU, menu})
 
 
 /* ------------          REDUCER         ------------------ */
@@ -25,7 +27,8 @@ export default function reducer (restaurants = {
   currentRestaurant: {},
   category: "",
   location: "",
-  foundRestaurants: []
+  foundRestaurants: [],
+  menu: {}
 }, action) {
   switch (action.type) {
     case SET_CURRENT_RESTAURANT:
@@ -36,6 +39,8 @@ export default function reducer (restaurants = {
       return Object.assign({}, restaurants, {location: action.location})
     case FOUND_RESTAURANTS:
       return Object.assign({}, restaurants, {foundRestaurants: action.restaurants})
+    case GET_MENU:
+      return Object.assign({}, restaurants, {menu: action.menu})
     default:
       return restaurants;
   }
@@ -47,6 +52,15 @@ export const changeRestaurant = (id) => dispatch => {
     // .then(res => console.log(res))
   .then(restaurant => {
     dispatch(setCurrentRestaurant(restaurant.data))
+  })
+}
+
+export const fetchMenu = (restaurant) => dispatch => {
+  axios.get(`https://developers.zomato.com/api/v2.1/dailymenu?res_id=${restaurant.zomato_id}`, {
+    headers: {'user-key': config.ZOMATO_KEY}
+  })
+  .then(menu => {
+    dispatch(getMenu(menu.data))
   })
 }
 

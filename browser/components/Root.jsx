@@ -9,6 +9,7 @@ import Signup from './Signup';
 import MapPage from './MapPage'
 import Navbar from './Navbar'
 import RestaurantPage from './restaurant/RestaurantPage'
+import RestaurantMenu from './restaurant/RestaurantMenu'
 
 import { fetchCurrentUser } from '../redux/auth';
 
@@ -37,11 +38,13 @@ class Root extends Component {
                 <Navbar/>
                     <Route path="/restaurants/:id" component={RestaurantPage} />
                     <Route exact path="/" component={MapPage} />
+                    <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
               </div>) :
             (
               <div>
                 <Navbar/>
                 <Route path="/restaurants/:id" component={RestaurantPage} />
+                <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
                 <Route exact path="/" component={MapPage} />
       			    <Route path="/login" component={Login} />
       			    <Route path="/signup" component={Signup} />

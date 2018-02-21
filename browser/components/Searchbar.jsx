@@ -44,7 +44,6 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       dispatch(searchRestaurants({ category: category, location: location }));
       dispatch(searchCategory(''));
       dispatch(searchLocation(''));
-      console.log(ownProps.history)
       ownProps.history.push('/')
     }
   };

@@ -2,19 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {changeRestaurant, fetchMenu} from '../../redux/restaurants'
 
-class RestaurantPage extends React.Component {
+class RestaurantMenu extends React.Component {
   componentDidMount() {
     this.props.changeRestaurant(this.props.restaurantId)
   }
   render() {
   const currentRestaurant = this.props.currentRestaurant;
-
   return (
     <div>
       <h4>{currentRestaurant.name}</h4>
-      <p>Price: {"$".repeat(parseInt(currentRestaurant.price_range))}</p>
-      <p>Address: {currentRestaurant.address}</p>
-      <p><button onClick={fetchMenu(currentRestaurant)}>Get Menu</button></p>
+      <p>Menu</p>
     </div>)
   }
 }
@@ -27,6 +24,6 @@ const mapStateToProps = function (state, ownProps) {
 };
 const mapDispatchToProps = (dispatch)=> ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
-  fetchMenu: (restaurant) => dispatch(fetchMenu(restaurant))
+  getMenu: (restaurant) => dispatch(fetchMenu(restaurant))
 })
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
