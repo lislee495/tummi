@@ -7,7 +7,7 @@ const Dish = db.define('dish', {
     allowNull: false},
   description: Sequelize.TEXT,
   price: Sequelize.FLOAT,
-  category: DataTypes.Array(DataTypes.STRING)
+  category: Sequelize.ARRAY(Sequelize.STRING)
 })
 
 module.exports = Dish;

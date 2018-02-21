@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {searchCategory, searchLocation, searchRestaurants} from '../redux/restaurants'
+import {searchCategory, searchLocation, searchRestaurants, searchMenus} from '../redux/restaurants'
 
 function Searchbar(props) {
   const {location, category, handleLocationChange, handleCategoryChange, handleSubmit} = props
@@ -41,6 +41,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
     },
     handleSubmit (category, location, evt) {
       evt.preventDefault();
+      dispatch(searchMenus({ category: category, location: location }));
       dispatch(searchRestaurants({ category: category, location: location }));
       dispatch(searchCategory(''));
       dispatch(searchLocation(''));

@@ -1037,7 +1037,7 @@ function setUserAndRedirect(user, history, dispatch) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchRestaurants = exports.fetchMenu = exports.changeRestaurant = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
+exports.searchRestaurants = exports.searchMenus = exports.changeRestaurant = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(102);
@@ -1121,14 +1121,35 @@ var changeRestaurant = exports.changeRestaurant = function changeRestaurant(id) 
   };
 };
 
-var fetchMenu = exports.fetchMenu = function fetchMenu(restaurant) {
-  return function (dispatch) {
-    _axios2.default.get('https://developers.zomato.com/api/v2.1/dailymenu?res_id=' + restaurant.zomato_id, {
-      headers: { 'user-key': _config2.default.ZOMATO_KEY }
-    }).then(function (menu) {
-      dispatch(getMenu(menu.data));
+// export const fetchMenu = (restaurant) => dispatch => {
+//   axios.get(``, {
+//     headers: {'user-key': config.ZOMATO_KEY}
+//   })
+//   .then(menu => {
+//     dispatch(getMenu(menu.data))
+//   })
+// }
+var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
+  var category = searchTerms.category,
+      location = searchTerms.location;
+
+
+  _axios2.default.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=' + category + '&instructionsRequired=false&number=20', {
+    headers: {
+      "X-Mashape-Key": "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY",
+      "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+    }
+  }).then(function (res) {
+    return _bluebird2.default.map(res.results, function (dish) {
+      return _axios2.default.post('/api/dishes', { dish: dish, category: category });
     });
-  };
+  }).then(function (res) {
+    return res.map(function (ele) {
+      return ele.data;
+    });
+  }).then(function (dishes) {
+    return console.log(dishes);
+  });
 };
 
 var searchRestaurants = exports.searchRestaurants = function searchRestaurants(searchTerms, history) {
@@ -29916,6 +29937,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
+      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
@@ -29993,15 +30015,6 @@ var RestaurantPage = function (_React$Component) {
           null,
           'Address: ',
           currentRestaurant.address
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          _react2.default.createElement(
-            'button',
-            { onClick: (0, _restaurants.fetchMenu)(currentRestaurant) },
-            'Get Menu'
-          )
         )
       );
     }
@@ -30009,6 +30022,8 @@ var RestaurantPage = function (_React$Component) {
 
   return RestaurantPage;
 }(_react2.default.Component);
+// <p><button onClick={fetchMenu(currentRestaurant)}>Get Menu</button></p>
+
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var restaurantId = Number(ownProps.match.params.id);
@@ -30021,10 +30036,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeRestaurant: function changeRestaurant(id) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
-    },
-    fetchMenu: function fetchMenu(restaurant) {
-      return dispatch((0, _restaurants.fetchMenu)(restaurant));
     }
+    // fetchMenu: (restaurant) => dispatch(fetchMenu(restaurant))
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantPage);

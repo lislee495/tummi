@@ -55,14 +55,31 @@ export const changeRestaurant = (id) => dispatch => {
   })
 }
 
-export const fetchMenu = (restaurant) => dispatch => {
-  axios.get(`https://developers.zomato.com/api/v2.1/dailymenu?res_id=${restaurant.zomato_id}`, {
-    headers: {'user-key': config.ZOMATO_KEY}
-  })
-  .then(menu => {
-    dispatch(getMenu(menu.data))
-  })
+// export const fetchMenu = (restaurant) => dispatch => {
+//   axios.get(``, {
+//     headers: {'user-key': config.ZOMATO_KEY}
+//   })
+//   .then(menu => {
+//     dispatch(getMenu(menu.data))
+//   })
+// }
+export const searchMenus = (searchTerms) => {
+  const {category, location} = searchTerms
+
+  axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${category}&instructionsRequired=false&number=20`, {
+    headers: {
+      "X-Mashape-Key": "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY",
+      "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+    }
+  }).then(res => {
+    return Promise.map(res.results, function(dish) {
+      return axios.post('/api/dishes', {dish: dish, category: category})
+    })
+    }).then(res => res.map(ele => ele.data))
+    .then(dishes => console.log(dishes))
+
 }
+
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
   const {category, location} = searchTerms
