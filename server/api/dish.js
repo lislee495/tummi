@@ -3,21 +3,14 @@ const HttpError = require('../utils/HttpError');
 const { Dish } = require('../db/models');
 
 router.post('/', (req, res, next) => {
+  const categoryArray = ["spicy", "gluten-free", "vegan", "dairy-free", "vegetarian", "nut-free"]
   const info = {
-    name: req.body.restaurant.name,
-    address: req.body.restaurant.location.address,
-    latitude: req.body.restaurant.location.latitude,
-    longitude: req.body.restaurant.location.longitude,
-    price_range: req.body.restaurant.price_range,
-    zomato_id: req.body.restaurant.id,
-    url: req.body.restaurant.url,
-    featured_image: req.body.restaurant.featured_image,
-    user_rating: req.body.restaurant.user_rating.aggregate_rating,
-    votes: req.body.restaurant.user_rating.votes,
-    phone_numbers: req.body.restaurant.phone_numbers
+    name: req.body.dish.title,
+    price: Math.random() * (17.00 - 5.00) + 17.00,
+    category: [...res.body.category, categoryArray[Math.floor(Math.random()*categoryArray.length)]]
   }
-  Restaurant.findOrCreate({
-  where: {zomato_id: req.body.restaurant.id},
+  Dish.findOrCreate({
+  where: {name: req.body.dish.title},
   defaults: info
 }).spread((result, bool) => {
   res.status(201).json(result)})
