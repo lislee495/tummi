@@ -55,14 +55,13 @@ export const changeRestaurant = (id) => dispatch => {
   })
 }
 
-// export const fetchMenu = (restaurant) => dispatch => {
-//   axios.get(``, {
-//     headers: {'user-key': config.ZOMATO_KEY}
-//   })
-//   .then(menu => {
-//     dispatch(getMenu(menu.data))
-//   })
-// }
+export const fetchMenu = (restaurant) => dispatch => {
+  axios.get(`/api/restaurants/${restaurant.id}/menu`)
+  .then(menu => {
+    dispatch(getMenu(menu.data))
+  })
+}
+
 export const searchMenus = (searchTerms) => {
   const {category, location} = searchTerms
 
@@ -80,7 +79,6 @@ export const searchMenus = (searchTerms) => {
     .then(dishes => console.log(dishes))
 
 }
-
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
 

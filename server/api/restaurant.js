@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const HttpError = require('../utils/HttpError');
-const { Restaurant, Dish } = require('../db/models');
+const { Restaurant, Dish, Menu } = require('../db/models');
 const axios = require('axios')
 const config = require('../config')
 const Promise = require('bluebird')
@@ -12,17 +12,34 @@ router.get('/:id', (req, res, next)=>{
   .catch(next)
 })
 
+router.get('/:id/menu', (req, res, next) => {
+  const id = req.params.id;
+  Menu.findOrCreate({where: {
+    restaurantId: id
+  }}).spread((result, bool) => {
+    if (bool) {
+      const restaurant = Restaurant.findOne({where: {id: id}}) //lookover 
+      const dishes = Dish.findAll({where: {
+        category: restaurant.category[0]
+      }, limit: 15})
+      return Promise.all(dishes, function(dish) {
+        return result.update({ dishId: dish.id}) //lookover
+      })
+    }
+  }).then(menu => res.status(201).json(menu))
+  .catch(next)
+})
+
 router.post('/', (req, res, next)=> {
   const {category, location} = req.body
   axios.get(`https://api.yelp.com/v3/businesses/search?term=food+${category}&location=${location}`, {
     headers: {"Authorization": "Bearer " + config.YELP_API_KEY}
   })
   .then(result => {
-
     return Promise.map(result.data.businesses, (restaurant) => {
       const info = {
         name: restaurant.name,
-        category: restaurant.categories.title,
+        category: [category, restaurant.categories[0].title],
         yelp_url: restaurant.id,
         address: `${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state} ${restaurant.location.zip_code}` ,
         latitude: restaurant.coordinates.latitude,

@@ -1064,7 +1064,7 @@ function setUserAndRedirect(user, history, dispatch) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchRestaurants = exports.searchMenus = exports.changeRestaurant = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
+exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(49);
@@ -1148,14 +1148,14 @@ var changeRestaurant = exports.changeRestaurant = function changeRestaurant(id) 
   };
 };
 
-// export const fetchMenu = (restaurant) => dispatch => {
-//   axios.get(``, {
-//     headers: {'user-key': config.ZOMATO_KEY}
-//   })
-//   .then(menu => {
-//     dispatch(getMenu(menu.data))
-//   })
-// }
+var fetchMenu = exports.fetchMenu = function fetchMenu(restaurant) {
+  return function (dispatch) {
+    _axios2.default.get('/api/restaurants/' + restaurant.id + '/menu').then(function (menu) {
+      dispatch(getMenu(menu.data));
+    });
+  };
+};
+
 var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
   var category = searchTerms.category,
       location = searchTerms.location;
@@ -35143,7 +35143,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
-      // dispatch(searchMenus({ category: category, location: location }));
+      //dispatch(searchMenus({ category: category, location: location }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
       ownProps.history.push('/');
@@ -35226,7 +35226,7 @@ var RestaurantPage = function (_React$Component) {
           null,
           _react2.default.createElement(
             'button',
-            { onClick: fetchMenu(currentRestaurant) },
+            { onClick: (0, _restaurants.fetchMenu)(currentRestaurant) },
             'Get Menu'
           )
         )
@@ -35248,8 +35248,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeRestaurant: function changeRestaurant(id) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
+    },
+    fetchMenu: function fetchMenu(restaurant) {
+      return dispatch((0, _restaurants.fetchMenu)(restaurant));
     }
-    // fetchMenu: (restaurant) => dispatch(fetchMenu(restaurant))
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantPage);
