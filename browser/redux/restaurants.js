@@ -68,7 +68,7 @@ export const searchMenus = (searchTerms) => {
 
   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${category}&instructionsRequired=false&number=20`, {
     headers: {
-      "X-Mashape-Key": "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY",
+      "X-Mashape-Key": config.MASHAPE_KEY,
       "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
     }
   }).then(res =>
@@ -93,7 +93,7 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
   .then(res => res.data)
   .then(data => {
     return Promise.map(data.restaurants, function(restaurant) {
-      return axios.post('/api/restaurants', restaurant)
+      return axios.post('/api/restaurants', {restaurant, category})
     })
     }).then(res => res.map(ele => ele.data))
     .then(restaurants => {

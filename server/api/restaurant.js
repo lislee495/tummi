@@ -20,6 +20,7 @@ router.get('/:id', (req, res, next)=>{
 router.post('/', (req, res, next) => {
   const info = {
     name: req.body.restaurant.name,
+    category: req.body.category,
     address: req.body.restaurant.location.address,
     latitude: req.body.restaurant.location.latitude,
     longitude: req.body.restaurant.location.longitude,

@@ -1163,7 +1163,7 @@ var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
 
   _axios2.default.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=' + category + '&instructionsRequired=false&number=20', {
     headers: {
-      "X-Mashape-Key": "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY",
+      "X-Mashape-Key": _config2.default.MASHAPE_KEY,
       "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
     }
   }).then(function (res) {
@@ -1193,7 +1193,7 @@ var searchRestaurants = exports.searchRestaurants = function searchRestaurants(s
       return res.data;
     }).then(function (data) {
       return _bluebird2.default.map(data.restaurants, function (restaurant) {
-        return _axios2.default.post('/api/restaurants', restaurant);
+        return _axios2.default.post('/api/restaurants', { restaurant: restaurant, category: category });
       });
     }).then(function (res) {
       return res.map(function (ele) {
@@ -35139,9 +35139,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
+      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
-      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
       ownProps.history.push('/');
     }
   };
@@ -35216,6 +35216,15 @@ var RestaurantPage = function (_React$Component) {
           null,
           'Address: ',
           currentRestaurant.address
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          _react2.default.createElement(
+            'button',
+            { onClick: fetchMenu(currentRestaurant) },
+            'Get Menu'
+          )
         )
       );
     }
@@ -35223,8 +35232,6 @@ var RestaurantPage = function (_React$Component) {
 
   return RestaurantPage;
 }(_react2.default.Component);
-// <p><button onClick={fetchMenu(currentRestaurant)}>Get Menu</button></p>
-
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var restaurantId = Number(ownProps.match.params.id);
