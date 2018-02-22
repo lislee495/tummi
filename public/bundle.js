@@ -1181,29 +1181,29 @@ var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
 
 var searchRestaurants = exports.searchRestaurants = function searchRestaurants(searchTerms, history) {
   return function (dispatch) {
-    var category = searchTerms.category,
-        location = searchTerms.location;
-    // location = location.split(" ").join("+")
-    // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
-    // .then(result => )
 
-    _axios2.default.get('https://developers.zomato.com/api/v2.1/search?count=10&q=' + category, {
-      headers: { 'user-key': _config2.default.ZOMATO_KEY }
-    }).then(function (res) {
-      return res.data;
-    }).then(function (data) {
-      return _bluebird2.default.map(data.restaurants, function (restaurant) {
-        return _axios2.default.post('/api/restaurants', { restaurant: restaurant, category: category });
-      });
-    }).then(function (res) {
-      return res.map(function (ele) {
-        return ele.data;
-      });
-    }).then(function (restaurants) {
-      dispatch(foundRestaurants(restaurants));
+    _axios2.default.post('/api/restaurants', searchTerms).then(function (restaurants) {
+      return dispatch(foundRestaurants(restaurants.data));
     });
+    //       }))
   };
 };
+// location = location.split(" ").join("+")
+// axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
+// .then(result => )
+//   axios.get(`https://developers.zomato.com/api/v2.1/search?count=10&q=${category}`, {
+//     headers: {'user-key': config.ZOMATO_KEY}
+//   })
+//   .then(res => res.data)
+//   .then(data => {
+//     return Promise.map(data.restaurants, function(restaurant) {
+//       return axios.post('/api/restaurants', {restaurant, category})
+//     })
+//     }).then(res => res.map(ele => ele.data))
+//     .then(restaurants => {
+//       dispatch(foundRestaurants(restaurants))
+//       })
+// }
 
 /***/ }),
 /* 13 */
@@ -4107,7 +4107,9 @@ var config = {
   GOOGLE_CLIENT_ID: "918698961959-ujme93g4ibis927d0liqe4r9c1hgeh56.apps.googleusercontent.com",
   GOOGLE_CLIENT_SECRET: "4Da-sFTBTy1vjM8cwHsKYGC0",
   GOOGLE_GEOCODE_API_KEY: "AIzaSyDPZASh_7KpOEq0U3somO7gVqKYN6zFj50",
-  ZOMATO_KEY: "d7cff0aba466d344a25b2f423de86439" //need API key and restaurant id
+  ZOMATO_KEY: "d7cff0aba466d344a25b2f423de86439",
+  MASHAPE_KEY: "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY", //need API key and restaurant id
+  YELP_API_KEY: "xMFWhdNs-xzkVfrYSAel_ggJPG9MBUHZwN6O697GeQ2EHjsZGALNjUHwIdTRgx5yTLU2_dfxIWOfAV39yq8fLHvOqxU8PhssAeah6olGrl-TLNEkq-xCtA4e2ml8WnYx"
 };
 module.exports = config;
 
@@ -35103,7 +35105,8 @@ function Searchbar(props) {
         className: 'form-control',
         onChange: handleCategoryChange,
         value: category,
-        placeholder: 'Category' })
+        placeholder: 'Category',
+        required: true })
     ),
     _react2.default.createElement(
       'div',
@@ -35112,7 +35115,8 @@ function Searchbar(props) {
         className: 'form-control',
         value: location,
         onChange: handleLocationChange,
-        placeholder: 'Location' })
+        placeholder: 'Location',
+        required: true })
     ),
     _react2.default.createElement(
       'button',
@@ -35139,7 +35143,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
-      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
+      // dispatch(searchMenus({ category: category, location: location }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
       ownProps.history.push('/');

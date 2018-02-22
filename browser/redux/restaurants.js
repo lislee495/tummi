@@ -83,20 +83,24 @@ export const searchMenus = (searchTerms) => {
 
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
-  const {category, location} = searchTerms
+
+  axios.post('/api/restaurants', searchTerms)
+  .then(restaurants => dispatch(foundRestaurants(restaurants.data)))
+  //       }))
+}
   // location = location.split(" ").join("+")
   // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
   // .then(result => )
-  axios.get(`https://developers.zomato.com/api/v2.1/search?count=10&q=${category}`, {
-    headers: {'user-key': config.ZOMATO_KEY}
-  })
-  .then(res => res.data)
-  .then(data => {
-    return Promise.map(data.restaurants, function(restaurant) {
-      return axios.post('/api/restaurants', {restaurant, category})
-    })
-    }).then(res => res.map(ele => ele.data))
-    .then(restaurants => {
-      dispatch(foundRestaurants(restaurants))
-      })
-}
+//   axios.get(`https://developers.zomato.com/api/v2.1/search?count=10&q=${category}`, {
+//     headers: {'user-key': config.ZOMATO_KEY}
+//   })
+//   .then(res => res.data)
+//   .then(data => {
+//     return Promise.map(data.restaurants, function(restaurant) {
+//       return axios.post('/api/restaurants', {restaurant, category})
+//     })
+//     }).then(res => res.map(ele => ele.data))
+//     .then(restaurants => {
+//       dispatch(foundRestaurants(restaurants))
+//       })
+// }

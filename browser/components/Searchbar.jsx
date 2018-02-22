@@ -11,14 +11,16 @@ function Searchbar(props) {
           className="form-control"
           onChange={handleCategoryChange}
           value={category}
-          placeholder="Category"/>
+          placeholder="Category"
+          required/>
         </div>
         <div className="form-group">
           <input type="text"
           className="form-control"
           value={location}
           onChange={handleLocationChange}
-          placeholder="Location"/>
+          placeholder="Location"
+          required/>
         </div>
         <button type="submit" className="btn btn-default">Search</button>
       </form>
@@ -42,7 +44,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
     handleSubmit (category, location, evt) {
       evt.preventDefault();
       dispatch(searchRestaurants({ category: category, location: location }));
-      dispatch(searchMenus({ category: category, location: location }));
+      // dispatch(searchMenus({ category: category, location: location }));
       dispatch(searchCategory(''));
       dispatch(searchLocation(''));
       ownProps.history.push('/')
