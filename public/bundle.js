@@ -34808,7 +34808,7 @@ function RestaurantDetail(props) {
         'p',
         null,
         'Price: ',
-        Array(restaurant.price_range + 1).join("$")
+        restaurant.price_range
       ),
       _react2.default.createElement(
         'p',
@@ -35213,7 +35213,7 @@ var RestaurantPage = function (_React$Component) {
           'p',
           null,
           'Price: ',
-          "$".repeat(parseInt(currentRestaurant.price_range))
+          currentRestaurant.price_range
         ),
         _react2.default.createElement(
           'p',

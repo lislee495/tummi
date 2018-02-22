@@ -12,7 +12,7 @@ class RestaurantPage extends React.Component {
   return (
     <div>
       <h4>{currentRestaurant.name}</h4>
-      <p>Price: {"$".repeat(parseInt(currentRestaurant.price_range))}</p>
+      <p>Price: {currentRestaurant.price_range}</p>
       <p>Address: {currentRestaurant.address}</p>
       <p><button onClick={fetchMenu(currentRestaurant)}>Get Menu</button></p>
     </div>)

@@ -8,7 +8,7 @@ export default function RestaurantDetail(props){
     <div className="restaurant-detail">
       <div className="restaurant-detail-container">
         <h4>{restaurant.name}</h4>
-        <p>Price: {Array(restaurant.price_range + 1).join("$")}</p>
+        <p>Price: {restaurant.price_range}</p>
         <p>Address: {restaurant.address}</p>
         <p><button><NavLink to={url} activeClassName="active">See More</NavLink></button></p>
       </div>
