@@ -3,6 +3,7 @@ import config from '../config'
 import Promise from 'bluebird'
 import { browserHistory } from 'react-router'
 
+
 /* -----------------    ACTION TYPES    ------------------ */
 
 const SET_CURRENT_RESTAURANT = "SET_CURRENT_RESTAURANT"
@@ -57,7 +58,7 @@ export const changeRestaurant = (id) => dispatch => {
 
 export const fetchMenu = (restaurant) => dispatch => {
   axios.get(`/api/restaurants/${restaurant.id}/menu`)
-  .then(menu => {
+  .then((menu) => {
     dispatch(getMenu(menu.data))
   })
 }

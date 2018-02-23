@@ -26,11 +26,10 @@ const mapStateToProps = function (state, ownProps) {
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };
-const mapDispatchToProps = (dispatch)=> ({
+const mapDispatchToProps = (dispatch, ownProps)=> ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
   handleClick: (restaurant) => {
     dispatch(fetchMenu(restaurant))
-    ownProps.history.push(`/restaurants/${restaurant.id}/menu`)
   }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantPage);

@@ -4,6 +4,7 @@ const { Restaurant, Dish, Menu } = require('../db/models');
 const axios = require('axios')
 const config = require('../config')
 const Promise = require('bluebird')
+const sequelize = require('sequelize')
 
 router.get('/:id', (req, res, next)=>{
   Restaurant.findById(req.params.id)
@@ -21,14 +22,19 @@ router.get('/:id/menu', function (req, res, next) {
       const restaurant = await (Restaurant.findById(id))
       const dishes = await (Dish.findAll({where: {
         category: { $contains: [restaurant.category[0]] }
-      }, limit: 15}))
-      return menu.addDishes(dishes)
+      },
+      order: [
+        sequelize.fn( 'RANDOM' ),
+      ],
+      limit: 10}))
+      const newMenu = await(menu.addDishes(dishes))
+      return menu
     } else {
       return menu
     }
   })
-
-  .then(menu => res.status(201).json(menu))
+  .then(menu => menu.getDishes())
+  .then(dishes => res.status(201).json(dishes))
   .catch(next)
 })
 
@@ -43,7 +49,7 @@ router.post('/', (req, res, next)=> {
     return Promise.map(result.data.businesses, (restaurant) => {
       const info = {
         name: restaurant.name,
-        category: [category, restaurant.categories[0].title],
+        category: [category.toLowerCase(), restaurant.categories[0].title],
         yelp_url: restaurant.id,
         address: `${restaurant.location.address1}, ${restaurant.location.city}, ${restaurant.location.state} ${restaurant.location.zip_code}` ,
         latitude: restaurant.coordinates.latitude,

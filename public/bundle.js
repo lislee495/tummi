@@ -44129,6 +44129,8 @@ var RestaurantPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var currentRestaurant = this.props.currentRestaurant;
 
       return _react2.default.createElement(
@@ -44156,7 +44158,9 @@ var RestaurantPage = function (_React$Component) {
           null,
           _react2.default.createElement(
             'button',
-            { onClick: (0, _restaurants.fetchMenu)(currentRestaurant) },
+            { onClick: function onClick() {
+                return _this2.props.handleClick(currentRestaurant);
+              } },
             'Get Menu'
           )
         )
@@ -44174,13 +44178,13 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     changeRestaurant: function changeRestaurant(id) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
     },
-    fetchMenu: function fetchMenu(restaurant) {
-      return dispatch((0, _restaurants.fetchMenu)(restaurant));
+    handleClick: function handleClick(restaurant) {
+      dispatch((0, _restaurants.fetchMenu)(restaurant));
     }
   };
 };
@@ -44257,16 +44261,14 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   var restaurantId = Number(ownProps.match.params.id);
   return {
     restaurantId: restaurantId,
-    currentRestaurant: state.restaurants.currentRestaurant
+    currentRestaurant: state.restaurants.currentRestaurant,
+    currentMenu: state.restaurants.menu
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeRestaurant: function changeRestaurant(id) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
-    },
-    getMenu: function getMenu(restaurant) {
-      return dispatch((0, _restaurants.fetchMenu)(restaurant));
     }
   };
 };

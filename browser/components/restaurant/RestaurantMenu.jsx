@@ -19,11 +19,11 @@ const mapStateToProps = function (state, ownProps) {
   const restaurantId = Number(ownProps.match.params.id);
   return {
     restaurantId,
-    currentRestaurant: state.restaurants.currentRestaurant
+    currentRestaurant: state.restaurants.currentRestaurant,
+    currentMenu: state.restaurants.menu
   };
 };
 const mapDispatchToProps = (dispatch)=> ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
-  getMenu: (restaurant) => dispatch(fetchMenu(restaurant))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
