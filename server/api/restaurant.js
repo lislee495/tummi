@@ -18,18 +18,18 @@ router.get('/:id/menu', function (req, res, next) {
     owner_id: id
   }}).spread(async(menu, bool) => {
     if (bool) {
-      const restaurant = await (Restaurant.findById(id)) //lookover
+      const restaurant = await (Restaurant.findById(id))
       const dishes = await (Dish.findAll({where: {
         category: { $contains: [restaurant.category[0]] }
       }, limit: 15}))
-      return menu.addDishes(dishes) //lookover
+      return menu.addDishes(dishes)
     } else {
       return menu
     }
   })
-  .then(menu => console.log(menu))
-  // .then(menu => res.status(201).json(menu))
-  // .catch(next)
+
+  .then(menu => res.status(201).json(menu))
+  .catch(next)
 })
 
 
