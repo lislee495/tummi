@@ -12,23 +12,27 @@ router.get('/:id', (req, res, next)=>{
   .catch(next)
 })
 
-router.get('/:id/menu', (req, res, next) => {
+router.get('/:id/menu', function (req, res, next) {
   const id = req.params.id;
   Menu.findOrCreate({where: {
-    restaurantId: id
-  }}).spread((result, bool) => {
+    owner_id: id
+  }}).spread(async(menu, bool) => {
     if (bool) {
-      const restaurant = Restaurant.findOne({where: {id: id}}) //lookover 
-      const dishes = Dish.findAll({where: {
-        category: restaurant.category[0]
-      }, limit: 15})
-      return Promise.all(dishes, function(dish) {
-        return result.update({ dishId: dish.id}) //lookover
-      })
+      const restaurant = await (Restaurant.findById(id)) //lookover
+      const dishes = await (Dish.findAll({where: {
+        category: { $contains: [restaurant.category[0]] }
+      }, limit: 15}))
+      return menu.addDishes(dishes) //lookover
+    } else {
+      return menu
     }
-  }).then(menu => res.status(201).json(menu))
-  .catch(next)
+  })
+  .then(menu => console.log(menu))
+  // .then(menu => res.status(201).json(menu))
+  // .catch(next)
 })
+
+
 
 router.post('/', (req, res, next)=> {
   const {category, location} = req.body

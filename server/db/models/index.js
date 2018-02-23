@@ -20,5 +20,6 @@ module.exports = {
 	db,
 	Restaurant,
 	User,
-  Dish
+  Dish,
+  Menu
 };
