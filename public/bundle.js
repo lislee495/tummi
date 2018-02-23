@@ -2553,9 +2553,9 @@ var changeRestaurant = exports.changeRestaurant = function changeRestaurant(id) 
   };
 };
 
-var fetchMenu = exports.fetchMenu = function fetchMenu(restaurant) {
+var fetchMenu = exports.fetchMenu = function fetchMenu(id) {
   return function (dispatch) {
-    _axios2.default.get('/api/restaurants/' + restaurant.id + '/menu').then(function (menu) {
+    _axios2.default.get('/api/restaurants/' + id + '/menu').then(function (menu) {
       dispatch(getMenu(menu.data));
     });
   };
@@ -44166,7 +44166,7 @@ var RestaurantPage = function (_React$Component) {
           null,
           _react2.default.createElement(
             'button',
-            { onClick: function onClick(currentRestaurant) {
+            { onClick: function onClick() {
                 return _this2.props.handleClick(currentRestaurant);
               } },
             'Get Menu'
@@ -44192,7 +44192,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
     },
     handleClick: function handleClick(restaurant) {
-      dispatch((0, _restaurants.fetchMenu)(restaurant));
+      // dispatch(fetchMenu(restaurant.id))
       ownProps.history.push('/restaurants/' + restaurant.id + '/menu');
     }
   };
@@ -44240,7 +44240,7 @@ var RestaurantMenu = function (_React$Component) {
   _createClass(RestaurantMenu, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.changeRestaurant(this.props.restaurantId);
+      this.props.changeRestaurant(this.props.restaurantId), this.props.fetchMenu(this.props.restaurantId);
     }
   }, {
     key: 'render',
@@ -44278,6 +44278,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeRestaurant: function changeRestaurant(id) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
+    },
+    fetchMenu: function fetchMenu(restaurant) {
+      return dispatch((0, _restaurants.fetchMenu)(restaurant));
     }
   };
 };

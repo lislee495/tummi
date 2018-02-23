@@ -56,8 +56,8 @@ export const changeRestaurant = (id) => dispatch => {
   })
 }
 
-export const fetchMenu = (restaurant) => dispatch => {
-  axios.get(`/api/restaurants/${restaurant.id}/menu`)
+export const fetchMenu = (id) => dispatch => {
+  axios.get(`/api/restaurants/${id}/menu`)
   .then((menu) => {
     dispatch(getMenu(menu.data))
   })
