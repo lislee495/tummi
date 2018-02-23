@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 
 import LandingPage from './LandingPage';
 import Login from './Login';
@@ -36,18 +36,22 @@ class Root extends Component {
              (
               <div className="logged-in">
                 <Navbar/>
-                    <Route path="/restaurants/:id" component={RestaurantPage} />
+                  <Switch>
                     <Route exact path="/" component={MapPage} />
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
+                    <Route path="/restaurants/:id" component={RestaurantPage} />
+                  </Switch>
               </div>) :
             (
               <div>
                 <Navbar/>
-                <Route path="/restaurants/:id" component={RestaurantPage} />
+                <Switch>
                 <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
+                <Route path="/restaurants/:id" component={RestaurantPage} />
                 <Route exact path="/" component={MapPage} />
       			    <Route path="/login" component={Login} />
       			    <Route path="/signup" component={Signup} />
+                </Switch>
               </div>
             )
           }

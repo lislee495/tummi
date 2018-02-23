@@ -40833,18 +40833,26 @@ var Root = function (_Component) {
             'div',
             { className: 'logged-in' },
             _react2.default.createElement(_Navbar2.default, null),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id/menu', component: _RestaurantMenu2.default })
+            _react2.default.createElement(
+              _reactRouterDom.Switch,
+              null,
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id/menu', component: _RestaurantMenu2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default })
+            )
           ) : _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(_Navbar2.default, null),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id/menu', component: _RestaurantMenu2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default })
+            _react2.default.createElement(
+              _reactRouterDom.Switch,
+              null,
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id/menu', component: _RestaurantMenu2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default })
+            )
           )
         )
       );
@@ -44158,7 +44166,7 @@ var RestaurantPage = function (_React$Component) {
           null,
           _react2.default.createElement(
             'button',
-            { onClick: function onClick() {
+            { onClick: function onClick(currentRestaurant) {
                 return _this2.props.handleClick(currentRestaurant);
               } },
             'Get Menu'
@@ -44185,6 +44193,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     handleClick: function handleClick(restaurant) {
       dispatch((0, _restaurants.fetchMenu)(restaurant));
+      ownProps.history.push('/restaurants/' + restaurant.id + '/menu');
     }
   };
 };
