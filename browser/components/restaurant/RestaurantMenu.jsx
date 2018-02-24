@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {changeRestaurant, fetchMenu} from '../../redux/restaurants'
+import Menu from './Menu'
 
 class RestaurantMenu extends React.Component {
   componentDidMount() {
@@ -8,15 +9,12 @@ class RestaurantMenu extends React.Component {
     this.props.fetchMenu(this.props.restaurantId)
   }
   render() {
-  const currentRestaurant = this.props.currentRestaurant;
+  const {currentRestaurant, menu, restaurantId} = this.props;
   return (
     <div>
       <h4>{currentRestaurant.name}</h4>
       <p>Menu</p>
-      <div className="menu">
-      <ul className="menu-ul">
-      </ul>
-      </div>
+      {menu ? <Menu menu={menu}/> : ""}
     </div>)
   }
 }
@@ -25,7 +23,7 @@ const mapStateToProps = function (state, ownProps) {
   return {
     restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant,
-    currentMenu: state.restaurants.menu
+    menu: state.restaurants.menu
   };
 };
 const mapDispatchToProps = (dispatch)=> ({
