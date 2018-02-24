@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import MenuDiv from './MenuDiv'
 
 export default class Menu extends React.Component {
@@ -17,8 +16,4 @@ export default class Menu extends React.Component {
   }
 }
 
-
 /* -----------------    CONTAINER     ------------------ */
-// this.props.menu.map(function(dish) {
-//   return <h1 key={dish.id}>{dish.name}</h1>
-// })

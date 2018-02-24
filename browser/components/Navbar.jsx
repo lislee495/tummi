@@ -14,6 +14,7 @@ class Navbar extends React.Component {
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
               <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
               <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
+              <li><NavLink to="/cart" activeClassName="active">Cart</NavLink></li>
               <li><NavLink to="/logout" onClick={this.props.logout}>Logout</NavLink></li>
             </ul>
               <div className="right">

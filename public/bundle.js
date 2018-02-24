@@ -43979,6 +43979,15 @@ var Navbar = function (_React$Component) {
               null,
               _react2.default.createElement(
                 _reactRouterDom.NavLink,
+                { to: '/cart', activeClassName: 'active' },
+                'Cart'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
                 { to: '/logout', onClick: this.props.logout },
                 'Logout'
               )
@@ -44401,7 +44410,7 @@ function MenuDiv(props) {
     null,
     _react2.default.createElement(
       'div',
-      { className: 'dish-div' },
+      { className: 'dish-div', style: { cursor: "pointer" } },
       _react2.default.createElement(
         'h6',
         null,
