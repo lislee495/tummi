@@ -14,9 +14,8 @@ router.post('/', (req, res, next) => {
   Dish.findOrCreate({
   where: {name: req.body.dish.title},
   defaults: info
-}).spread((result, bool) => {
-  res.status(201).json(result)})
-    .catch(next);
+}).spread((result, bool) =>  res.status(201).json(result))
+  .catch(next);
 });
 
 

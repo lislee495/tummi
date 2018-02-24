@@ -38,8 +38,6 @@ router.get('/:id/menu', function (req, res, next) {
   .catch(next)
 })
 
-
-
 router.post('/', (req, res, next)=> {
   const {category, location} = req.body
   axios.get(`https://api.yelp.com/v3/businesses/search?term=food+${category}&location=${location}`, {

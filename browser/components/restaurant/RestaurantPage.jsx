@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {changeRestaurant, fetchMenu} from '../../redux/restaurants'
+import {changeRestaurant} from '../../redux/restaurants'
 
 class RestaurantPage extends React.Component {
   componentDidMount() {
@@ -29,7 +29,6 @@ const mapStateToProps = function (state, ownProps) {
 const mapDispatchToProps = (dispatch, ownProps) => ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
   handleClick: (restaurant) => {
-    // dispatch(fetchMenu(restaurant.id))
     ownProps.history.push(`/restaurants/${restaurant.id}/menu`)
   }
 })

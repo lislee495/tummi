@@ -2469,7 +2469,7 @@ function setUserAndRedirect(user, history, dispatch) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
+exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.getDishes = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(173);
@@ -2495,6 +2495,7 @@ var SEARCH_CATEGORY = "SEARCH_CATEGORY";
 var SEARCH_LOCATION = "SEARCH_LOCATION";
 var FOUND_RESTAURANTS = "FOUND_RESTAURANTS";
 var GET_MENU = "GET_MENU";
+var GET_DISHES = "GET_DISHES";
 
 /* ------------     ACTION CREATORS      ------------------ */
 
@@ -2513,6 +2514,9 @@ var foundRestaurants = function foundRestaurants(restaurants) {
 var getMenu = exports.getMenu = function getMenu(menu) {
   return { type: GET_MENU, menu: menu };
 };
+var getDishes = exports.getDishes = function getDishes(dishes) {
+  return { type: GET_DISHES, dishes: dishes };
+};
 
 /* ------------          REDUCER         ------------------ */
 
@@ -2522,7 +2526,8 @@ function reducer() {
     category: "",
     location: "",
     foundRestaurants: [],
-    menu: {}
+    menu: {},
+    dishes: {}
   };
   var action = arguments[1];
 
@@ -2537,6 +2542,8 @@ function reducer() {
       return Object.assign({}, restaurants, { foundRestaurants: action.restaurants });
     case GET_MENU:
       return Object.assign({}, restaurants, { menu: action.menu });
+    case GET_DISHES:
+      return Object.assign({}, restaurants, { dishes: action.dishes });
     default:
       return restaurants;
   }
@@ -2562,26 +2569,28 @@ var fetchMenu = exports.fetchMenu = function fetchMenu(id) {
 };
 
 var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
-  var category = searchTerms.category,
-      location = searchTerms.location;
+  return function (dispatch) {
+    var category = searchTerms.category,
+        location = searchTerms.location;
 
 
-  _axios2.default.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=' + category + '&instructionsRequired=false&number=20', {
-    headers: {
-      "X-Mashape-Key": _config2.default.MASHAPE_KEY,
-      "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
-    }
-  }).then(function (res) {
-    return _bluebird2.default.map(res.data.results, function (dish) {
-      return _axios2.default.post('/api/dishes', { dish: dish, category: category });
+    _axios2.default.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=' + category + '&instructionsRequired=false&number=20', {
+      headers: {
+        "X-Mashape-Key": _config2.default.MASHAPE_KEY,
+        "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
+      }
+    }).then(function (res) {
+      return _bluebird2.default.map(res.data.results, function (dish) {
+        return _axios2.default.post('/api/dishes', { dish: dish, category: category.toLowerCase() });
+      });
+    }).then(function (res) {
+      return res.map(function (ele) {
+        return ele.data;
+      });
+    }).then(function (dishes) {
+      return dispatch(getDishes(dishes));
     });
-  }).then(function (res) {
-    return res.map(function (ele) {
-      return ele.data;
-    });
-  }).then(function (dishes) {
-    return console.log(dishes);
-  });
+  };
 };
 
 var searchRestaurants = exports.searchRestaurants = function searchRestaurants(searchTerms, history) {
@@ -44081,7 +44090,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
-      //dispatch(searchMenus({ category: category, location: location }));
+      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
       ownProps.history.push('/');
@@ -44192,7 +44201,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
     },
     handleClick: function handleClick(restaurant) {
-      // dispatch(fetchMenu(restaurant.id))
       ownProps.history.push('/restaurants/' + restaurant.id + '/menu');
     }
   };
@@ -44258,6 +44266,11 @@ var RestaurantMenu = function (_React$Component) {
           'p',
           null,
           'Menu'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'menu' },
+          _react2.default.createElement('ul', { className: 'menu-ul' })
         )
       );
     }
@@ -44279,8 +44292,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     changeRestaurant: function changeRestaurant(id) {
       return dispatch((0, _restaurants.changeRestaurant)(id));
     },
-    fetchMenu: function fetchMenu(restaurant) {
-      return dispatch((0, _restaurants.fetchMenu)(restaurant));
+    fetchMenu: function fetchMenu(id) {
+      return dispatch((0, _restaurants.fetchMenu)(id));
     }
   };
 };

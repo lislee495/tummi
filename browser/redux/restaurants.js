@@ -11,6 +11,7 @@ const SEARCH_CATEGORY = "SEARCH_CATEGORY"
 const SEARCH_LOCATION = "SEARCH_LOCATION"
 const FOUND_RESTAURANTS = "FOUND_RESTAURANTS"
 const GET_MENU = "GET_MENU"
+const GET_DISHES = "GET_DISHES"
 
 
 /* ------------     ACTION CREATORS      ------------------ */
@@ -20,6 +21,7 @@ export const searchCategory = category => ({type: SEARCH_CATEGORY, category})
 export const searchLocation = location => ({type: SEARCH_LOCATION, location})
 const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
 export const getMenu = menu => ({ type: GET_MENU, menu})
+export const getDishes = dishes => ({type: GET_DISHES, dishes})
 
 
 /* ------------          REDUCER         ------------------ */
@@ -29,7 +31,8 @@ export default function reducer (restaurants = {
   category: "",
   location: "",
   foundRestaurants: [],
-  menu: {}
+  menu: {},
+  dishes: {}
 }, action) {
   switch (action.type) {
     case SET_CURRENT_RESTAURANT:
@@ -42,6 +45,8 @@ export default function reducer (restaurants = {
       return Object.assign({}, restaurants, {foundRestaurants: action.restaurants})
     case GET_MENU:
       return Object.assign({}, restaurants, {menu: action.menu})
+    case GET_DISHES:
+      return Object.assign({}, restaurants, {dishes: action.dishes})
     default:
       return restaurants;
   }
@@ -63,7 +68,7 @@ export const fetchMenu = (id) => dispatch => {
   })
 }
 
-export const searchMenus = (searchTerms) => {
+export const searchMenus = (searchTerms) => dispatch => {
   const {category, location} = searchTerms
 
   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${category}&instructionsRequired=false&number=20`, {
@@ -74,10 +79,10 @@ export const searchMenus = (searchTerms) => {
   }).then(res =>
     {
     return Promise.map(res.data.results, function(dish) {
-      return axios.post('/api/dishes', {dish: dish, category: category})
+      return axios.post('/api/dishes', {dish: dish, category: category.toLowerCase()})
     })
     }).then(res => res.map(ele => ele.data))
-    .then(dishes => console.log(dishes))
+    .then(dishes => dispatch(getDishes(dishes)))
 
 }
 

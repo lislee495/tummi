@@ -13,6 +13,10 @@ class RestaurantMenu extends React.Component {
     <div>
       <h4>{currentRestaurant.name}</h4>
       <p>Menu</p>
+      <div className="menu">
+      <ul className="menu-ul">
+      </ul>
+      </div>
     </div>)
   }
 }
@@ -26,6 +30,6 @@ const mapStateToProps = function (state, ownProps) {
 };
 const mapDispatchToProps = (dispatch)=> ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
-  fetchMenu: (restaurant) => dispatch(fetchMenu(restaurant))
+  fetchMenu: (id) => dispatch(fetchMenu(id))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
