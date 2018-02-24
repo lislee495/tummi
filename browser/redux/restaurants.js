@@ -90,7 +90,7 @@ export const searchRestaurants = (searchTerms, history) => dispatch => {
 
   axios.post('/api/restaurants', searchTerms)
   .then(restaurants => dispatch(foundRestaurants(restaurants.data)))
-  //       }))
+
 }
   // location = location.split(" ").join("+")
   // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
