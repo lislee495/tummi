@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {checkoutCart, clearCart} from '../redux/cart'
-// import CartDish from './CartDish'
+import CartDish from './CartDish'
 
 function CartBar(props){
     const {currentUser, cart, cartRestaurant} = props
@@ -11,12 +11,13 @@ function CartBar(props){
         <h3>My Cart</h3>
         <h5>{cartRestaurant.name}</h5>
         {cart[0] ?
-          (
-            <span>
-            {cart.length}
-            <button onClick={()=>props.handleClear()}>Clear Cart</button>
-            <button onClick={()=>props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
-            </span>
+          (  <div>
+              {cart.map(dish => <CartDish dish={dish} key={dish.id}/>)}
+              <span>
+              <button onClick={()=>props.handleClear()}>Clear Cart</button>
+              <button onClick={()=>props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
+              </span>
+            </div>
           ) : (<li>No items to show!</li>)
           }
         </ul>
