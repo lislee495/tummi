@@ -1,3 +1,5 @@
+import { request } from 'http';
+
 const router = require('express').Router();
 const HttpError = require('../utils/HttpError');
 const { Order, User } = require('../db/models');
@@ -19,6 +21,12 @@ router.post('/:id/favorites', (req, res, next) => {
     status: "favorite" })
   .then(result => res.status(201).json(result))
 });
+
+router.get('/:id/favorites', (req, res, next)=> {
+  const id = req.params.id
+  Order.findAll({ where: {user_id: id}})
+  .then(result => res.status(201).json(result))
+})
 
 
 module.exports = router;

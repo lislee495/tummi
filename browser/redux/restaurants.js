@@ -64,8 +64,13 @@ export const favoriteDish = (terms) => (dispatch) => {
   .then(res => dispatch(getFavorites(res.data)))
 }
 
-export const changeRestaurant = (id) => dispatch => {
-  axios.get(`/api/restaurants/${id}`)
+export const fetchFavorites = (user_id) => dispatch => {
+  axios.get(`/api/users/${user_id}/favorites`)
+  .then(favorites => dispatch(getFavorites(favorites.data)))
+}
+
+export const changeRestaurant = (restaurant_id) => dispatch => {
+  axios.get(`/api/restaurants/${restaurant_id}`)
   .then(restaurant => {
     dispatch(setCurrentRestaurant(restaurant.data))
   })
