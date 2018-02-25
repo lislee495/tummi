@@ -16,7 +16,7 @@ class Navbar extends React.Component {
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
               <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
               <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
-              <li><div onClick={()=>handleCartClick()} activeClassName="active">Cart</div></li>
+              <li><div data-activates="slide-out" onClick={()=>handleCartClick()}>Cart</div></li>
               <li><NavLink to="/logout" onClick={this.props.logout}>Logout</NavLink></li>
             </ul>
               <div className="right">
@@ -28,7 +28,7 @@ class Navbar extends React.Component {
   }
 }
 const mapState = ({currentUser}) => ({ currentUser });
-
+//
 
 const mapDispatch = (dispatch, ownProps) => ({
   logout: () => dispatch(logout(ownProps.history)),

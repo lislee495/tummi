@@ -40935,6 +40935,8 @@ var Root = function (_Component) {
     value: function componentDidMount() {
       this.props.fetchInitialData();
     }
+    // {showCart ? <CartBar/> : ""}
+
   }, {
     key: 'render',
     value: function render() {
@@ -42546,6 +42548,8 @@ var _cart = __webpack_require__(83);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import CartDish from './CartDish'
+
 function CartBar(props) {
   var currentUser = props.currentUser,
       cart = props.cart,
@@ -42557,9 +42561,20 @@ function CartBar(props) {
     _react2.default.createElement(
       'ul',
       { className: 'cart' },
-      cart ? _react2.default.createElement(
+      _react2.default.createElement(
+        'h3',
+        null,
+        'My Cart'
+      ),
+      _react2.default.createElement(
+        'h5',
+        null,
+        cartRestaurant.name
+      ),
+      cart[0] ? _react2.default.createElement(
         'span',
         null,
+        cart.length,
         _react2.default.createElement(
           'button',
           { onClick: function onClick() {
@@ -42603,6 +42618,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CartBar);
 // {cart.map(dish => <CartDish dish={dish} key={dish.id}>)}
+// {cart.map(dish => {
+//   return
+//   (<li>{dish.name} - {dish.price}</li>)
+// })}
 
 /***/ }),
 /* 485 */
@@ -44170,9 +44189,9 @@ var Navbar = function (_React$Component) {
               null,
               _react2.default.createElement(
                 'div',
-                { onClick: function onClick() {
+                { 'data-activates': 'slide-out', onClick: function onClick() {
                     return handleCartClick();
-                  }, activeClassName: 'active' },
+                  } },
                 'Cart'
               )
             ),
@@ -44203,6 +44222,7 @@ var mapState = function mapState(_ref) {
   var currentUser = _ref.currentUser;
   return { currentUser: currentUser };
 };
+//
 
 var mapDispatch = function mapDispatch(dispatch, ownProps) {
   return {

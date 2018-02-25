@@ -26,7 +26,7 @@ class Root extends Component {
 	componentDidMount() {
 		this.props.fetchInitialData();
 	}
-
+// {showCart ? <CartBar/> : ""}
 	render () {
     const {currentUser, showCart} = this.props
 		return (

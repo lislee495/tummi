@@ -1,6 +1,11 @@
 html {
   background-color: #f8f8f8; }
 
+/************NAVBAR************/
+
+.nav-wrapper {
+  z-index: 2 !important;
+}
 /********MAP************/
 #map {
   z-index: -1 !important;
@@ -71,4 +76,16 @@ html {
 
 .dish-div:hover {
   background-color: #d5d5d5 !important;
+}
+/********CART************/
+.cart-bar {
+  width: 300px;
+  right: 0;
+  position: absolute;
+  height:700px;
+  background-color: white;
+  z-index: 1;
+  padding: 30px;
+  border-style: solid;
+  border-width: 1px;
 }
