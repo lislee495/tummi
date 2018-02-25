@@ -28,14 +28,15 @@ class Root extends Component {
 	}
 
 	render () {
+    const {currentUser, showCart} = this.props
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
-          {this.props.currentUser.id ?
+          {currentUser.id ?
              (
               <div className="logged-in">
                 <Navbar/>
-                {if {this.props.showCart} <CartBar/>}
+                {showCart ? <CartBar/> : ""}
                   <Switch>
                     <Route exact path="/" component={MapPage} />
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
@@ -44,7 +45,6 @@ class Root extends Component {
               </div>) :
             (
               <div>
-                <Navbar/>
                 <Switch>
                 <Route exact path="/" component={LandingPage} />
       			    <Route path="/login" component={Login} />
@@ -62,17 +62,13 @@ class Root extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = state => {
-  return {
+const mapState = state => ({
     currentUser: state.currentUser,
-    showCart: state.showCart
-  };
-};
+    showCart: state.cart.showCart
+});
 
 const mapDispatch = dispatch => ({
-  fetchInitialData: () => {
-    dispatch(fetchCurrentUser());
-  }
+  fetchInitialData: () => dispatch(fetchCurrentUser())
 });
 
 export default connect(mapState, mapDispatch)(Root);

@@ -7,6 +7,7 @@ import {showCart} from '../redux/cart'
 class Navbar extends React.Component {
   render() {
     const name = this.props.currentUser.email
+    const handleCartClick = this.props.handleCartClick
     return(
       <nav>
         <div className="nav-wrapper">
@@ -15,13 +16,11 @@ class Navbar extends React.Component {
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
               <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
               <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
+              <li><div onClick={()=>handleCartClick()} activeClassName="active">Cart</div></li>
               <li><NavLink to="/logout" onClick={this.props.logout}>Logout</NavLink></li>
             </ul>
               <div className="right">
                 <Searchbar history={this.props.history}/>
-                <ul>
-                  <li><NavLink to="/" onClick={(event)=>handleCartClick(event)} activeClassName="active">Cart</NavLink></li>
-                </ul>
               </div>
           </div>
         </nav>
@@ -33,7 +32,8 @@ const mapState = ({currentUser}) => ({ currentUser });
 
 const mapDispatch = (dispatch, ownProps) => ({
   logout: () => dispatch(logout(ownProps.history)),
-  handleCartClick: () => dispatch(showCart())
+  handleCartClick: () => {
+    dispatch(showCart());
+  }
 });
-
 export default withRouter(connect(mapState, mapDispatch)(Navbar));
