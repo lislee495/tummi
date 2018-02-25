@@ -2432,7 +2432,7 @@ var logout = exports.logout = function logout(history) {
   };
 };
 
-var signup = exports.signup = function signup(credentials) {
+var signup = exports.signup = function signup(credentials, history) {
   return function (dispatch) {
     _axios2.default.post('/auth/local/signup', credentials).then(function (res) {
       return setUserAndRedirect(res.data, history, dispatch);

@@ -40,7 +40,8 @@ router.get('/:id/menu', function (req, res, next) {
 
 router.post('/', (req, res, next)=> {
   const {category, location} = req.body
-  axios.get(`https://api.yelp.com/v3/businesses/search?term=food+${category}&location=${location}`, {
+  const newLoc = location.split(" ").join("+")
+  axios.get(`https://api.yelp.com/v3/businesses/search?term=food+${category}&location=${newLoc}`, {
     headers: {"Authorization": "Bearer " + config.YELP_API_KEY}
   })
   .then(result => {
