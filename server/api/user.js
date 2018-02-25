@@ -4,8 +4,10 @@ const { User } = require('../db/models');
 
 router.post('/:id/orders', (req, res, next) => {
   User.findById(req.params.id)
-  .then(user => user.addDishes(cart, { status: 'ordered' }))
-  .then(result => res.status(201).json(result))
+  .then(user => user.setDishes(req.body.cart.map(ele => ele.id), {"status": "ordered"}))
+  .then(result => {
+    console.log(result)
+    res.status(201).json(result)})
 });
 
 

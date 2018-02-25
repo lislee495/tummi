@@ -35,7 +35,7 @@ export const login = (credentials, history) => dispatch => {
 export const logout = history => dispatch => {
   axios.delete('/auth/local/logout')
     .then(res => dispatch(removeCurrentUser(res.data)))
-    .then(() => history.push('/login'))
+    .then(() => history.push('/'))
     .catch(err => console.error('Logging out was unsuccesful', err));
 };
 
@@ -56,5 +56,5 @@ export const fetchCurrentUser = () => dispatch => {
 
 function setUserAndRedirect (user, history, dispatch) {
   dispatch(setCurrentUser(user));
-  history.push("/home");
+  history.push("/");
 }
