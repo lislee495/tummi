@@ -2,6 +2,7 @@ import React from 'react';
 import {checkoutCart, clearCart} from '../../redux/cart'
 
 function CartBar(props){
+    const {currentUser, cart, currentRestaurant} = props
     return (
       <div className="cart-bar">
         <ul className="cart">
@@ -9,7 +10,7 @@ function CartBar(props){
             return(
               {cart.map(dish => <CartDish dish={dish} key={dish.id}>)}
               <button onClick={()=>props.handleClear()}>Clear Cart</button>
-              <button onClick={()=>props.handleCheckout(cart)}>Checkout Cart</button>
+              <button onClick={()=>props.handleCheckout({cart, currentUser})}>Checkout Cart</button>
             )}
             else {
               return(<li>No items to show!</li>)
@@ -24,11 +25,12 @@ function CartBar(props){
 const mapStateToProps = function (state, ownProps) {
   return {
     currentRestaurant: state.restaurants.currentRestaurant,
-    cart: state.cart
+    cart: state.cart,
+    currentUser: state.currentUser
   };
 };
 const mapDispatchToProps = (dispatch)=> ({
-  handleCheckout: (cart)=>dispatch(checkoutCart(cart)),
+  handleCheckout: (terms)=>dispatch(checkoutCart(terms)),
   handleClear: ()=>dispatch(clearCart())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(CartBar);

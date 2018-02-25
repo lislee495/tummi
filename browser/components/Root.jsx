@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
-
+import CartBar from './CartBar'
 import LandingPage from './LandingPage';
 import Login from './Login';
 import Signup from './Signup';
@@ -28,7 +28,6 @@ class Root extends Component {
 	}
 
 	render () {
-    console.log(this.props.currentUser)
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
@@ -36,6 +35,7 @@ class Root extends Component {
              (
               <div className="logged-in">
                 <Navbar/>
+                {if {this.props.showCart} <CartBar/>}
                   <Switch>
                     <Route exact path="/" component={MapPage} />
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
@@ -46,9 +46,7 @@ class Root extends Component {
               <div>
                 <Navbar/>
                 <Switch>
-                <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
-                <Route path="/restaurants/:id" component={RestaurantPage} />
-                <Route exact path="/" component={MapPage} />
+                <Route exact path="/" component={LandingPage} />
       			    <Route path="/login" component={Login} />
       			    <Route path="/signup" component={Signup} />
                 </Switch>
@@ -66,7 +64,8 @@ class Root extends Component {
 
 const mapState = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    showCart: state.showCart
   };
 };
 
