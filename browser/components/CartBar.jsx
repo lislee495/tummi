@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {checkoutCart, clearCart} from '../redux/cart'
+import {checkoutCart, clearCart, removeItem} from '../redux/cart'
 import CartDish from './CartDish'
 
 function CartBar(props){
-    const {currentUser, cart, cartRestaurant} = props
+    const {currentUser, cart, cartRestaurant, removeItem} = props
     return (
       <div className="cart-bar">
         <ul className="cart">
         <h3>My Cart</h3>
-        <h5>{cartRestaurant.name}</h5>
+          <li><a className="subheader">{cartRestaurant.name}</a></li>
         {cart[0] ?
           (  <div>
-              {cart.map(dish => <CartDish dish={dish} key={dish.id}/>)}
+              {cart.map(dish => <CartDish dish={dish} key={dish.id} removeItem={removeItem}/>)}
+              <li><div className="divider"></div></li>
               <span>
               <button onClick={()=>props.handleClear()}>Clear Cart</button>
               <button onClick={()=>props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
@@ -35,6 +36,7 @@ const mapStateToProps = function (state, ownProps) {
   };
 };
 const mapDispatchToProps = (dispatch)=> ({
+  removeItem: (dish) => dispatch(removeItem(dish)),
   handleCheckout: (terms)=>dispatch(checkoutCart(terms)),
   handleClear: ()=>dispatch(clearCart())
 })
