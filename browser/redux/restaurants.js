@@ -12,6 +12,7 @@ const SEARCH_LOCATION = "SEARCH_LOCATION"
 const FOUND_RESTAURANTS = "FOUND_RESTAURANTS"
 const GET_MENU = "GET_MENU"
 const GET_DISHES = "GET_DISHES"
+const GET_FAVORITES = "GET_FAVORITES"
 
 
 /* ------------     ACTION CREATORS      ------------------ */
@@ -22,6 +23,7 @@ export const searchLocation = location => ({type: SEARCH_LOCATION, location})
 const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
 export const getMenu = menu => ({ type: GET_MENU, menu})
 export const getDishes = dishes => ({type: GET_DISHES, dishes})
+export const getFavorites = favorites => ({type: GET_FAVORITES, favorites})
 
 
 /* ------------          REDUCER         ------------------ */
@@ -32,7 +34,8 @@ export default function reducer (restaurants = {
   location: "",
   foundRestaurants: [],
   menu: {},
-  dishes: {}
+  dishes: {},
+  favorites: []
 }, action) {
   switch (action.type) {
     case SET_CURRENT_RESTAURANT:
@@ -47,15 +50,22 @@ export default function reducer (restaurants = {
       return Object.assign({}, restaurants, {menu: action.menu})
     case GET_DISHES:
       return Object.assign({}, restaurants, {dishes: action.dishes})
+    case GET_FAVORITES:
+      return Object.assign({}, restaurants, {favorites: [...restaurants.favorites, action.favorites]})
     default:
       return restaurants;
   }
 }
 
 /* ------------       THUNK CREATORS     ------------------ */
+export const favoriteDish = (terms) => (dispatch) => {
+  const {currentUser} = terms
+  axios.post(`/api/users/${currentUser.id}/favorites`, {terms})
+  .then(res => dispatch(getFavorites(res.data)))
+}
+
 export const changeRestaurant = (id) => dispatch => {
   axios.get(`/api/restaurants/${id}`)
-    // .then(res => console.log(res))
   .then(restaurant => {
     dispatch(setCurrentRestaurant(restaurant.data))
   })
@@ -70,41 +80,21 @@ export const fetchMenu = (id) => dispatch => {
 
 export const searchMenus = (searchTerms) => dispatch => {
   const {category, location} = searchTerms
-
   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${category}&instructionsRequired=false&number=20`, {
     headers: {
       "X-Mashape-Key": config.MASHAPE_KEY,
       "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
     }
   }).then(res =>
-    {
-    return Promise.map(res.data.results, function(dish) {
+    {return Promise.map(res.data.results, function(dish) {
       return axios.post('/api/dishes', {dish: dish, category: category.toLowerCase()})
     })
     }).then(res => res.map(ele => ele.data))
     .then(dishes => dispatch(getDishes(dishes)))
-
 }
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
-
   axios.post('/api/restaurants', searchTerms)
   .then(restaurants => dispatch(foundRestaurants(restaurants.data)))
 
 }
-  // location = location.split(" ").join("+")
-  // axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${config.GOOGLE_GEOCODE_API_KEY}`)
-  // .then(result => )
-//   axios.get(`https://developers.zomato.com/api/v2.1/search?count=10&q=${category}`, {
-//     headers: {'user-key': config.ZOMATO_KEY}
-//   })
-//   .then(res => res.data)
-//   .then(data => {
-//     return Promise.map(data.restaurants, function(restaurant) {
-//       return axios.post('/api/restaurants', {restaurant, category})
-//     })
-//     }).then(res => res.map(ele => ele.data))
-//     .then(restaurants => {
-//       dispatch(foundRestaurants(restaurants))
-//       })
-// }

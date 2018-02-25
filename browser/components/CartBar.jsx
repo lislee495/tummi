@@ -41,8 +41,3 @@ const mapDispatchToProps = (dispatch)=> ({
   handleClear: ()=>dispatch(clearCart())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(CartBar);
-  // {cart.map(dish => <CartDish dish={dish} key={dish.id}>)}
-  // {cart.map(dish => {
-  //   return
-  //   (<li>{dish.name} - {dish.price}</li>)
-  // })}

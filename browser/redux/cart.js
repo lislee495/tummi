@@ -26,7 +26,8 @@ export const removeItem = dish => ({ type: REMOVE_ITEM, dish})
 export default function reducer (cart = {
   dishes: [],
   showCart: false,
-  restaurant: {}
+  restaurant: {},
+  price: {}
 }, action) {
   switch (action.type) {
     case ADD_DISH:
