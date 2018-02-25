@@ -5,13 +5,13 @@ const Promise = require('bluebird')
 
 
 router.post('/:id/orders', async(req, res, next) => {
-  let user = await(User.findById(req.params.id))
-  Promise.each(req.body.cart, (dish)=> {
-    Order.create({user_id: user.id, dish_id: dish.id, status: "ordered" })
+  // let user = await(User.findById(req.params.id))
+  const {cart, currentUser, cartRestaurant} = req.body.terms
+  Promise.each(cart, (dish)=> {
+    Order.create({user_id: currentUser.id, dish_id: dish.id, restaurant_id: cartRestaurant.id,
+      status: "ordered" })
   })
-  .then(result => {
-    console.log(result)
-    res.status(201).json(result)})
+  .then(result => res.status(201).json(result))
 });
 
 

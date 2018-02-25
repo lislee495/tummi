@@ -14,7 +14,7 @@ class RestaurantMenu extends React.Component {
     <div>
       <h4>{currentRestaurant.name}</h4>
       <p>Menu</p>
-      {menu ? <Menu menu={menu}/> : ""}
+      {menu ? <Menu menu={menu} restaurant={currentRestaurant}/> : ""}
     </div>)
   }
 }

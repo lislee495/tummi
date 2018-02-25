@@ -3466,7 +3466,7 @@ var matchPath = function matchPath(pathname) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.checkoutCart = exports.showCart = exports.clearCart = exports.addDishToCart = undefined;
+exports.checkoutCart = exports.showCart = exports.clearCart = exports.addRestaurantToCart = exports.addDishToCart = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(117);
@@ -3492,11 +3492,15 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var ADD_DISH = "ADD_DISH";
 var CLEAR_CART = "CLEAR_CART";
 var SHOW_CART = "SHOW_CART";
+var ADD_RESTAURANT = "ADD_RESTAURANT";
 
 /* ------------     ACTION CREATORS      ------------------ */
 
 var addDishToCart = exports.addDishToCart = function addDishToCart(dish) {
   return { type: ADD_DISH, dish: dish };
+};
+var addRestaurantToCart = exports.addRestaurantToCart = function addRestaurantToCart(restaurant) {
+  return { type: ADD_RESTAURANT, restaurant: restaurant };
 };
 var clearCart = exports.clearCart = function clearCart() {
   return { type: CLEAR_CART, cart: "" };
@@ -3510,7 +3514,8 @@ var showCart = exports.showCart = function showCart() {
 function reducer() {
   var cart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     dishes: [],
-    showCart: false
+    showCart: false,
+    restaurant: {}
   };
   var action = arguments[1];
 
@@ -3521,6 +3526,8 @@ function reducer() {
       return Object.assign({}, cart, { dishes: [] });
     case SHOW_CART:
       return Object.assign({}, cart, { showCart: !cart.showCart });
+    case ADD_RESTAURANT:
+      return Object.assign({}, cart, { restaurant: action.restaurant });
     default:
       return cart;
   }
@@ -3530,9 +3537,10 @@ function reducer() {
 var checkoutCart = exports.checkoutCart = function checkoutCart(terms) {
   return function (dispatch) {
     var currentUser = terms.currentUser,
-        cart = terms.cart;
+        cart = terms.cart,
+        cartRestaurant = terms.cartRestaurant;
 
-    _axios2.default.post('/api/users/' + currentUser.id + '/orders', { cart: cart }).then(function (res) {
+    _axios2.default.post('/api/users/' + currentUser.id + '/orders', { terms: terms }).then(function (res) {
       return dispatch(clearCart());
     });
   };
@@ -42541,7 +42549,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function CartBar(props) {
   var currentUser = props.currentUser,
       cart = props.cart,
-      currentRestaurant = props.currentRestaurant;
+      cartRestaurant = props.cartRestaurant;
 
   return _react2.default.createElement(
     'div',
@@ -42562,7 +42570,7 @@ function CartBar(props) {
         _react2.default.createElement(
           'button',
           { onClick: function onClick() {
-              return props.handleCheckout({ cart: cart, currentUser: currentUser });
+              return props.handleCheckout({ cart: cart, currentUser: currentUser, cartRestaurant: cartRestaurant });
             } },
           'Checkout Cart'
         )
@@ -42578,9 +42586,9 @@ function CartBar(props) {
 /* -----------------    CONTAINER     ------------------ */
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    currentRestaurant: state.restaurants.currentRestaurant,
     cart: state.cart.dishes,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    cartRestaurant: state.cart.restaurant
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -44471,7 +44479,7 @@ var RestaurantMenu = function (_React$Component) {
           null,
           'Menu'
         ),
-        menu ? _react2.default.createElement(_Menu2.default, { menu: menu }) : ""
+        menu ? _react2.default.createElement(_Menu2.default, { menu: menu, restaurant: currentRestaurant }) : ""
       );
     }
   }]);
@@ -44543,6 +44551,7 @@ var Menu = function (_React$Component) {
     key: 'render',
     value: function render() {
       var menu = [].concat(_toConsumableArray(this.props.menu));
+      var restaurant = this.props.restaurant;
       return _react2.default.createElement(
         'div',
         { className: 'menu' },
@@ -44550,7 +44559,7 @@ var Menu = function (_React$Component) {
           'ul',
           { className: 'menu-ul' },
           menu.map(function (dish) {
-            return _react2.default.createElement(_MenuDiv2.default, { dish: dish, key: dish.id });
+            return _react2.default.createElement(_MenuDiv2.default, { dish: dish, key: dish.id, restaurant: restaurant });
           })
         )
       );
@@ -44588,7 +44597,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function MenuDiv(props) {
   var dish = props.dish,
-      handleClick = props.handleClick;
+      handleClick = props.handleClick,
+      restaurant = props.restaurant;
 
   return _react2.default.createElement(
     'li',
@@ -44596,7 +44606,7 @@ function MenuDiv(props) {
     _react2.default.createElement(
       'div',
       { className: 'dish-div', style: { cursor: "pointer" }, onClick: function onClick() {
-          return handleClick(dish);
+          return handleClick(dish, restaurant);
         } },
       _react2.default.createElement(
         'h6',
@@ -44613,8 +44623,9 @@ function MenuDiv(props) {
 }
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    handleClick: function handleClick(dish) {
-      return dispatch((0, _cart.addDishToCart)(dish));
+    handleClick: function handleClick(dish, restaurant) {
+      dispatch((0, _cart.addDishToCart)(dish));
+      dispatch((0, _cart.addRestaurantToCart)(restaurant));
     }
   };
 };
