@@ -26,6 +26,24 @@ export default class LandingPage extends React.Component {
           <div className="about-image">
           </div>
         </div>
+        <div className="add-info">
+          <div className="info">
+          <p>You should use this.</p>
+          </div>
+          <div className="info">
+          <p>You should use this.</p></div>
+          <div className="info">
+          <p>You should use this.</p></div>
+        </div>
+        <div className="footer">
+          <div className="footer-info">
+          Created by Lisa Lee
+          <br/>
+          with 
+          <br/>
+          <img src="/images/flatiron-logo.png" className="flatiron-logo"/>
+          </div>
+        </div>
       </div>
     )
   }
