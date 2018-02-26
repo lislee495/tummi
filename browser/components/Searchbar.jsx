@@ -5,24 +5,24 @@ import {searchCategory, searchLocation, searchRestaurants, searchMenus} from '..
 function Searchbar(props) {
   const {location, category, handleLocationChange, handleCategoryChange, handleSubmit} = props
     return(
-      <form className="form-inline" onSubmit={evt => handleSubmit(category, location, evt)}>
-        <div className="form-group">
+      <form className="form-inline nav-bar" onSubmit={evt => handleSubmit(category, location, evt)}>
+        <div className="form-group nav-bar">
           <input type="text"
-          className="form-control"
+          className="form-control nav-bar"
           onChange={handleCategoryChange}
           value={category}
           placeholder="Category"
           required/>
         </div>
-        <div className="form-group">
+        <div className="form-group nav-bar">
           <input type="text"
-          className="form-control"
+          className="form-control nav-bar"
           value={location}
           onChange={handleLocationChange}
           placeholder="Location"
           required/>
         </div>
-        <button type="submit" className="btn btn-default">Search</button>
+        <button type="submit" className="search"><i class="material-icons">search</i></button>
       </form>
     )
 }

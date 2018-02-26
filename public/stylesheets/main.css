@@ -18,11 +18,19 @@ a {
 
 /************LANDING PAGE************/
 
-img.responsive-img {
-  z-index: -1;
-  float:left;
-  filter: brightness(60%);
-  clip-path: border-box;
+div.landing-page {
+  display: flex;
+  flex-flow: row wrap;
+}
+div.image-wrapper {
+  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("/images/pexels-photo-710916.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  float: left;
+  display: block;
 }
 
 a.landing-page {
@@ -55,8 +63,34 @@ button.landing-page {
 
 .logo {
   font-size: 70px;
-
 }
+div.about {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%; 
+  height: 100vh;
+}
+
+div.about-paragraph {
+  width: 20rem;
+  height: 20rem;
+  margin: 10rem auto;
+  display:inline-block;
+}
+
+div.about-image {
+  background: url("/images/pexels-photo-566566.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 50rem;
+  display:inline-block;
+  /* justify-self: flex-end; */
+}
+
+
 /************LOGIN & SIGNUP************/
 
 .signin-container {
@@ -79,6 +113,24 @@ input.form-control.landing-page {
 /************NAVBAR************/
 .nav-wrapper {
   z-index: 2 !important;
+}
+
+input.nav-bar {
+  width: 80% !important;
+}
+.form-group.nav-bar {
+  width: 10rem !important;
+}
+
+form.nav-bar {
+  width: 35rem !important;
+  margin: 
+}
+
+button.search {
+  background-color: transparent;
+  box-shadow: none;
+  border-style: none;
 }
 /********MAP************/
 #map {

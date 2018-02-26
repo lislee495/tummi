@@ -7,7 +7,6 @@ export default class LandingPage extends React.Component {
     return(
       <div className="landing-page">
         <div className="image-wrapper">
-        <img className="responsive-img" src="/images/pexels-photo-710916.jpeg"/>
         </div>
         <div className="banner text-center">
           <h1 className="logo">Tummi</h1>
@@ -20,8 +19,12 @@ export default class LandingPage extends React.Component {
           </span>
         </div>
         <div className="about">
-          <p> BLAH BLAH BLAH
-          </p>
+          <div className="about-paragraph">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis omnis quia ut voluptates quas, eligendi qui laborum, corporis ipsam maxime, sed sunt dolore asperiores. Aspernatur nam quo possimus ea alias!
+              </p>
+          </div>
+          <div className="about-image">
+          </div>
         </div>
       </div>
     )
