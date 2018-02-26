@@ -44272,71 +44272,75 @@ var Navbar = function (_React$Component) {
       var name = this.props.currentUser.email;
       var handleCartClick = this.props.handleCartClick;
       return _react2.default.createElement(
-        'nav',
-        null,
+        'div',
+        { className: 'nav-wrap' },
         _react2.default.createElement(
-          'div',
-          { className: 'nav-wrapper' },
+          'ul',
+          { className: 'left nav-items' },
           _react2.default.createElement(
-            'div',
-            { className: 'brand-logo center' },
-            'Tummi'
-          ),
-          _react2.default.createElement(
-            'ul',
-            { id: 'nav-mobile', className: 'left hide-on-med-and-down' },
+            'li',
+            null,
             _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/', activeClassName: 'active' },
-                'Home'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/favorites', activeClassName: 'active' },
-                'Favorites'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/trends', activeClassName: 'active' },
-                'Trends'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                'div',
-                { 'data-activates': 'slide-out', onClick: function onClick() {
-                    return handleCartClick();
-                  } },
-                'Cart'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/logout', onClick: this.props.logout },
-                'Logout'
-              )
+              _reactRouterDom.NavLink,
+              { to: '/', activeClassName: 'active' },
+              'Home'
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'right' },
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/favorites', activeClassName: 'active' },
+              'Favorites'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/trends', activeClassName: 'active' },
+              'Trends'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/logout', onClick: this.props.logout },
+              'Logout'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'brand-logo center' },
+          'Tummi'
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'right nav-items' },
+          _react2.default.createElement(
+            'li',
+            null,
             _react2.default.createElement(_Searchbar2.default, { history: this.props.history })
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'button',
+              { 'class': 'cart-btn', onClick: function onClick() {
+                  return handleCartClick();
+                } },
+              _react2.default.createElement(
+                'i',
+                { 'class': 'material-icons' },
+                'shopping_cart'
+              )
+            )
           )
         )
       );

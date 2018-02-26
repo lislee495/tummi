@@ -9,21 +9,23 @@ class Navbar extends React.Component {
     const name = this.props.currentUser.email
     const handleCartClick = this.props.handleCartClick
     return(
-      <nav>
-        <div className="nav-wrapper">
-          <div className="brand-logo center">Tummi</div>
-            <ul id="nav-mobile" className="left hide-on-med-and-down">
+      
+        <div className="nav-wrap">
+          
+            <ul className="left nav-items">
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
               <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
               <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
-              <li><div data-activates="slide-out" onClick={()=>handleCartClick()}>Cart</div></li>
               <li><NavLink to="/logout" onClick={this.props.logout}>Logout</NavLink></li>
             </ul>
-              <div className="right">
-                <Searchbar history={this.props.history}/>
-              </div>
+            <div className="brand-logo center">Tummi</div>
+            <ul className="right nav-items">
+             <li><Searchbar history={this.props.history}/></li>
+              <li><button class="cart-btn" onClick={()=>handleCartClick()}>
+              <i class="material-icons">shopping_cart</i></button></li>
+            </ul>
           </div>
-        </nav>
+        
     )
   }
 }

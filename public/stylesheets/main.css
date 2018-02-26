@@ -130,8 +130,6 @@ img.flatiron-logo {
   width: auto;
 }
 
-
-
 /************LOGIN & SIGNUP************/
 
 .signin-container {
@@ -152,8 +150,38 @@ input.form-control.landing-page {
 }
 
 /************NAVBAR************/
-.nav-wrapper {
-  z-index: 2 !important;
+div.nav-wrap {
+  z-index: 2;
+  display: flex;
+  width: 100%; 
+  height: 5rem;
+  background-color: #f56349;
+  color: white; 
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+ul.nav-items {
+  width: 430px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+ul.nav-items li {
+  display: inline-block;
+}
+ul.left.nav-items li {
+  align-self: center;
+  font-size: 1rem;
+}
+
+ul.right.nav-items li {
+  align-self: center;
+}
+
+div.brand-logo.center {
+  align-self: center;
+  font-size: 3.5rem;
 }
 
 input.nav-bar {
@@ -164,11 +192,16 @@ input.nav-bar {
 }
 
 form.nav-bar {
-  width: 35rem !important;
-  margin: 
+  width: 25rem !important;
 }
 
 button.search {
+  background-color: transparent;
+  box-shadow: none;
+  border-style: none;
+}
+
+button.cart-btn {
   background-color: transparent;
   box-shadow: none;
   border-style: none;
@@ -250,9 +283,8 @@ button.search {
   right: 0;
   position: absolute;
   height:700px;
-  background-color: white;
+  background-color: #fad188;
+  color: white; 
   z-index: 1;
   padding: 30px;
-  border-style: solid;
-  border-width: 1px;
 }
