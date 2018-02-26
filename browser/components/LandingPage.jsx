@@ -3,14 +3,20 @@ import { NavLink, withRouter } from 'react-router-dom';
 
 export default class LandingPage extends React.Component {
   render() {
+
     return(
       <div className="landing-page">
+        <div className="image-wrapper">
+        <img className="responsive-img" src="/images/pexels-photo-710916.jpeg"/>
+        </div>
         <div className="banner text-center">
           <h1>Tummi</h1>
-          <h2>A stomach's best friend.</h2>
+          <h5>A stomach's best friend.</h5>
+          <br/>
+          <br/>
           <span>
-            <button><NavLink to="/signup" activeClassName="active">Signup</NavLink></button>
-            <button><NavLink to="/login" activeClassName="active">Login</NavLink></button>
+            <button className="landing-page"><NavLink to="/signup" activeClassName="active landing-page">Signup</NavLink></button>
+            <button className="landing-page"><NavLink to="/login" activeClassName="active landing-page">Login</NavLink></button>
           </span>
         </div>
         <div className="about">

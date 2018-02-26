@@ -1,6 +1,54 @@
 html {
   background-color: #f8f8f8; }
 
+body {
+  padding: 0;
+  text-align: center;
+  font-family: 'PT Sans', sans-serif;
+}
+
+#main {
+  padding: 0;
+}
+
+a {
+  color: white; 
+  text-decoration: none !important;
+}
+
+/************LANDING PAGE************/
+
+img.responsive-img {
+  z-index: -1;
+  float:left;
+  filter: brightness(60%)
+}
+
+a.landing-page {
+  color: white; 
+  text-decoration: none !important;
+}
+
+.banner {
+  position: absolute;
+  display: block;
+  color: white; 
+  margin: 200px 400px;
+  width: 400px;
+  float: none;
+}
+
+button.landing-page {
+  width: 100px;
+  color: white; 
+  padding: 10px;
+  background-color: Transparent;
+  margin: 20px;
+  outline:none;
+  border-style: solid; 
+  border-color: white; 
+  border-width: 2px; 
+}
 /************NAVBAR************/
 
 .nav-wrapper {

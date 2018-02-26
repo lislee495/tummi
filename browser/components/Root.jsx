@@ -10,6 +10,8 @@ import MapPage from './MapPage'
 import Navbar from './Navbar'
 import RestaurantPage from './restaurant/RestaurantPage'
 import RestaurantMenu from './restaurant/RestaurantMenu'
+import $ from 'jquery';
+window.jQuery = window.$ = $;
 
 import { fetchCurrentUser } from '../redux/auth';
 
@@ -26,7 +28,6 @@ class Root extends Component {
 	componentDidMount() {
 		this.props.fetchInitialData();
 	}
-// {showCart ? <CartBar/> : ""}
 	render () {
     const {currentUser, showCart} = this.props
 		return (
