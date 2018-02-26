@@ -98,10 +98,8 @@ class Map extends React.Component {
       bottom: 0,
       width: '90%'
     };
-    return (<div>
-      <div>
-        <div>{`Latitude: ${lat} Longitude: ${lng} Zoom: ${zoom}`}</div>
-      </div>
+    return (
+    <div>
       <div ref={el => this.mapContainer = el} style={style}/>
     </div>)
   }

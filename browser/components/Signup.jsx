@@ -18,7 +18,7 @@ class Signup extends React.Component {
               <input
                 name="email"
                 type="email"
-                className="form-control"
+                className="form-control landing-page"
                 required
               />
             </div>
@@ -27,7 +27,7 @@ class Signup extends React.Component {
               <input
                 name="password"
                 type="password"
-                className="form-control"
+                className="form-control landing-page"
                 required
               />
             </div>

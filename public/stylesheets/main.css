@@ -21,7 +21,8 @@ a {
 img.responsive-img {
   z-index: -1;
   float:left;
-  filter: brightness(60%)
+  filter: brightness(60%);
+  clip-path: border-box;
 }
 
 a.landing-page {
@@ -33,7 +34,9 @@ a.landing-page {
   position: absolute;
   display: block;
   color: white; 
-  margin: 200px 400px;
+  margin: 200px auto;
+  left: 0;
+  right: 0;
   width: 400px;
   float: none;
 }
@@ -49,8 +52,31 @@ button.landing-page {
   border-color: white; 
   border-width: 2px; 
 }
-/************NAVBAR************/
 
+.logo {
+  font-size: 70px;
+
+}
+/************LOGIN & SIGNUP************/
+
+.signin-container {
+  width: 400px;
+  height: 500px;
+  margin: 300px auto; 
+  z-index: 2;
+  background-color: white;
+  padding: 30px;
+  position: absolute;
+  margin: 150px auto;
+  left: 0;
+  right: 0;
+}
+
+input.form-control.landing-page {
+  text-align: center;
+}
+
+/************NAVBAR************/
 .nav-wrapper {
   z-index: 2 !important;
 }

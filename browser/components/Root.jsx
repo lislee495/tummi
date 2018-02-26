@@ -46,11 +46,10 @@ class Root extends Component {
               </div>) :
             (
               <div>
-                <Switch>
-                <Route exact path="/" component={LandingPage} />
-      			    <Route path="/login" component={Login} />
+                <Route path="/login" component={Login} />
       			    <Route path="/signup" component={Signup} />
-                </Switch>
+                <Route path="/" component={LandingPage} />
+
               </div>
             )
           }

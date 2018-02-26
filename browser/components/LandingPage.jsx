@@ -10,7 +10,7 @@ export default class LandingPage extends React.Component {
         <img className="responsive-img" src="/images/pexels-photo-710916.jpeg"/>
         </div>
         <div className="banner text-center">
-          <h1>Tummi</h1>
+          <h1 className="logo">Tummi</h1>
           <h5>A stomach's best friend.</h5>
           <br/>
           <br/>

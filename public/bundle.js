@@ -40985,13 +40985,9 @@ var Root = function (_Component) {
           ) : _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(
-              _reactRouterDom.Switch,
-              null,
-              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _LandingPage2.default }),
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default })
-            )
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _LandingPage2.default })
           )
         )
       );
@@ -42764,7 +42760,7 @@ var LandingPage = function (_React$Component) {
           { className: 'banner text-center' },
           _react2.default.createElement(
             'h1',
-            null,
+            { className: 'logo' },
             'Tummi'
           ),
           _react2.default.createElement(
@@ -42879,7 +42875,7 @@ var Login = function (_React$Component) {
               _react2.default.createElement('input', {
                 name: 'email',
                 type: 'email',
-                className: 'form-control',
+                className: 'form-control landing-page',
                 required: true
               })
             ),
@@ -42894,7 +42890,7 @@ var Login = function (_React$Component) {
               _react2.default.createElement('input', {
                 name: 'password',
                 type: 'password',
-                className: 'form-control',
+                className: 'form-control landing-page',
                 required: true
               })
             ),
@@ -43035,7 +43031,7 @@ var Signup = function (_React$Component) {
               _react2.default.createElement('input', {
                 name: 'email',
                 type: 'email',
-                className: 'form-control',
+                className: 'form-control landing-page',
                 required: true
               })
             ),
@@ -43050,7 +43046,7 @@ var Signup = function (_React$Component) {
               _react2.default.createElement('input', {
                 name: 'password',
                 type: 'password',
-                className: 'form-control',
+                className: 'form-control landing-page',
                 required: true
               })
             ),
@@ -43328,15 +43324,6 @@ var Map = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'div',
-            null,
-            'Latitude: ' + lat + ' Longitude: ' + lng + ' Zoom: ' + zoom
-          )
-        ),
         _react2.default.createElement('div', { ref: function ref(el) {
             return _this4.mapContainer = el;
           }, style: style })
