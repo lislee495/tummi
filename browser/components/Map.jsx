@@ -92,15 +92,9 @@ class Map extends React.Component {
 
   render() {
     const {lat, lng, zoom} = this.state;
-    const style = {
-      position: 'absolute',
-      top: 100,
-      bottom: 0,
-      width: '90%'
-    };
     return (
     <div>
-      <div ref={el => this.mapContainer = el} style={style}/>
+      <div ref={el => this.mapContainer = el}/>
     </div>)
   }
 }

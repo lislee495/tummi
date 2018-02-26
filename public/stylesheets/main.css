@@ -222,9 +222,19 @@ button.cart-btn {
   max-width: 200px;
 }
 
+.mapboxgl-map {
+  position: absolute;
+  top: 5rem;
+  bottom: 0;
+  width: 100%;
+}
+
+.mapboxgl-canvas {
+  position: relative !important;
+}
+
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
 }
 /*****RESTAURANT DIV******/
 
