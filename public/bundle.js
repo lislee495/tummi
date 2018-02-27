@@ -42774,41 +42774,44 @@ var LandingPage = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'landing-page' },
-        _react2.default.createElement('div', { className: 'image-wrapper' }),
         _react2.default.createElement(
           'div',
-          { className: 'banner text-center' },
+          { className: 'image-wrapper' },
           _react2.default.createElement(
-            'h1',
-            { className: 'logo' },
-            'Tummi'
-          ),
-          _react2.default.createElement(
-            'h5',
-            null,
-            'A stomach\'s best friend.'
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'span',
-            null,
+            'div',
+            { className: 'banner text-center' },
             _react2.default.createElement(
-              'button',
-              { className: 'landing-page' },
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/signup', activeClassName: 'active landing-page' },
-                'Signup'
-              )
+              'h1',
+              { className: 'logo' },
+              'Tummi'
             ),
             _react2.default.createElement(
-              'button',
-              { className: 'landing-page' },
+              'h5',
+              null,
+              'A stomach\'s best friend.'
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'span',
+              null,
               _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/login', activeClassName: 'active landing-page' },
-                'Login'
+                'button',
+                { className: 'landing-page' },
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/signup', activeClassName: 'active landing-page' },
+                  'Signup'
+                )
+              ),
+              _react2.default.createElement(
+                'button',
+                { className: 'landing-page' },
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/login', activeClassName: 'active landing-page' },
+                  'Login'
+                )
               )
             )
           )
@@ -44113,7 +44116,9 @@ function RestaurantDetail(props) {
         'p',
         null,
         restaurant.user_rating,
-        '(user ratings)'
+        '(',
+        restaurant.votes,
+        ' user ratings)'
       ),
       _react2.default.createElement(
         'p',
