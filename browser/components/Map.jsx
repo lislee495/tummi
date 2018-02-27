@@ -35,15 +35,6 @@ class Map extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.restaurants !== nextProps.restaurants) {
       var restaurantLocation = nextProps.restaurants[0];
-      // var newMap = new mapboxgl.Map({
-      //     container: this.mapContainer,
-      //     style: "mapbox://styles/mapbox/streets-v10",
-      //     center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)],
-      //     zoom: 17,
-      // })
-      // this.setState({
-      //   map: newMap
-      // })
       this.state.map.flyTo({
         center: [
           parseFloat(restaurantLocation.longitude),
@@ -99,7 +90,7 @@ class Map extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  restaurants: state.restaurants.foundRestaurants,
+  restaurants: state.restaurants.foundRestaurants.slice(state.restaurants.foundRestaurantIndex, state.restaurants.foundRestaurantIndex+5),
   currentRestaurant: state.restaurants.currentRestaurant || {}
 })
 export default connect(mapStateToProps)(Map);
