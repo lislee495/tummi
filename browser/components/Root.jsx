@@ -10,6 +10,7 @@ import MapPage from './MapPage'
 import Navbar from './Navbar'
 import RestaurantPage from './restaurant/RestaurantPage'
 import RestaurantMenu from './restaurant/RestaurantMenu'
+import RestaurantList from './restaurant/RestaurantList'
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 
@@ -29,7 +30,7 @@ class Root extends Component {
 		this.props.fetchInitialData();
 	}
 	render () {
-    const {currentUser, showCart} = this.props
+    const {currentUser, showCart, foundRestaurants} = this.props
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">
@@ -38,6 +39,7 @@ class Root extends Component {
               <div className="logged-in">
                 <Navbar/>
                 {showCart ? <CartBar/> : ""}
+                { foundRestaurants[0] && <RestaurantList foundRestaurants={foundRestaurants}/>}
                   <Switch>
                     <Route exact path="/" component={MapPage} />
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
@@ -64,7 +66,8 @@ class Root extends Component {
 
 const mapState = state => ({
     currentUser: state.currentUser,
-    showCart: state.cart.showCart
+    showCart: state.cart.showCart,
+    foundRestaurants: state.restaurants.foundRestaurants
 });
 
 const mapDispatch = dispatch => ({

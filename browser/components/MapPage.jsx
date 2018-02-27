@@ -2,20 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Map from './Map'
 import RestaurantDetail from './restaurant/RestaurantDetail'
-import RestaurantList from './restaurant/RestaurantList'
 
 function MapPage(props) {
-  const {foundRestaurants, currentRestaurant} = props;
+  const {currentRestaurant} = props;
   return (
     <div>
-      { foundRestaurants[1] && <RestaurantList foundRestaurants={foundRestaurants}/>}
-      { currentRestaurant.name && <RestaurantDetail currentRestaurant={currentRestaurant}/>}
+      <div className="top-items">
+        { currentRestaurant.name && <RestaurantDetail currentRestaurant={currentRestaurant}/>}
+      </div>
       <Map/>
     </div>)
 }
 const mapStateToProps = function (state) {
   return {
-    foundRestaurants: state.restaurants.foundRestaurants,
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };
