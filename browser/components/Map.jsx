@@ -33,8 +33,8 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.restaurants !== nextProps.restaurants) {
-      var restaurantLocation = nextProps.restaurants[0];
+    if (this.props.showRestaurants[0] !== nextProps.showRestaurants[0]) {
+      var restaurantLocation = nextProps.showRestaurants[0];
       this.state.map.flyTo({
         center: [
           parseFloat(restaurantLocation.longitude),
@@ -43,7 +43,7 @@ class Map extends React.Component {
       })
       const geojson = {
         "type": "FeatureCollection",
-        "features": nextProps.restaurants.map(ele => {
+        "features": nextProps.showRestaurants.map(ele => {
           return {
             "type": "Feature",
             "properties": {
@@ -90,7 +90,10 @@ class Map extends React.Component {
   }
 }
 const mapStateToProps = (state) => ({
-  restaurants: state.restaurants.foundRestaurants.slice(state.restaurants.foundRestaurantIndex, state.restaurants.foundRestaurantIndex+5),
+  foundRestaurants: state.restaurants.foundRestaurants,
+  showRestaurants: state.restaurants.showRestaurants,
   currentRestaurant: state.restaurants.currentRestaurant || {}
 })
 export default connect(mapStateToProps)(Map);
+
+// .slice(state.restaurants.foundRestaurantIndex, state.restaurants.foundRestaurantIndex+5)

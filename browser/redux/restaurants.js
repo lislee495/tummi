@@ -13,7 +13,7 @@ const FOUND_RESTAURANTS = "FOUND_RESTAURANTS"
 const GET_MENU = "GET_MENU"
 const GET_DISHES = "GET_DISHES"
 const GET_FAVORITES = "GET_FAVORITES"
-const FOUND_RESTAURANT_INDEX = "FOUND_RESTAURANT_INDEX"
+const SET_FOUND_RESTAURANT_INDEX = "SET_FOUND_RESTAURANT_INDEX"
 const RESET_RESTAURANT_INDEX = "RESET_RESTAURANT_INDEX"
 
 
@@ -26,7 +26,7 @@ const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
 export const getMenu = menu => ({ type: GET_MENU, menu})
 export const getDishes = dishes => ({type: GET_DISHES, dishes})
 export const getFavorites = favorites => ({type: GET_FAVORITES, favorites})
-export const foundRestaurantIndex = number => ({type: FOUND_RESTAURANT_INDEX, number})
+export const setFoundRestaurantIndex = number => ({type: SET_FOUND_RESTAURANT_INDEX, number})
 export const resetRestaurauntIndex = () => ({type: RESET_RESTAURANT_INDEX})
 
 
@@ -38,6 +38,7 @@ export default function reducer (restaurants = {
   location: "",
   foundRestaurants: [],
   foundRestaurantIndex: 0,
+  showRestaurants: [],
   menu: {},
   dishes: {},
   favorites: []
@@ -51,10 +52,11 @@ export default function reducer (restaurants = {
       return Object.assign({}, restaurants, {location: action.location})
     case FOUND_RESTAURANTS:
       return Object.assign({}, restaurants, {foundRestaurants: action.restaurants})
-    case FOUND_RESTAURANT_INDEX: 
-      return Object.assign({}, restaurants, {foundRestaurantIndex: restaurants.foundRestaurantIndex + action.number})
+    case SET_FOUND_RESTAURANT_INDEX: 
+      return Object.assign({}, restaurants, {foundRestaurantIndex: restaurants.foundRestaurantIndex + action.number,
+      showRestaurants: restaurants.foundRestaurants.slice(restaurants.foundRestaurantIndex, restaurants.foundRestaurantIndex + 5)})
     case RESET_RESTAURANT_INDEX: 
-      return  Object.assign({}, restaurants, {foundRestaurantIndex: 0})
+      return  Object.assign({}, restaurants, {foundRestaurantIndex: 0, showRestaurants: restaurants.foundRestaurants.slice(0, 5)})
     case GET_MENU:
       return Object.assign({}, restaurants, {menu: action.menu})
     case GET_DISHES:
@@ -110,5 +112,6 @@ export const searchMenus = (searchTerms) => dispatch => {
 export const searchRestaurants = (searchTerms, history) => dispatch => {
   axios.post('/api/restaurants', searchTerms)
   .then(restaurants => dispatch(foundRestaurants(restaurants.data)))
+  .then(()=> dispatch(resetRestaurauntIndex()))
 
 }

@@ -13,7 +13,7 @@ export default function RestaurantDetail(props){
         <h4>{restaurant.name}</h4>
         <p>Price: {restaurant.price_range}</p>
         <p>Address: {restaurant.address}</p>
-        <p>{restaurant.user_rating}<i class="material-icons">star_rate</i> (user ratings)</p>
+        <p>{restaurant.user_rating}({restaurant.votes} user ratings)</p>
         <p><button><NavLink to={url} activeClassName="active">See More</NavLink></button></p>
       </div>
     </div>

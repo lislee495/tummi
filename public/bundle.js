@@ -2469,7 +2469,7 @@ function setUserAndRedirect(user, history, dispatch) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.fetchFavorites = exports.favoriteDish = exports.getFavorites = exports.getDishes = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
+exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.fetchFavorites = exports.favoriteDish = exports.resetRestaurauntIndex = exports.setFoundRestaurantIndex = exports.getFavorites = exports.getDishes = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(116);
@@ -2499,6 +2499,8 @@ var FOUND_RESTAURANTS = "FOUND_RESTAURANTS";
 var GET_MENU = "GET_MENU";
 var GET_DISHES = "GET_DISHES";
 var GET_FAVORITES = "GET_FAVORITES";
+var SET_FOUND_RESTAURANT_INDEX = "SET_FOUND_RESTAURANT_INDEX";
+var RESET_RESTAURANT_INDEX = "RESET_RESTAURANT_INDEX";
 
 /* ------------     ACTION CREATORS      ------------------ */
 
@@ -2523,6 +2525,12 @@ var getDishes = exports.getDishes = function getDishes(dishes) {
 var getFavorites = exports.getFavorites = function getFavorites(favorites) {
   return { type: GET_FAVORITES, favorites: favorites };
 };
+var setFoundRestaurantIndex = exports.setFoundRestaurantIndex = function setFoundRestaurantIndex(number) {
+  return { type: SET_FOUND_RESTAURANT_INDEX, number: number };
+};
+var resetRestaurauntIndex = exports.resetRestaurauntIndex = function resetRestaurauntIndex() {
+  return { type: RESET_RESTAURANT_INDEX };
+};
 
 /* ------------          REDUCER         ------------------ */
 
@@ -2532,6 +2540,8 @@ function reducer() {
     category: "",
     location: "",
     foundRestaurants: [],
+    foundRestaurantIndex: 0,
+    showRestaurants: [],
     menu: {},
     dishes: {},
     favorites: []
@@ -2547,6 +2557,11 @@ function reducer() {
       return Object.assign({}, restaurants, { location: action.location });
     case FOUND_RESTAURANTS:
       return Object.assign({}, restaurants, { foundRestaurants: action.restaurants });
+    case SET_FOUND_RESTAURANT_INDEX:
+      return Object.assign({}, restaurants, { foundRestaurantIndex: restaurants.foundRestaurantIndex + action.number,
+        showRestaurants: restaurants.foundRestaurants.slice(restaurants.foundRestaurantIndex, restaurants.foundRestaurantIndex + 5) });
+    case RESET_RESTAURANT_INDEX:
+      return Object.assign({}, restaurants, { foundRestaurantIndex: 0, showRestaurants: restaurants.foundRestaurants.slice(0, 5) });
     case GET_MENU:
       return Object.assign({}, restaurants, { menu: action.menu });
     case GET_DISHES:
@@ -2621,6 +2636,8 @@ var searchRestaurants = exports.searchRestaurants = function searchRestaurants(s
   return function (dispatch) {
     _axios2.default.post('/api/restaurants', searchTerms).then(function (restaurants) {
       return dispatch(foundRestaurants(restaurants.data));
+    }).then(function () {
+      return dispatch(resetRestaurauntIndex());
     });
   };
 };
@@ -40910,19 +40927,19 @@ var _MapPage = __webpack_require__(489);
 
 var _MapPage2 = _interopRequireDefault(_MapPage);
 
-var _Navbar = __webpack_require__(497);
+var _Navbar = __webpack_require__(495);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _RestaurantPage = __webpack_require__(499);
+var _RestaurantPage = __webpack_require__(497);
 
 var _RestaurantPage2 = _interopRequireDefault(_RestaurantPage);
 
-var _RestaurantMenu = __webpack_require__(500);
+var _RestaurantMenu = __webpack_require__(498);
 
 var _RestaurantMenu2 = _interopRequireDefault(_RestaurantMenu);
 
-var _RestaurantList = __webpack_require__(495);
+var _RestaurantList = __webpack_require__(501);
 
 var _RestaurantList2 = _interopRequireDefault(_RestaurantList);
 
@@ -43307,23 +43324,14 @@ var Map = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
-      if (this.props.restaurants !== nextProps.restaurants) {
-        var restaurantLocation = nextProps.restaurants[0];
-        // var newMap = new mapboxgl.Map({
-        //     container: this.mapContainer,
-        //     style: "mapbox://styles/mapbox/streets-v10",
-        //     center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)],
-        //     zoom: 17,
-        // })
-        // this.setState({
-        //   map: newMap
-        // })
+      if (this.props.showRestaurants[0] !== nextProps.showRestaurants[0]) {
+        var restaurantLocation = nextProps.showRestaurants[0];
         this.state.map.flyTo({
           center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
         });
         var geojson = {
           "type": "FeatureCollection",
-          "features": nextProps.restaurants.map(function (ele) {
+          "features": nextProps.showRestaurants.map(function (ele) {
             return {
               "type": "Feature",
               "properties": {
@@ -43379,11 +43387,14 @@ var Map = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    restaurants: state.restaurants.foundRestaurants,
+    foundRestaurants: state.restaurants.foundRestaurants,
+    showRestaurants: state.restaurants.showRestaurants,
     currentRestaurant: state.restaurants.currentRestaurant || {}
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Map);
+
+// .slice(state.restaurants.foundRestaurantIndex, state.restaurants.foundRestaurantIndex+5)
 
 /***/ }),
 /* 491 */
@@ -44102,12 +44113,7 @@ function RestaurantDetail(props) {
         'p',
         null,
         restaurant.user_rating,
-        _react2.default.createElement(
-          'i',
-          { 'class': 'material-icons' },
-          'star_rate'
-        ),
-        ' (user ratings)'
+        '(user ratings)'
       ),
       _react2.default.createElement(
         'p',
@@ -44128,13 +44134,6 @@ function RestaurantDetail(props) {
 
 /***/ }),
 /* 495 */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: SyntaxError: Unexpected token (10:22)\n\n\u001b[0m \u001b[90m  8 | \u001b[39m    \u001b[36msuper\u001b[39m()\n \u001b[90m  9 | \u001b[39m    \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mstate \u001b[33m=\u001b[39m {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 | \u001b[39m      showRestaurants \u001b[33m=\u001b[39m []\n \u001b[90m    | \u001b[39m                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 11 | \u001b[39m    }\n \u001b[90m 12 | \u001b[39m  }\n \u001b[90m 13 | \u001b[39m  render() {\u001b[0m\n");
-
-/***/ }),
-/* 496 */,
-/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44152,7 +44151,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(83);
 
-var _Searchbar = __webpack_require__(498);
+var _Searchbar = __webpack_require__(496);
 
 var _Searchbar2 = _interopRequireDefault(_Searchbar);
 
@@ -44282,7 +44281,7 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapState, mapDispatch)(Navbar));
 
 /***/ }),
-/* 498 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44374,7 +44373,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Searchbar);
 
 /***/ }),
-/* 499 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44481,7 +44480,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantPage);
 
 /***/ }),
-/* 500 */
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44501,7 +44500,7 @@ var _reactRedux = __webpack_require__(14);
 
 var _restaurants = __webpack_require__(61);
 
-var _Menu = __webpack_require__(501);
+var _Menu = __webpack_require__(499);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -44577,7 +44576,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
 
 /***/ }),
-/* 501 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44593,7 +44592,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _MenuDiv = __webpack_require__(502);
+var _MenuDiv = __webpack_require__(500);
 
 var _MenuDiv2 = _interopRequireDefault(_MenuDiv);
 
@@ -44644,7 +44643,7 @@ var Menu = function (_React$Component) {
 exports.default = Menu;
 
 /***/ }),
-/* 502 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44747,6 +44746,145 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(MenuDiv);
+
+/***/ }),
+/* 501 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(14);
+
+var _RestaurantDiv = __webpack_require__(502);
+
+var _RestaurantDiv2 = _interopRequireDefault(_RestaurantDiv);
+
+var _restaurants = __webpack_require__(61);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function RestaurantList(props) {
+  var foundRestaurants = props.foundRestaurants,
+      selectRestaurant = props.selectRestaurant,
+      foundRestaurantIndex = props.foundRestaurantIndex,
+      handleBack = props.handleBack,
+      handleNext = props.handleNext;
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'restaurant-list' },
+    _react2.default.createElement(
+      'h5',
+      null,
+      'Found ',
+      foundRestaurants.length,
+      ' results:'
+    ),
+    _react2.default.createElement(
+      'ul',
+      null,
+      foundRestaurants.slice(foundRestaurantIndex, foundRestaurantIndex + 5).map(function (ele) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'restaurant-div', onClick: function onClick() {
+              return selectRestaurant(ele);
+            }, key: ele.id,
+            style: { cursor: "pointer" } },
+          _react2.default.createElement(_RestaurantDiv2.default, { restaurant: ele })
+        );
+      })
+    ),
+    _react2.default.createElement(
+      'span',
+      null,
+      foundRestaurantIndex >= 4 && _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return handleBack();
+          } },
+        'Back'
+      ),
+      foundRestaurantIndex <= 14 && _react2.default.createElement(
+        'button',
+        { onClick: function onClick() {
+            return handleNext();
+          } },
+        'Next'
+      )
+    )
+  );
+}
+
+/* -----------------    CONTAINER     ------------------ */
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    foundRestaurants: state.restaurants.foundRestaurants,
+    foundRestaurantIndex: state.restaurants.foundRestaurantIndex,
+    showRestaurants: state.restaurants.showRestaurants
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    selectRestaurant: function selectRestaurant(restaurant) {
+      return dispatch((0, _restaurants.setCurrentRestaurant)(restaurant));
+    },
+    handleBack: function handleBack() {
+      return dispatch((0, _restaurants.setFoundRestaurantIndex)(-4));
+    },
+    handleNext: function handleNext() {
+      return dispatch((0, _restaurants.setFoundRestaurantIndex)(4));
+    }
+  };
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantList);
+// onClick={(restaurant)=> (selectRestaurant(restaurant))}
+
+/***/ }),
+/* 502 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = RestaurantDiv;
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function RestaurantDiv(props) {
+  var restaurant = props.restaurant;
+  return _react2.default.createElement(
+    'li',
+    null,
+    _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement(
+        'h6',
+        null,
+        restaurant.name
+      )
+    )
+  );
+}
 
 /***/ }),
 /* 503 */
