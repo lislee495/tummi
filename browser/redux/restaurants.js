@@ -14,6 +14,7 @@ const GET_MENU = "GET_MENU"
 const GET_DISHES = "GET_DISHES"
 const GET_FAVORITES = "GET_FAVORITES"
 const FOUND_RESTAURANT_INDEX = "FOUND_RESTAURANT_INDEX"
+const RESET_RESTAURANT_INDEX = "RESET_RESTAURANT_INDEX"
 
 
 /* ------------     ACTION CREATORS      ------------------ */
@@ -26,6 +27,7 @@ export const getMenu = menu => ({ type: GET_MENU, menu})
 export const getDishes = dishes => ({type: GET_DISHES, dishes})
 export const getFavorites = favorites => ({type: GET_FAVORITES, favorites})
 export const foundRestaurantIndex = number => ({type: FOUND_RESTAURANT_INDEX, number})
+export const resetRestaurauntIndex = () => ({type: RESET_RESTAURANT_INDEX})
 
 
 /* ------------          REDUCER         ------------------ */
@@ -49,8 +51,10 @@ export default function reducer (restaurants = {
       return Object.assign({}, restaurants, {location: action.location})
     case FOUND_RESTAURANTS:
       return Object.assign({}, restaurants, {foundRestaurants: action.restaurants})
-    case SHOW_RESTAURANTS: 
+    case FOUND_RESTAURANT_INDEX: 
       return Object.assign({}, restaurants, {foundRestaurantIndex: restaurants.foundRestaurantIndex + action.number})
+    case RESET_RESTAURANT_INDEX: 
+      return  Object.assign({}, restaurants, {foundRestaurantIndex: 0})
     case GET_MENU:
       return Object.assign({}, restaurants, {menu: action.menu})
     case GET_DISHES:
