@@ -1,44 +1,41 @@
-// import axios from 'axios'
-// import config from '../config'
-// import Promise from 'bluebird'
-// import { browserHistory } from 'react-router'
+import axios from 'axios'
+import config from '../config'
+import Promise from 'bluebird'
+import { browserHistory } from 'react-router'
 
 
 // /* -----------------    ACTION TYPES    ------------------ */
 
-// // const reset_pref
-// // const like 
-// // const dislike 
+const RESET_PREF = "RESET_PREF"
+const ADD_LIKE = "ADD_LIKE"
+const ADD_DISLIKE = "ADD_DISLIKE"
 
 
 
 // /* ------------     ACTION CREATORS      ------------------ */
 
-// export const addDishToCart = dish => ({type: ADD_DISH, dish})
-// export const addRestaurantToCart = restaurant => ({type: ADD_RESTAURANT, restaurant})
+export const addLike = like => ({type: ADD_LIKE, like})
+export const addDislike = dislike => ({type: ADD_DISLIKE, dislike})
+export const resetPref = () => ({type: RESET_PREF})
 
 
 // /* ------------          REDUCER         ------------------ */
 
-// export default function reducer (user_pref = {
-//   like: [],
-//   dislike: []
-// }, action) {
-//   switch (action.type) {
-//     case ADD_DISH:
-//       return Object.assign({}, cart, {dishes: [...cart.dishes, action.dish]})
-//     case CLEAR_CART:
-//       return Object.assign({}, cart, {dishes: []})
-//     case SHOW_CART:
-//       return Object.assign({}, cart, {showCart: !cart.showCart})
-//     case ADD_RESTAURANT:
-//       return Object.assign({}, cart, {restaurant: action.restaurant})
-//     case REMOVE_ITEM:
-//       return Object.assign({}, cart, {dishes: cart.dishes.filter(item => item.id !== action.dish.id)})
-//     default:
-//       return cart;
-//   }
-// }
+export default function reducer (user_pref = {
+  like: [],
+  dislike: []
+}, action) {
+  switch (action.type) {
+    case ADD_LIKE:
+      return Object.assign({}, cart, {like: action.like})
+    case ADD_DISLIKE:
+      return Object.assign({}, cart, {dislike: action.dislike})
+    case RESET_PREF:
+      return Object.assign({}, cart, {like: [], dislike: []})
+    default:
+      return user_pref;
+  }
+}
 
 // /* ------------       THUNK CREATORS     ------------------ */
 
