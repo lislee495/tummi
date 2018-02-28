@@ -204,6 +204,12 @@ button.cart-btn {
   box-shadow: none;
   border-style: none;
 }
+/********CONTENT_WRAPPER************/
+
+/* .content-wrapper {
+  display: flex; 
+  flex-flow: row wrap;
+} */
 /********MAP************/
 #map {
   z-index: -1 !important;
@@ -316,6 +322,7 @@ button.cart-btn {
 .dish-div:hover {
   background-color: #d5d5d5 !important;
 }
+
 /********CART************/
 .cart-bar {
   width: 300px;

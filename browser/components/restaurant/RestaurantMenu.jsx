@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {changeRestaurant, fetchMenu, addLike, addDislike} from '../../redux'
 import Menu from './Menu'
-import React, {Component} from 'react';
 import {ReactSelectize, SimpleSelect, MultiSelect} from 'react-selectize';
 
 
@@ -13,9 +12,9 @@ class RestaurantMenu extends React.Component {
     this.props.fetchMenu(this.props.restaurantId)
   }
   render() {
-  const {currentRestaurant, menu, restaurantId} = this.props;
+  const {currentRestaurant, menu, restaurantId, handleLikeChange} = this.props;
   return (
-    <div>
+    <div className="menu-page">
       <h4>{currentRestaurant.name}</h4>
       <MultiSelect
           placeholder = "Likes"

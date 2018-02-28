@@ -27,11 +27,11 @@ export default function reducer (user_pref = {
 }, action) {
   switch (action.type) {
     case ADD_LIKE:
-      return Object.assign({}, cart, {like: action.like})
+      return Object.assign({}, user_pref, {like: action.like})
     case ADD_DISLIKE:
-      return Object.assign({}, cart, {dislike: action.dislike})
+      return Object.assign({}, user_pref, {dislike: action.dislike})
     case RESET_PREF:
-      return Object.assign({}, cart, {like: [], dislike: []})
+      return Object.assign({}, user_pref, {like: [], dislike: []})
     default:
       return user_pref;
   }

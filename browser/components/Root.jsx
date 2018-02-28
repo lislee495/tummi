@@ -39,12 +39,14 @@ class Root extends Component {
               <div className="logged-in">
                 <Navbar/>
                 {showCart ? <CartBar/> : ""}
+                <div className="content-wrapper">
                 { foundRestaurants[0] && <RestaurantList foundRestaurants={foundRestaurants}/>}
                   <Switch>
                     <Route exact path="/" component={MapPage} />
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
                     <Route path="/restaurants/:id" component={RestaurantPage} />
                   </Switch>
+                </div>
               </div>) :
             (
               <div>
