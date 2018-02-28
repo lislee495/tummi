@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {changeRestaurant, fetchMenu} from '../../redux/restaurants'
+import {changeRestaurant, fetchMenu, addLike, addDislike} from '../../redux'
 import Menu from './Menu'
+import React, {Component} from 'react';
+import {ReactSelectize, SimpleSelect, MultiSelect} from 'react-selectize';
+
+
 
 class RestaurantMenu extends React.Component {
   componentDidMount() {
@@ -13,6 +17,13 @@ class RestaurantMenu extends React.Component {
   return (
     <div>
       <h4>{currentRestaurant.name}</h4>
+      <MultiSelect
+          placeholder = "Likes"
+          options = {["spicy", "vegetarian", "gluten-free", "dairy"].map(
+            like => ({label: like, value: like})
+          )}
+          onValuesChange = {value => handleLikeChange(value)}
+      />
       <p>Menu</p>
       {menu ? <Menu menu={menu} restaurant={currentRestaurant}/> : ""}
     </div>)
@@ -23,11 +34,13 @@ const mapStateToProps = function (state, ownProps) {
   return {
     restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant,
-    menu: state.restaurants.menu
+    menu: state.restaurants.menu,
+    likes: state.user_pref.like
   };
 };
 const mapDispatchToProps = (dispatch)=> ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
-  fetchMenu: (id) => dispatch(fetchMenu(id))
+  fetchMenu: (id) => dispatch(fetchMenu(id)),
+  handleLikeChange: (value) => dispatch(addLike(value))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
