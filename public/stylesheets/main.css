@@ -218,10 +218,10 @@ button.cart-btn {
 }
 .mapboxgl-popup {
   max-width: 200px;
-  opacity: 0.8;
+  /* opacity: 0.8;
   color: white; 
   background-color: #0f1664;
-  border-style: none; 
+  border-style: none;  */
 }
 .mapboxgl-map {
   position: absolute;
@@ -249,8 +249,27 @@ button.cart-btn {
   padding: 10px;
 }
 
-.restaurant-div:hover {
-  background-color: #b8b8b8;
+.restaurant-div-info {
+  width: 16rem; 
+  height: 5rem; 
+  display: flex; 
+  justify-content: space-around; 
+  margin: 0.5rem;
+  padding: 1rem;
+}
+
+.image-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.text {
+  width: 7rem;
+  height: 2rem; 
 }
 
 /********RESTAURANT DETAIL**********/
@@ -268,9 +287,9 @@ button.cart-btn {
 }
 
 .restaurant-detail-container {
-  margin: 20px;
+  height: 15rem;
+  margin: 15px;
   color: white;
-  flex: 1.5;
 }
 
 .restaurant-detail-image {

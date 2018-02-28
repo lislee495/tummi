@@ -3486,31 +3486,31 @@ var matchPath = function matchPath(pathname) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__ = __webpack_require__(473);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return __WEBPACK_IMPORTED_MODULE_0__BrowserRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(475);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return __WEBPACK_IMPORTED_MODULE_1__HashRouter__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(194);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(476);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(477);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(477);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(478);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(479);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return __WEBPACK_IMPORTED_MODULE_5__Prompt__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(480);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(195);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(124);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return __WEBPACK_IMPORTED_MODULE_8__Router__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(480);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(481);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return __WEBPACK_IMPORTED_MODULE_9__StaticRouter__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(482);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(482);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(483);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return __WEBPACK_IMPORTED_MODULE_11__matchPath__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(484);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return __WEBPACK_IMPORTED_MODULE_12__withRouter__["a"]; });
 
 
@@ -7642,6 +7642,18 @@ Object.keys(_cart).forEach(function (key) {
   });
 });
 
+var _user = __webpack_require__(466);
+
+Object.keys(_user).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _user[key];
+    }
+  });
+});
+
 var _redux = __webpack_require__(79);
 
 var _auth2 = _interopRequireDefault(_auth);
@@ -7650,9 +7662,11 @@ var _restaurants2 = _interopRequireDefault(_restaurants);
 
 var _cart2 = _interopRequireDefault(_cart);
 
+var _user2 = _interopRequireDefault(_user);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.combineReducers)({ currentUser: _auth2.default, restaurants: _restaurants2.default, cart: _cart2.default });
+exports.default = (0, _redux.combineReducers)({ currentUser: _auth2.default, restaurants: _restaurants2.default, cart: _cart2.default, user_pref: _user2.default });
 
 /***/ }),
 /* 177 */
@@ -19153,7 +19167,7 @@ var _store = __webpack_require__(436);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _Root = __webpack_require__(466);
+var _Root = __webpack_require__(467);
 
 var _Root2 = _interopRequireDefault(_Root);
 
@@ -40887,6 +40901,55 @@ module.exports = Array.isArray || function (arr) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+// import axios from 'axios'
+// import config from '../config'
+// import Promise from 'bluebird'
+// import { browserHistory } from 'react-router'
+
+
+// /* -----------------    ACTION TYPES    ------------------ */
+
+// // const reset_pref
+// // const like 
+// // const dislike 
+
+
+// /* ------------     ACTION CREATORS      ------------------ */
+
+// export const addDishToCart = dish => ({type: ADD_DISH, dish})
+// export const addRestaurantToCart = restaurant => ({type: ADD_RESTAURANT, restaurant})
+
+
+// /* ------------          REDUCER         ------------------ */
+
+// export default function reducer (user_pref = {
+//   like: [],
+//   dislike: []
+// }, action) {
+//   switch (action.type) {
+//     case ADD_DISH:
+//       return Object.assign({}, cart, {dishes: [...cart.dishes, action.dish]})
+//     case CLEAR_CART:
+//       return Object.assign({}, cart, {dishes: []})
+//     case SHOW_CART:
+//       return Object.assign({}, cart, {showCart: !cart.showCart})
+//     case ADD_RESTAURANT:
+//       return Object.assign({}, cart, {restaurant: action.restaurant})
+//     case REMOVE_ITEM:
+//       return Object.assign({}, cart, {dishes: cart.dishes.filter(item => item.id !== action.dish.id)})
+//     default:
+//       return cart;
+//   }
+// }
+
+// /* ------------       THUNK CREATORS     ------------------ */
+
+
+/***/ }),
+/* 467 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -40899,7 +40962,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTapEventPlugin = __webpack_require__(467);
+var _reactTapEventPlugin = __webpack_require__(468);
 
 var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
@@ -40907,43 +40970,43 @@ var _reactRedux = __webpack_require__(14);
 
 var _reactRouterDom = __webpack_require__(83);
 
-var _CartBar = __webpack_require__(484);
+var _CartBar = __webpack_require__(485);
 
 var _CartBar2 = _interopRequireDefault(_CartBar);
 
-var _LandingPage = __webpack_require__(486);
+var _LandingPage = __webpack_require__(487);
 
 var _LandingPage2 = _interopRequireDefault(_LandingPage);
 
-var _Login = __webpack_require__(487);
+var _Login = __webpack_require__(488);
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _Signup = __webpack_require__(488);
+var _Signup = __webpack_require__(489);
 
 var _Signup2 = _interopRequireDefault(_Signup);
 
-var _MapPage = __webpack_require__(489);
+var _MapPage = __webpack_require__(490);
 
 var _MapPage2 = _interopRequireDefault(_MapPage);
 
-var _Navbar = __webpack_require__(495);
+var _Navbar = __webpack_require__(496);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _RestaurantPage = __webpack_require__(497);
+var _RestaurantPage = __webpack_require__(498);
 
 var _RestaurantPage2 = _interopRequireDefault(_RestaurantPage);
 
-var _RestaurantMenu = __webpack_require__(498);
+var _RestaurantMenu = __webpack_require__(499);
 
 var _RestaurantMenu2 = _interopRequireDefault(_RestaurantMenu);
 
-var _RestaurantList = __webpack_require__(501);
+var _RestaurantList = __webpack_require__(502);
 
 var _RestaurantList2 = _interopRequireDefault(_RestaurantList);
 
-var _jquery = __webpack_require__(503);
+var _jquery = __webpack_require__(504);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -41041,11 +41104,11 @@ var mapDispatch = function mapDispatch(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Root);
 
 /***/ }),
-/* 467 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(51);
-var defaultClickRejectionStrategy = __webpack_require__(468);
+var defaultClickRejectionStrategy = __webpack_require__(469);
 
 var alreadyInjected = false;
 
@@ -41067,7 +41130,7 @@ should be injected by the application.'
   alreadyInjected = true;
 
   __webpack_require__(113).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.EventPluginHub.injection.injectEventPluginsByName({
-    'TapEventPlugin': __webpack_require__(469)(shouldRejectClick)
+    'TapEventPlugin': __webpack_require__(470)(shouldRejectClick)
   });
 };
 
@@ -41075,7 +41138,7 @@ should be injected by the application.'
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 468 */
+/* 469 */
 /***/ (function(module, exports) {
 
 module.exports = function(lastTouchEvent, clickTimestamp) {
@@ -41086,7 +41149,7 @@ module.exports = function(lastTouchEvent, clickTimestamp) {
 
 
 /***/ }),
-/* 469 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41103,8 +41166,8 @@ module.exports = function(lastTouchEvent, clickTimestamp) {
 
 
 var EventPropagators = __webpack_require__(113).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.EventPropagators;
-var TouchEventUtils = __webpack_require__(470);
-var SyntheticEvent = __webpack_require__(471);
+var TouchEventUtils = __webpack_require__(471);
+var SyntheticEvent = __webpack_require__(472);
 
 function isEndish(topLevelType) {
   return (
@@ -41226,7 +41289,7 @@ module.exports = createTapEventPlugin;
 
 
 /***/ }),
-/* 470 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41264,7 +41327,7 @@ var TouchEventUtils = {
 module.exports = TouchEventUtils;
 
 /***/ }),
-/* 471 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41634,7 +41697,7 @@ function addEventPoolingTo(EventConstructor) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 472 */
+/* 473 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41644,7 +41707,7 @@ function addEventPoolingTo(EventConstructor) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__ = __webpack_require__(473);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__ = __webpack_require__(474);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createBrowserHistory__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(124);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41701,7 +41764,7 @@ BrowserRouter.propTypes = {
 /* harmony default export */ __webpack_exports__["a"] = (BrowserRouter);
 
 /***/ }),
-/* 473 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42014,7 +42077,7 @@ var createBrowserHistory = function createBrowserHistory() {
 exports.default = createBrowserHistory;
 
 /***/ }),
-/* 474 */
+/* 475 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42024,7 +42087,7 @@ exports.default = createBrowserHistory;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createHashHistory__ = __webpack_require__(475);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createHashHistory__ = __webpack_require__(476);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_history_createHashHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_history_createHashHistory__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Router__ = __webpack_require__(124);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42080,7 +42143,7 @@ HashRouter.propTypes = {
 /* harmony default export */ __webpack_exports__["a"] = (HashRouter);
 
 /***/ }),
-/* 475 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42410,7 +42473,7 @@ var createHashHistory = function createHashHistory() {
 exports.default = createHashHistory;
 
 /***/ }),
-/* 476 */
+/* 477 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42421,7 +42484,7 @@ exports.default = createHashHistory;
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_MemoryRouter__["a" /* default */]);
 
 /***/ }),
-/* 477 */
+/* 478 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42502,7 +42565,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (NavLink);
 
 /***/ }),
-/* 478 */
+/* 479 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42513,7 +42576,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_Prompt__["a" /* default */]);
 
 /***/ }),
-/* 479 */
+/* 480 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42524,7 +42587,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_Redirect__["a" /* default */]);
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42535,7 +42598,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_StaticRouter__["a" /* default */]);
 
 /***/ }),
-/* 481 */
+/* 482 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42546,7 +42609,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_Switch__["a" /* default */]);
 
 /***/ }),
-/* 482 */
+/* 483 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42557,7 +42620,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_matchPath__["a" /* default */]);
 
 /***/ }),
-/* 483 */
+/* 484 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42568,7 +42631,7 @@ NavLink.defaultProps = {
 /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_withRouter__["a" /* default */]);
 
 /***/ }),
-/* 484 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42586,7 +42649,7 @@ var _reactRedux = __webpack_require__(14);
 
 var _cart = __webpack_require__(123);
 
-var _CartDish = __webpack_require__(485);
+var _CartDish = __webpack_require__(486);
 
 var _CartDish2 = _interopRequireDefault(_CartDish);
 
@@ -42680,7 +42743,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CartBar);
 
 /***/ }),
-/* 485 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42732,7 +42795,7 @@ function CartDish(props) {
 }
 
 /***/ }),
-/* 486 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42884,7 +42947,7 @@ var LandingPage = function (_React$Component) {
 exports.default = LandingPage;
 
 /***/ }),
-/* 487 */
+/* 488 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43040,7 +43103,7 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Login);
 
 /***/ }),
-/* 488 */
+/* 489 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43194,7 +43257,7 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Signup);
 
 /***/ }),
-/* 489 */
+/* 490 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43210,11 +43273,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(14);
 
-var _Map = __webpack_require__(490);
+var _Map = __webpack_require__(491);
 
 var _Map2 = _interopRequireDefault(_Map);
 
-var _RestaurantDetail = __webpack_require__(494);
+var _RestaurantDetail = __webpack_require__(495);
 
 var _RestaurantDetail2 = _interopRequireDefault(_RestaurantDetail);
 
@@ -43242,7 +43305,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(MapPage);
 
 /***/ }),
-/* 490 */
+/* 491 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43258,7 +43321,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _mapboxGl = __webpack_require__(491);
+var _mapboxGl = __webpack_require__(492);
 
 var _mapboxGl2 = _interopRequireDefault(_mapboxGl);
 
@@ -43266,7 +43329,7 @@ var _config = __webpack_require__(118);
 
 var _config2 = _interopRequireDefault(_config);
 
-__webpack_require__(492);
+__webpack_require__(493);
 
 var _reactRedux = __webpack_require__(14);
 
@@ -43400,7 +43463,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(Map);
 // .slice(state.restaurants.foundRestaurantIndex, state.restaurants.foundRestaurantIndex+5)
 
 /***/ }),
-/* 491 */
+/* 492 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.mapboxgl = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -43969,10 +44032,10 @@ module.exports={"$version":8,"$root":{"version":{"required":true,"type":"enum","
 //# sourceMappingURL=mapbox-gl.js.map
 
 /***/ }),
-/* 492 */
+/* 493 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(493)(false);
+exports = module.exports = __webpack_require__(494)(false);
 // imports
 
 
@@ -43983,7 +44046,7 @@ exports.push([module.i, ".mapboxgl-map {\n    font: 12px/20px 'Helvetica Neue', 
 
 
 /***/ }),
-/* 493 */
+/* 494 */
 /***/ (function(module, exports) {
 
 /*
@@ -44065,7 +44128,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 494 */
+/* 495 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44138,7 +44201,7 @@ function RestaurantDetail(props) {
 }
 
 /***/ }),
-/* 495 */
+/* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44156,7 +44219,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(83);
 
-var _Searchbar = __webpack_require__(496);
+var _Searchbar = __webpack_require__(497);
 
 var _Searchbar2 = _interopRequireDefault(_Searchbar);
 
@@ -44286,7 +44349,7 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapState, mapDispatch)(Navbar));
 
 /***/ }),
-/* 496 */
+/* 497 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44378,7 +44441,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Searchbar);
 
 /***/ }),
-/* 497 */
+/* 498 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44485,7 +44548,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantPage);
 
 /***/ }),
-/* 498 */
+/* 499 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44505,7 +44568,7 @@ var _reactRedux = __webpack_require__(14);
 
 var _restaurants = __webpack_require__(61);
 
-var _Menu = __webpack_require__(499);
+var _Menu = __webpack_require__(500);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -44581,7 +44644,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
 
 /***/ }),
-/* 499 */
+/* 500 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44597,7 +44660,7 @@ var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _MenuDiv = __webpack_require__(500);
+var _MenuDiv = __webpack_require__(501);
 
 var _MenuDiv2 = _interopRequireDefault(_MenuDiv);
 
@@ -44648,7 +44711,7 @@ var Menu = function (_React$Component) {
 exports.default = Menu;
 
 /***/ }),
-/* 500 */
+/* 501 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44753,7 +44816,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(MenuDiv);
 
 /***/ }),
-/* 501 */
+/* 502 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44769,7 +44832,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(14);
 
-var _RestaurantDiv = __webpack_require__(502);
+var _RestaurantDiv = __webpack_require__(503);
 
 var _RestaurantDiv2 = _interopRequireDefault(_RestaurantDiv);
 
@@ -44855,7 +44918,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 // onClick={(restaurant)=> (selectRestaurant(restaurant))}
 
 /***/ }),
-/* 502 */
+/* 503 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -44876,15 +44939,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function RestaurantDiv(props) {
   var restaurant = props.restaurant;
+  var image_style = { backgroundImage: 'url(' + props.restaurant.featured_image + ')' };
   return _react2.default.createElement(
     'li',
     null,
     _react2.default.createElement(
       'div',
-      null,
+      { className: 'restaurant-div-info' },
+      _react2.default.createElement('div', { className: 'image-icon', style: image_style }),
       _react2.default.createElement(
-        'h6',
-        null,
+        'div',
+        { className: 'text' },
         restaurant.name
       )
     )
@@ -44892,7 +44957,7 @@ function RestaurantDiv(props) {
 }
 
 /***/ }),
-/* 503 */
+/* 504 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
