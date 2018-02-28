@@ -11,23 +11,39 @@ class RestaurantMenu extends React.Component {
   componentDidMount() {
     this.props.changeRestaurant(this.props.restaurantId),
     this.props.fetchMenu(this.props.restaurantId)
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleAddition = this.handleAddition.bind(this);
+    this.handleLikeDelete = this.handleLikeDelete.bind(this);
+    this.handleLikeAddition = this.handleLikeAddition.bind(this);
+    this.handleDislikeDelete = this.handleDislikeDelete.bind(this);
+    this.handleDislikeAddition = this.handleDislikeAddition.bind(this);
 
   }
 
-  handleDelete(i) {
+  handleLikeDelete(i) {
     let likes = this.props.likes;
     likes.splice(i, 1);
     this.props.handleLikeChange(likes)
 }
-  handleAddition(like) {
+  handleLikeAddition(like) {
       let likes = this.props.likes;
       likes.push({
           id: likes.length + 1,
           text: like
       });
       this.props.handleLikeChange(likes)
+  }
+
+  handleDislikeDelete(i) {
+    let dislikes = this.props.dislikes;
+    dislikes.splice(i, 1);
+    this.props.handleDislikeChange(dislikes)
+}
+  handleDislikeAddition(dislike) {
+      let dislikes = this.props.dislikes;
+      dislikes.push({
+          id: dislikes.length + 1,
+          text: dislike
+      });
+      this.props.handleDislikeChange(dislikes)
   }
 
   // handleDrag(like, currPos, newPos) {
@@ -49,6 +65,12 @@ class RestaurantMenu extends React.Component {
         handleDelete={this.handleDelete}
         handleAddition={this.handleAddition}
         />
+      <ReactTags 
+      tags={this.props.dislikes}
+      suggestions={["spicy", "vegetarian", "nut", "dairy"]}
+      handleDelete={this.handleDelete}
+      handleAddition={this.handleAddition}
+      />
       <p>Menu</p>
       {menu ? <Menu menu={menu} restaurant={currentRestaurant}/> : ""}
     </div>)
@@ -60,13 +82,16 @@ const mapStateToProps = function (state, ownProps) {
     restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant,
     menu: state.restaurants.menu,
-    likes: state.user_pref.like
+    likes: state.user_pref.like,
+    dislikes: state.user_pref.dislike
   };
 };
 const mapDispatchToProps = (dispatch)=> ({
   changeRestaurant: (id) => dispatch(changeRestaurant(id)),
   fetchMenu: (id) => dispatch(fetchMenu(id)),
-  handleLikeChange: (value) => dispatch(addLike(value))
+  handleLikeChange: (value) => dispatch(addLike(value)),
+  handleDislikeChange: (value) => dispatch(addDislike(value))
+
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
 
