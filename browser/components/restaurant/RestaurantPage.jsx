@@ -10,7 +10,7 @@ class RestaurantPage extends React.Component {
   const currentRestaurant = this.props.currentRestaurant;
 
   return (
-    <div>
+    <div className="restaurant-page">
       <h4>{currentRestaurant.name}</h4>
       <p>Price: {currentRestaurant.price_range}</p>
       <p>Address: {currentRestaurant.address}</p>

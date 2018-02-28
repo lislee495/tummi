@@ -206,10 +206,11 @@ button.cart-btn {
 }
 /********CONTENT_WRAPPER************/
 
-/* .content-wrapper {
+.content-wrapper {
   display: flex; 
-  flex-flow: row wrap;
-} */
+  flex-direction: row;
+  justify-content: space-between;
+}
 /********MAP************/
 #map {
   z-index: -1 !important;
@@ -248,11 +249,10 @@ button.cart-btn {
   z-index: 2;
   width: 300px;
   color: black;
-  position: absolute;
   height: 100%; 
-  left: 0;
   background-color: white;
   padding: 10px;
+  flex: 1;
 }
 
 .restaurant-div-info {
@@ -306,7 +306,10 @@ button.cart-btn {
 }
 
 /*******MENU***************/
-
+.restaurant-page, .menu-page, .mapboxgl-canvas {
+  justify-self: end;
+  flex: 3;
+}
 .menu-ul {
   columns: 2;
   -webkit-columns: 2;
@@ -323,6 +326,13 @@ button.cart-btn {
   background-color: #d5d5d5 !important;
 }
 
+.ReactTags__tag {
+  border-style: solid; 
+  border-width: 2px; 
+  border-color: gray;
+  padding: 0.2rem, 1rem;
+  margin: 0.4rem; 
+}
 /********CART************/
 .cart-bar {
   width: 300px;
