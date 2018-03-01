@@ -4,6 +4,7 @@ import RestaurantDiv from './RestaurantDiv'
 import {setCurrentRestaurant, setFoundRestaurantIndex} from '../../redux/restaurants'
 
 function RestaurantList(props) {
+
   const {foundRestaurants, selectRestaurant, foundRestaurantIndex, handleBack, handleNext} = props
   return(
     <div className='restaurant-list shadow'>

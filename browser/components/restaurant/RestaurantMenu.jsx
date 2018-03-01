@@ -15,6 +15,33 @@ class RestaurantMenu extends React.Component {
     this.handleLikeAddition = this.handleLikeAddition.bind(this);
     this.handleDislikeDelete = this.handleDislikeDelete.bind(this);
     this.handleDislikeAddition = this.handleDislikeAddition.bind(this);
+    this.filterOut = this.filterOut.bind(this)
+    this.filterIn = this.filterIn.bind(this)
+  }
+  filterOut(startArr, mustNotHave) {
+    let newArr = []
+    for (var i; i< startArr.length; i ++) {
+      let curCat = startArr[i].category;
+      if (curCat.every(ele => mustNotHave.indexOf(ele) === -1)) {
+      newArr.push(startArr[i])
+      }
+    }
+    return newArr;
+  }
+  
+  filterIn(startArr, mustHave){
+    for (var i; i< startArr.length; i ++) {
+      startArr[i].hasTrait = 0
+      let currentInfo = startArr[i].category.join() + startArr[i].name
+      mustHave.forEach(ele => {
+        if (currentInfo.includes(ele)) {
+          startArr[i].hasTrait++
+        }
+      })
+    }
+    return startArr.sort(function (a, b) {
+    return a.hasTrait - b.hasTrait;
+    })
   }
 
   handleLikeDelete(i) {
@@ -55,7 +82,7 @@ class RestaurantMenu extends React.Component {
 
   render() {
   const {currentRestaurant, menu, restaurantId, handleLikeChange, handleDislikeChange} = this.props;
-  // let filteredMenu = menu.filter(ele => ele.categories.include())
+  let filteredMenu = this.filterIn(this.filterOut(this.props.menu, this.props.dislikes), this.props.likes)
   return (
     <div className="menu-page">
       <h4>{currentRestaurant.name}</h4>
