@@ -20,7 +20,7 @@ class RestaurantMenu extends React.Component {
   }
   filterOut(startArr, mustNotHave) {
     let newArr = []
-    for (var i; i< startArr.length; i ++) {
+    for (var i =0; i< startArr.length; i ++) {
       let curCat = startArr[i].category;
       if (curCat.every(ele => mustNotHave.indexOf(ele) === -1)) {
       newArr.push(startArr[i])
@@ -30,7 +30,7 @@ class RestaurantMenu extends React.Component {
   }
   
   filterIn(startArr, mustHave){
-    for (var i; i< startArr.length; i ++) {
+    for (var i =0; i< startArr.length; i ++) {
       startArr[i].hasTrait = 0
       let currentInfo = startArr[i].category.join() + startArr[i].name
       mustHave.forEach(ele => {
@@ -40,7 +40,7 @@ class RestaurantMenu extends React.Component {
       })
     }
     return startArr.sort(function (a, b) {
-    return a.hasTrait - b.hasTrait;
+    return b.hasTrait - a.hasTrait;
     })
   }
 
@@ -127,11 +127,3 @@ const mapDispatchToProps = (dispatch)=> ({
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
-
-// <MultiSelect
-// placeholder = "Likes"
-// options = {["spicy", "vegetarian", "gluten-free", "dairy"].map(
-//   like => ({label: like, value: like})
-// )}
-// onValuesChange = {value => handleLikeChange(value)}
-// />

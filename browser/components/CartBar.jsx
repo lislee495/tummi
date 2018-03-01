@@ -19,11 +19,11 @@ class CartBar extends React.Component {
         {cart[0] ?
           (  <div>
               {cart.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
-              <li><div className="divider"></div></li>
-              Total: $ {cart.total}
+              <li><div className="divider"> Total: $ {cart.total.toFixed(2)} </div></li>
+              <br/>
               <span> 
-              <button onClick={()=>this.props.handleClear()}>Clear Cart</button>
-              <button onClick={()=>this.props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
+              <button className="gen-btn" onClick={()=>this.props.handleClear()}>Clear Cart</button>
+              <button className="gen-btn" onClick={()=>this.props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
               </span>
             </div>
           ) : (<li>No items to show!</li>)

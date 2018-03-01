@@ -7,6 +7,7 @@ class RestaurantPage extends React.Component {
     this.props.changeRestaurant(this.props.restaurantId)
   }
   render() {
+  const delivery = 
   const currentRestaurant = this.props.currentRestaurant;
   const image_style= {background: 'linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(' + this.props.currentRestaurant.featured_image + ')'}
   return (
@@ -14,11 +15,15 @@ class RestaurantPage extends React.Component {
       <div className="restaurant-page-banner" style={image_style}>
       <div className="restaurant-page-banner header">{currentRestaurant.name}</div>
       </div>
+      <em><h5>{currentRestaurant.category[1]}</h5>
       <ul className="menu-ul">
         <li>Price: {currentRestaurant.price_range}</li>
         <li>Address: {currentRestaurant.address}</li>
         <li>Ratings: {currentRestaurant.user_ratings} ({currentRestaurant.votes} ratings)</li>
+        <li>Phone Number: {currentRestaurant.phone_numbers}</li>
+        <li>Good For: {currentRestaurant.transactions}</li>
       </ul>
+
       <p><button className="gen-btn" onClick={()=>this.props.handleClick(currentRestaurant)}>Get Menu</button></p>
     </div>)
   }
