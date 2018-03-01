@@ -47169,7 +47169,7 @@ var LandingPage = function (_React$Component) {
               null,
               _react2.default.createElement(
                 'button',
-                { className: 'landing-page' },
+                { className: 'trns-btn' },
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
                   { to: '/signup', activeClassName: 'active landing-page' },
@@ -47178,7 +47178,7 @@ var LandingPage = function (_React$Component) {
               ),
               _react2.default.createElement(
                 'button',
-                { className: 'landing-page' },
+                { className: 'trns-btn' },
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
                   { to: '/login', activeClassName: 'active landing-page' },
@@ -48487,8 +48487,9 @@ function RestaurantDetail(props) {
       _react2.default.createElement(
         'p',
         null,
+        'Rating: ',
         restaurant.user_rating,
-        '(',
+        ' (',
         restaurant.votes,
         ' user ratings)'
       ),
@@ -48497,7 +48498,7 @@ function RestaurantDetail(props) {
         null,
         _react2.default.createElement(
           'button',
-          null,
+          { className: 'trns-btn' },
           _react2.default.createElement(
             _reactRouterDom.NavLink,
             { to: url, activeClassName: 'active' },
@@ -48739,7 +48740,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
-      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
+      // dispatch(searchMenus({ category: category, location: location }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
       ownProps.history.push('/');
@@ -48828,7 +48829,7 @@ var RestaurantPage = function (_React$Component) {
           null,
           _react2.default.createElement(
             'button',
-            { onClick: function onClick() {
+            { className: 'gen-btn', onClick: function onClick() {
                 return _this2.props.handleClick(currentRestaurant);
               } },
             'Get Menu'
@@ -48997,7 +48998,7 @@ var RestaurantMenu = function (_React$Component) {
           })
         ),
         _react2.default.createElement(
-          'p',
+          'h6',
           null,
           'Menu'
         ),
@@ -49175,18 +49176,20 @@ var MenuDiv = function (_React$Component) {
             null,
             dish.name
           ),
+          _react2.default.createElement('br', null),
           _react2.default.createElement(
             'em',
             null,
             dish.category
           ),
+          _react2.default.createElement('br', null),
           '$',
           dish.price,
           favoriteDishes.find(function (item) {
             return item.dish_id === dish.id;
           }) ? "Favorited" : _react2.default.createElement(
             'button',
-            { onClick: function onClick() {
+            { className: 'gen-btn', onClick: function onClick() {
                 return handleFavorite(dish, restaurant, currentUser);
               } },
             'Favorite'
@@ -62824,14 +62827,14 @@ function RestaurantList(props) {
       null,
       foundRestaurantIndex >= 4 && _react2.default.createElement(
         'button',
-        { onClick: function onClick() {
+        { className: 'gen-btn', onClick: function onClick() {
             return handleBack();
           } },
         'Back'
       ),
       foundRestaurantIndex <= 14 && _react2.default.createElement(
         'button',
-        { onClick: function onClick() {
+        { className: 'gen-btn', onClick: function onClick() {
             return handleNext();
           } },
         'Next'

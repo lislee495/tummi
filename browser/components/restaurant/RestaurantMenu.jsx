@@ -76,7 +76,7 @@ class RestaurantMenu extends React.Component {
       placeholder={"Dislikes"}
       />
       </div>
-      <p>Menu</p>
+      <h6>Menu</h6>
       {menu ? <Menu menu={menu} restaurant={currentRestaurant}/> : ""}
     </div>)
   }

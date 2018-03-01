@@ -19,8 +19,8 @@ function RestaurantList(props) {
         })}
       </ul>
       <span>
-        {(foundRestaurantIndex >= 4) && <button onClick={()=>handleBack()}>Back</button>}
-        {(foundRestaurantIndex <= 14) &&<button onClick={()=>handleNext()}>Next</button>}
+        {(foundRestaurantIndex >= 4) && <button className="gen-btn" onClick={()=>handleBack()}>Back</button>}
+        {(foundRestaurantIndex <= 14) &&<button className="gen-btn" onClick={()=>handleNext()}>Next</button>}
       </span>
     </div>
   )

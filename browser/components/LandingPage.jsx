@@ -13,8 +13,8 @@ export default class LandingPage extends React.Component {
             <br/>
             <br/>
             <span>
-              <button className="landing-page"><NavLink to="/signup" activeClassName="active landing-page">Signup</NavLink></button>
-              <button className="landing-page"><NavLink to="/login" activeClassName="active landing-page">Login</NavLink></button>
+              <button className="trns-btn"><NavLink to="/signup" activeClassName="active landing-page">Signup</NavLink></button>
+              <button className="trns-btn"><NavLink to="/login" activeClassName="active landing-page">Login</NavLink></button>
             </span>
           </div>
         </div>

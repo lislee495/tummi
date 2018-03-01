@@ -16,7 +16,7 @@ class RestaurantPage extends React.Component {
       </div>
       <p>Price: {currentRestaurant.price_range}</p>
       <p>Address: {currentRestaurant.address}</p>
-      <p><button onClick={()=>this.props.handleClick(currentRestaurant)}>Get Menu</button></p>
+      <p><button className="gen-btn" onClick={()=>this.props.handleClick(currentRestaurant)}>Get Menu</button></p>
     </div>)
   }
 }
