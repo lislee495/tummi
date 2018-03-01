@@ -14,8 +14,11 @@ class RestaurantPage extends React.Component {
       <div className="restaurant-page-banner" style={image_style}>
       <div className="restaurant-page-banner header">{currentRestaurant.name}</div>
       </div>
-      <p>Price: {currentRestaurant.price_range}</p>
-      <p>Address: {currentRestaurant.address}</p>
+      <ul className="menu-ul">
+        <li>Price: {currentRestaurant.price_range}</li>
+        <li>Address: {currentRestaurant.address}</li>
+        <li>Ratings: {currentRestaurant.user_ratings} ({currentRestaurant.votes} ratings)</li>
+      </ul>
       <p><button className="gen-btn" onClick={()=>this.props.handleClick(currentRestaurant)}>Get Menu</button></p>
     </div>)
   }

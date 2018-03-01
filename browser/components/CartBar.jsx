@@ -14,7 +14,7 @@ function CartBar(props){
           (  <div>
               {cart.map(dish => <CartDish dish={dish} key={dish.id} removeItem={removeItem}/>)}
               <li><div className="divider"></div></li>
-              <span>
+              <span> 
               <button onClick={()=>props.handleClear()}>Clear Cart</button>
               <button onClick={()=>props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
               </span>
