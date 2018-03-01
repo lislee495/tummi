@@ -103,8 +103,9 @@ class RestaurantMenu extends React.Component {
       placeholder={"Dislikes"}
       />
       </div>
-      <h6>Menu</h6>
-      {filteredMenu ? <Menu menu={filterMenu} restaurant={currentRestaurant}/> : ""}
+      <h5>Menu</h5>
+      {filteredMenu[0] ? <Menu menu={filteredMenu} restaurant={currentRestaurant}/> : 
+    <Menu menu={menu} restaurant={currentRestaurant}/>}
     </div>)
   }
 }

@@ -3,8 +3,14 @@ import { connect } from 'react-redux';
 import {checkoutCart, clearCart, removeItem} from '../redux/cart'
 import CartDish from './CartDish'
 
-function CartBar(props){
-    const {currentUser, cart, cartRestaurant, removeItem} = props
+class CartBar extends React.Component {
+  // componentWillReceiveProps(){
+  //   if (this.props.cart !== nextProps.cart) {
+
+  //   }
+  // }
+  render(){
+    const {currentUser, cart, cartRestaurant, removeItem} = this.props
     return (
       <div className="cart-bar shadow">
         <ul className="cart">
@@ -12,11 +18,12 @@ function CartBar(props){
           <li><a className="subheader">{cartRestaurant.name}</a></li>
         {cart[0] ?
           (  <div>
-              {cart.map(dish => <CartDish dish={dish} key={dish.id} removeItem={removeItem}/>)}
+              {cart.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
               <li><div className="divider"></div></li>
+              Total: $ {cart.total}
               <span> 
-              <button onClick={()=>props.handleClear()}>Clear Cart</button>
-              <button onClick={()=>props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
+              <button onClick={()=>this.props.handleClear()}>Clear Cart</button>
+              <button onClick={()=>this.props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
               </span>
             </div>
           ) : (<li>No items to show!</li>)
@@ -24,6 +31,7 @@ function CartBar(props){
         </ul>
       </div>
     );
+  }
   }
 
 

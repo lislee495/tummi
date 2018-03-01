@@ -27,15 +27,16 @@ export default function reducer (cart = {
   dishes: [],
   showCart: false,
   restaurant: {},
-  price: 0
+  total: 0
 }, action) {
   switch (action.type) {
     case ADD_DISH:
-      dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.dish.id)
+      var dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.payload.dish.id)
       if (dishIndex > -1) {
-        
-      }
-      return Object.assign({}, cart, {dishes: [...cart.dishes, action.payload], price: cart.price + action.payload.dish.price})
+        cart.dishes[dishIndex].quantity += 1;
+        return Object.assign({}, cart, {total: cart.total + action.payload.dish.price}) 
+      } else {
+      return Object.assign({}, cart, {dishes: [...cart.dishes, action.payload], total: cart.total + action.payload.dish.price})}
     case CLEAR_CART:
       return Object.assign({}, cart, {dishes: [], restaurant: {}})
     case SHOW_CART:
@@ -43,9 +44,9 @@ export default function reducer (cart = {
     case ADD_RESTAURANT:
       return Object.assign({}, cart, {restaurant: action.restaurant})
     case REMOVE_ITEM:
-      let dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.dish.id)
+      var dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.dish.id)
       cart.dishes[dishIndex].quantity -= 1; 
-      return Object.assign({}, cart, {dishes: cart.dishes.filter(ele => ele.quantity === 0), price: cart.price - action.dish.price})
+      return Object.assign({}, cart, {dishes: cart.dishes.filter(ele => ele.quantity !== 0), total: cart.total - action.dish.price})
     default:
       return cart;
   }
