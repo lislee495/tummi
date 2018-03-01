@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import {addDishToCart, addRestaurantToCart, favoriteDish, fetchFavorites} from '../../redux'
 
 class MenuDiv extends React.Component {
+  componentDidMount(){
+    this.props.fetchFavorites()
+  }
   render() {
   const {dish, handleClick, restaurant, currentUser, handleFavorite, favoriteDishes} = this.props
     return(
