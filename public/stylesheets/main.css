@@ -243,13 +243,13 @@ button.cart-btn {
 .mapboxgl-popup-content {
   text-align: center;
 }
-/*****RESTAURANT DIV******/
+/*****RESTAURANT LIST & DIV******/
 
 .restaurant-list {
   z-index: 2;
-  width: 300px;
+  max-width: 300px;
+  height: 100vh;
   color: black;
-  height: 100%; 
   background-color: white;
   padding: 10px;
   flex: 1;
@@ -317,21 +317,25 @@ button.cart-btn {
 }
 
 .dish-div {
-  border-style: solid !important;
-  border-width: 1px !important;
+  margin: 1rem;
   padding: 7px !important;
 }
 
-.dish-div:hover {
-  background-color: #d5d5d5 !important;
+.ReactTags__tag {
+  background-color: #79cfee;
+  padding: 0.5rem, 1rem !important;
+  margin: 0.4rem !important; 
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
-.ReactTags__tag {
-  border-style: solid; 
-  border-width: 2px; 
-  border-color: gray;
-  padding: 0.2rem, 1rem;
-  margin: 0.4rem; 
+div.ReactTags__tags {
+  max-width: 20rem;
+}
+
+div.filter-inputs {
+  display: flex; 
+  flex-flow: row wrap; 
+  justify-content: space-around;
 }
 /********CART************/
 .cart-bar {
@@ -343,4 +347,27 @@ button.cart-btn {
   color: white; 
   z-index: 1;
   padding: 30px;
+}
+
+.shadow {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+
+/********RESTAURANT PAGE************/
+
+.restaurant-page-banner {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  max-width: 100%;
+  height: 15rem;
+  color: white;
+}
+
+.restaurant-page-banner.header {
+  font-size: 5rem;
+  position: relative;
+  bottom: 10rem;
+  right: 10rem;
+
 }

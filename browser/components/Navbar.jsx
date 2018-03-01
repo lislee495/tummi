@@ -10,7 +10,7 @@ class Navbar extends React.Component {
     const handleCartClick = this.props.handleCartClick
     return(
       
-        <div className="nav-wrap">
+        <div className="nav-wrap shadow">
           
             <ul className="left nav-items">
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>

@@ -6,7 +6,7 @@ import CartDish from './CartDish'
 function CartBar(props){
     const {currentUser, cart, cartRestaurant, removeItem} = props
     return (
-      <div className="cart-bar">
+      <div className="cart-bar shadow">
         <ul className="cart">
         <h3>My Cart</h3>
           <li><a className="subheader">{cartRestaurant.name}</a></li>

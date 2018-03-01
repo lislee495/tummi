@@ -15,7 +15,6 @@ class RestaurantMenu extends React.Component {
     this.handleLikeAddition = this.handleLikeAddition.bind(this);
     this.handleDislikeDelete = this.handleDislikeDelete.bind(this);
     this.handleDislikeAddition = this.handleDislikeAddition.bind(this);
-
   }
 
   handleLikeDelete(i) {
@@ -55,22 +54,28 @@ class RestaurantMenu extends React.Component {
   // }
 
   render() {
-  const {currentRestaurant, menu, restaurantId, handleLikeChange} = this.props;
+  const {currentRestaurant, menu, restaurantId, handleLikeChange, handleDislikeChange} = this.props;
+  // let filteredMenu = menu.filter(ele => ele.categories.include())
   return (
     <div className="menu-page">
       <h4>{currentRestaurant.name}</h4>
+      <hr/>
+      <div className="filter-inputs">
       <ReactTags 
         tags={this.props.likes}
         suggestions={["spicy", "vegetarian", "gluten-free", "dairy"]}
-        handleDelete={this.handleDelete}
-        handleAddition={this.handleAddition}
+        handleDelete={this.handleLikeDelete}
+        handleAddition={this.handleLikeAddition}
+        placeholder={"Likes"}
         />
       <ReactTags 
       tags={this.props.dislikes}
       suggestions={["spicy", "vegetarian", "nut", "dairy"]}
-      handleDelete={this.handleDelete}
-      handleAddition={this.handleAddition}
+      handleDelete={this.handleDislikeDelete}
+      handleAddition={this.handleDislikeAddition}
+      placeholder={"Dislikes"}
       />
+      </div>
       <p>Menu</p>
       {menu ? <Menu menu={menu} restaurant={currentRestaurant}/> : ""}
     </div>)

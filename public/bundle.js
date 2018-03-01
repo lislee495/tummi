@@ -45372,11 +45372,11 @@ var Root = function (_Component) {
               _react2.default.createElement(
                 _reactRouterDom.Switch,
                 null,
-                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id/menu', component: _RestaurantMenu2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default })
               )
-            )
+            ),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default })
           ) : _react2.default.createElement(
             'div',
             null,
@@ -46972,7 +46972,7 @@ function CartBar(props) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'cart-bar' },
+    { className: 'cart-bar shadow' },
     _react2.default.createElement(
       'ul',
       { className: 'cart' },
@@ -48562,7 +48562,7 @@ var Navbar = function (_React$Component) {
       var handleCartClick = this.props.handleCartClick;
       return _react2.default.createElement(
         'div',
-        { className: 'nav-wrap' },
+        { className: 'nav-wrap shadow' },
         _react2.default.createElement(
           'ul',
           { className: 'left nav-items' },
@@ -48798,14 +48798,18 @@ var RestaurantPage = function (_React$Component) {
       var _this2 = this;
 
       var currentRestaurant = this.props.currentRestaurant;
-
+      var image_style = { background: 'linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(' + this.props.currentRestaurant.featured_image + ')' };
       return _react2.default.createElement(
         'div',
         { className: 'restaurant-page' },
         _react2.default.createElement(
-          'h4',
-          null,
-          currentRestaurant.name
+          'div',
+          { className: 'restaurant-page-banner', style: image_style },
+          _react2.default.createElement(
+            'div',
+            { className: 'restaurant-page-banner header' },
+            currentRestaurant.name
+          )
         ),
         _react2.default.createElement(
           'p',
@@ -48906,25 +48910,44 @@ var RestaurantMenu = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.changeRestaurant(this.props.restaurantId), this.props.fetchMenu(this.props.restaurantId);
-      this.handleDelete = this.handleDelete.bind(this);
-      this.handleAddition = this.handleAddition.bind(this);
+      this.handleLikeDelete = this.handleLikeDelete.bind(this);
+      this.handleLikeAddition = this.handleLikeAddition.bind(this);
+      this.handleDislikeDelete = this.handleDislikeDelete.bind(this);
+      this.handleDislikeAddition = this.handleDislikeAddition.bind(this);
     }
   }, {
-    key: 'handleDelete',
-    value: function handleDelete(i) {
+    key: 'handleLikeDelete',
+    value: function handleLikeDelete(i) {
       var likes = this.props.likes;
       likes.splice(i, 1);
       this.props.handleLikeChange(likes);
     }
   }, {
-    key: 'handleAddition',
-    value: function handleAddition(like) {
+    key: 'handleLikeAddition',
+    value: function handleLikeAddition(like) {
       var likes = this.props.likes;
       likes.push({
         id: likes.length + 1,
         text: like
       });
       this.props.handleLikeChange(likes);
+    }
+  }, {
+    key: 'handleDislikeDelete',
+    value: function handleDislikeDelete(i) {
+      var dislikes = this.props.dislikes;
+      dislikes.splice(i, 1);
+      this.props.handleDislikeChange(dislikes);
+    }
+  }, {
+    key: 'handleDislikeAddition',
+    value: function handleDislikeAddition(dislike) {
+      var dislikes = this.props.dislikes;
+      dislikes.push({
+        id: dislikes.length + 1,
+        text: dislike
+      });
+      this.props.handleDislikeChange(dislikes);
     }
 
     // handleDrag(like, currPos, newPos) {
@@ -48942,7 +48965,9 @@ var RestaurantMenu = function (_React$Component) {
           currentRestaurant = _props.currentRestaurant,
           menu = _props.menu,
           restaurantId = _props.restaurantId,
-          handleLikeChange = _props.handleLikeChange;
+          handleLikeChange = _props.handleLikeChange,
+          handleDislikeChange = _props.handleDislikeChange;
+      // let filteredMenu = menu.filter(ele => ele.categories.include())
 
       return _react2.default.createElement(
         'div',
@@ -48952,12 +48977,25 @@ var RestaurantMenu = function (_React$Component) {
           null,
           currentRestaurant.name
         ),
-        _react2.default.createElement(_reactTagInput.WithContext, {
-          tags: this.props.likes,
-          suggestions: ["spicy", "vegetarian", "gluten-free", "dairy"],
-          handleDelete: this.handleDelete,
-          handleAddition: this.handleAddition
-        }),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'div',
+          { className: 'filter-inputs' },
+          _react2.default.createElement(_reactTagInput.WithContext, {
+            tags: this.props.likes,
+            suggestions: ["spicy", "vegetarian", "gluten-free", "dairy"],
+            handleDelete: this.handleLikeDelete,
+            handleAddition: this.handleLikeAddition,
+            placeholder: "Likes"
+          }),
+          _react2.default.createElement(_reactTagInput.WithContext, {
+            tags: this.props.dislikes,
+            suggestions: ["spicy", "vegetarian", "nut", "dairy"],
+            handleDelete: this.handleDislikeDelete,
+            handleAddition: this.handleDislikeAddition,
+            placeholder: "Dislikes"
+          })
+        ),
         _react2.default.createElement(
           'p',
           null,
@@ -48977,7 +49015,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     restaurantId: restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant,
     menu: state.restaurants.menu,
-    likes: state.user_pref.like
+    likes: state.user_pref.like,
+    dislikes: state.user_pref.dislike
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -48990,7 +49029,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     handleLikeChange: function handleLikeChange(value) {
       return dispatch((0, _redux.addLike)(value));
+    },
+    handleDislikeChange: function handleDislikeChange(value) {
+      return dispatch((0, _redux.addDislike)(value));
     }
+
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RestaurantMenu);
@@ -49124,13 +49167,18 @@ var MenuDiv = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'dish-div', style: { cursor: "pointer" }, onClick: function onClick() {
+          { className: 'dish-div shadow', style: { cursor: "pointer" }, onClick: function onClick() {
               return handleClick(dish, restaurant);
             } },
           _react2.default.createElement(
             'h6',
             null,
             dish.name
+          ),
+          _react2.default.createElement(
+            'em',
+            null,
+            dish.category
           ),
           '$',
           dish.price,
@@ -62749,7 +62797,7 @@ function RestaurantList(props) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'restaurant-list' },
+    { className: 'restaurant-list shadow' },
     _react2.default.createElement(
       'h5',
       null,

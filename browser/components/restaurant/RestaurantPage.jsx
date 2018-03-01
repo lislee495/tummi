@@ -8,10 +8,12 @@ class RestaurantPage extends React.Component {
   }
   render() {
   const currentRestaurant = this.props.currentRestaurant;
-
+  const image_style= {background: 'linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url(' + this.props.currentRestaurant.featured_image + ')'}
   return (
     <div className="restaurant-page">
-      <h4>{currentRestaurant.name}</h4>
+      <div className="restaurant-page-banner" style={image_style}>
+      <div className="restaurant-page-banner header">{currentRestaurant.name}</div>
+      </div>
       <p>Price: {currentRestaurant.price_range}</p>
       <p>Address: {currentRestaurant.address}</p>
       <p><button onClick={()=>this.props.handleClick(currentRestaurant)}>Get Menu</button></p>

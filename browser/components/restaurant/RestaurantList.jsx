@@ -6,7 +6,7 @@ import {setCurrentRestaurant, setFoundRestaurantIndex} from '../../redux/restaur
 function RestaurantList(props) {
   const {foundRestaurants, selectRestaurant, foundRestaurantIndex, handleBack, handleNext} = props
   return(
-    <div className='restaurant-list'>
+    <div className='restaurant-list shadow'>
       <h5>Found {foundRestaurants.length} results:</h5>
       <ul>
       {foundRestaurants.slice(foundRestaurantIndex, foundRestaurantIndex+5).map(ele => {

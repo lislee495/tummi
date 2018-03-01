@@ -7,9 +7,10 @@ class MenuDiv extends React.Component {
   const {dish, handleClick, restaurant, currentUser, handleFavorite, favoriteDishes} = this.props
     return(
       <li>
-        <div className="dish-div" style={{cursor: "pointer"}} onClick={()=>handleClick(dish, restaurant)}>
+        <div className="dish-div shadow" style={{cursor: "pointer"}} onClick={()=>handleClick(dish, restaurant)}>
           <h6>{dish.name}</h6> 
-          ${dish.price}
+          <em>{dish.category}</em>
+          ${dish.price} 
           {favoriteDishes.find(item => item.dish_id === dish.id) ? "Favorited" : 
          <button onClick={()=>handleFavorite(dish, restaurant, currentUser)}>Favorite</button>}
         </div>
