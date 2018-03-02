@@ -4,6 +4,7 @@ import Promise from 'bluebird'
 import { browserHistory } from 'react-router'
 
 
+
 // /* -----------------    ACTION TYPES    ------------------ */
 
 const RESET_PREF = "RESET_PREF"
@@ -61,11 +62,19 @@ export default function reducer (user_pref = {
 export const fetchTrends = currentUser => dispatch => {
   const {currentUser} = currentUser
   axios.get(`/api/users/${currentUser.id}/orders`)
-  .then(trends => dispatch(setTrends(trends.data)))
+  .then(trends => [...trends.body].map(ele => ele.dish_id))
+  .then(dishIds => Promise.map(dishIds, (dishId)=> {
+    return axios.get(`/api/dishes/${dishId}`)
+  })).then(result => result.map(ele => ele.data))
+  .then(dishes => dispatch(setTrends(dishes)))
 }
 
 export const fetchFavorites = currentUser => dispatch => {
   const {currentUser} = currentUser
   axios.get(`/api/users/${currentUser.id}/favorites`)
-  .then(favorites => dispatch(setFavorites(favorites.data)))
+  .then(favorites => [...favorites.data].map(ele => ele.dish_id))
+  .then(dishIds => Promise.map(dishIds, (dishId)=> {
+    return axios.get(`/api/dishes/${dishId}`)
+  })).then(result => result.map(ele => ele.data))
+  .then(dishes => dispatch(setFavorites(dishes)))
 }

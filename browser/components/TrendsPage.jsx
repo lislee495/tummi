@@ -31,7 +31,8 @@ class TrendsPage extends React.Component {
 
 const mapStateToProps = function (state) {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({

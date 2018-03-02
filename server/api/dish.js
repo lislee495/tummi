@@ -18,5 +18,11 @@ router.post('/', (req, res, next) => {
   .catch(next);
 });
 
+router.get('/:id', (req, res, next)=> {
+  const id = req.params.id
+  Dish.findById(id)
+  .then(dish => res.status(201).json(dish))
+})
+
 
 module.exports = router;
