@@ -48,48 +48,13 @@ class RestaurantMenu extends React.Component {
     })
   }
 
-//   handleLikeDelete(i) {
-//     let likes = this.props.likes;
-//     likes.splice(i, 1);
-//     this.props.handleLikeChange(likes)
-// }
-//   handleLikeAddition(like) {
-//       let likes = this.props.likes;
-//       likes.push({
-//           id: likes.length + 1,
-//           text: like
-//       });
-//       this.props.handleLikeChange(likes)
-//   }
-
-//   handleDislikeDelete(i) {
-//     let dislikes = this.props.dislikes;
-//     this.props.handleDislikeChange([...dislikes].splice(i, 1);)
-// }
-//   handleDislikeAddition(dislike) {
-//       let dislikes = this.props.dislikes;
-//       this.props.handleDislikeChange([...dislikes, {
-//         id: dislikes.length + 1,
-//         text: dislike
-//     }])
-//   }
-
-  // handleDrag(like, currPos, newPos) {
-  //     let likes = this.props.likes;
-  //     // mutate array
-  //     likes.splice(currPos, 1);
-  //     likes.splice(newPos, 0, like);
-  //     handleLikeChange(likes)
-  // }
   componentWillReceiveProps(nextProps) {
     console.log(this.props.dislikes.length, nextProps.dislikes.length)
     if (this.props.dislikes.length !== nextProps.dislikes.length) {
       let filteredMenu =  this.filterIn(this.filterOut(nextProps.menu, nextProps.dislikes), nextProps.likes)
-      console.log(filteredMenu)
       this.setState({filteredMenu: filteredMenu})
     } else if (this.props.likes.length !== nextProps.likes.length) {
       let filteredMenu =  this.filterIn(this.filterOut(nextProps.menu, nextProps.dislikes), nextProps.likes)
-      console.log(filteredMenu)
       this.setState({filteredMenu: filteredMenu})
     }
   }
@@ -118,7 +83,7 @@ class RestaurantMenu extends React.Component {
         </div>
         <h5>Menu</h5>
         {filteredMenu[0] ? <Menu menu={filteredMenu} restaurant={currentRestaurant}/> : 
-      <Menu menu={menu} restaurant={currentRestaurant}/>}
+      "No items found. Please reset filters."}
       </div>)
   }
 }

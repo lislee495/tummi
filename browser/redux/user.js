@@ -11,6 +11,9 @@ const ADD_LIKE = "ADD_LIKE"
 const ADD_DISLIKE = "ADD_DISLIKE"
 const DELETE_DISLIKE = "DELETE_DISLIKE"
 const DELETE_LIKE = "DELETE_LIKE"
+const SET_TRENDS = "SET_TRENDS"
+const SET_FAVORITES = "SET_FAVORITES"
+
 
 
 
@@ -21,13 +24,17 @@ export const deleteLike = likeInd => ({type: DELETE_LIKE, likeInd})
 export const deleteDislike = dislikeInd => ({type: DELETE_DISLIKE, dislikeInd})
 export const addDislike = dislike => ({type: ADD_DISLIKE, dislike})
 export const resetPref = () => ({type: RESET_PREF})
+export const setFavorites = favorites => ({type: SET_FAVORITES, favorites})
+export const setTrends = trends => ({type: SET_TRENDS, trends})
 
 
 // /* ------------          REDUCER         ------------------ */
 
 export default function reducer (user_pref = {
   like: [],
-  dislike: []
+  dislike: [],
+  favorites: [],
+  trends: []
 }, action) {
   switch (action.type) {
     case ADD_LIKE:
@@ -40,6 +47,10 @@ export default function reducer (user_pref = {
       return Object.assign({}, user_pref, {dislike:  [...user_pref.dislike].splice(action.dislikeInd, 1)})
     case RESET_PREF:
       return Object.assign({}, user_pref, {like: [], dislike: []})
+    case SET_FAVORITES:
+      return Object.assign({}, user_pref, {favorites: action.favorites})
+    case SET_TRENDS: 
+      return Object.assign({}, user_pref, {trends: action.trends})
     default:
       return user_pref;
   }
@@ -47,3 +58,14 @@ export default function reducer (user_pref = {
 
 // /* ------------       THUNK CREATORS     ------------------ */
 
+export const fetchTrends = currentUser => dispatch => {
+  const {currentUser} = currentUser
+  axios.get(`/api/users/${currentUser.id}/orders`)
+  .then(trends => dispatch(setTrends(trends.data)))
+}
+
+export const fetchFavorites = currentUser => dispatch => {
+  const {currentUser} = currentUser
+  axios.get(`/api/users/${currentUser.id}/favorites`)
+  .then(favorites => dispatch(setFavorites(favorites.data)))
+}

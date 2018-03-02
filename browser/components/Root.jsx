@@ -8,6 +8,8 @@ import Login from './Login';
 import Signup from './Signup';
 import MapPage from './MapPage'
 import Navbar from './Navbar'
+import TrendsPage from './TrendsPage'
+import FavoritesPage from './FavoritesPage'
 import RestaurantPage from './restaurant/RestaurantPage'
 import RestaurantMenu from './restaurant/RestaurantMenu'
 import RestaurantList from './restaurant/RestaurantList'
@@ -47,6 +49,8 @@ class Root extends Component {
                   </Switch>
                     </div>
                 <Route exact path="/" component={MapPage} />
+                <Route exact path="/trends" component={TrendsPage} />
+                <Route exact path="/favorites" component={FavoritesPage} />
               </div>) :
             (
               <div>
