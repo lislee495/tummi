@@ -1,9 +1,6 @@
 import React from 'react';
 
-export default function CartDish(props) {
-  const quantity = props.ele.quantity
-  const dish = props.ele.dish
-  const removeItem = props.removeItem
+export default function FavoriteDiv(props) {
   return(
     <li>
       <span>
