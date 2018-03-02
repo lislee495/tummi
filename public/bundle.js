@@ -49021,31 +49021,42 @@ var RestaurantMenu = function (_React$Component) {
     key: 'filterOut',
     value: function filterOut(startArr, mustNotHave) {
       var newArr = [];
-      for (var i = 0; i < startArr.length; i++) {
-        var curCat = startArr[i].category;
-        if (curCat.every(function (ele) {
-          return mustNotHave.indexOf(ele.toLowerCase()) === -1;
+      var newFilter = mustNotHave.map(function (ele) {
+        return ele.text.toLowerCase();
+      });
+
+      var _loop = function _loop() {
+        var curCat = startArr[i].category.join() + " " + startArr[i].name.toLowerCase();
+        if (newFilter.every(function (ele) {
+          return curCat.indexOf(ele) === -1;
         })) {
           newArr.push(startArr[i]);
         }
+      };
+
+      for (var i = 0; i < startArr.length; i++) {
+        _loop();
       }
       return newArr;
     }
   }, {
     key: 'filterIn',
     value: function filterIn(startArr, mustHave) {
-      var _loop = function _loop() {
+      var _loop2 = function _loop2() {
         startArr[i].hasTrait = 0;
-        var currentInfo = startArr[i].category.join() + startArr[i].name;
-        mustHave.forEach(function (ele) {
-          if (currentInfo.toLowerCase().includes(ele)) {
+        var newFilter = mustHave.map(function (ele) {
+          return ele.text.toLowerCase();
+        });
+        var currentInfo = startArr[i].category.join() + " " + startArr[i].name.toLowerCase();
+        newFilter.forEach(function (ele) {
+          if (currentInfo.includes(ele)) {
             startArr[i].hasTrait++;
           }
         });
       };
 
       for (var i = 0; i < startArr.length; i++) {
-        _loop();
+        _loop2();
       }
       return startArr.sort(function (a, b) {
         return b.hasTrait - a.hasTrait;
@@ -49091,7 +49102,6 @@ var RestaurantMenu = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       console.log(this.props.dislikes.length, nextProps.dislikes.length);
       if (this.props.dislikes.length !== nextProps.dislikes.length) {
-        console.log("check");
         var filteredMenu = this.filterIn(this.filterOut(nextProps.menu, nextProps.dislikes), nextProps.likes);
         console.log(filteredMenu);
         this.setState({ filteredMenu: filteredMenu });
@@ -49137,7 +49147,7 @@ var RestaurantMenu = function (_React$Component) {
             tags: this.props.dislikes,
             suggestions: ["spicy", "vegetarian", "nut", "dairy"],
             handleDelete: deleteDislike,
-            handleAddition: addLike,
+            handleAddition: addDislike,
             placeholder: "Dislikes"
           })
         ),

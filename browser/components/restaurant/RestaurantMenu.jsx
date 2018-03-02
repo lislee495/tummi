@@ -22,10 +22,11 @@ class RestaurantMenu extends React.Component {
   }
   filterOut(startArr, mustNotHave) {
     let newArr = []
+    let newFilter = mustNotHave.map(ele => ele.text.toLowerCase())
     for (var i =0; i< startArr.length; i ++) {
-      let curCat = startArr[i].category;
-      if (curCat.every(ele => mustNotHave.indexOf(ele.toLowerCase()) === -1)) {
-      newArr.push(startArr[i])
+      let curCat = startArr[i].category.join() + " " + startArr[i].name.toLowerCase()
+      if (newFilter.every(ele => curCat.indexOf(ele) === -1)) {
+        newArr.push(startArr[i])
       }
     }
     return newArr;
@@ -34,9 +35,10 @@ class RestaurantMenu extends React.Component {
   filterIn(startArr, mustHave){
     for (var i =0; i< startArr.length; i ++) {
       startArr[i].hasTrait = 0
-      let currentInfo = startArr[i].category.join() + startArr[i].name
-      mustHave.forEach(ele => {
-        if (currentInfo.toLowerCase().includes(ele)) {
+      let newFilter = mustHave.map(ele => ele.text.toLowerCase())
+      let currentInfo = startArr[i].category.join() + " " + startArr[i].name.toLowerCase()
+      newFilter.forEach(ele => {
+        if (currentInfo.includes(ele)) {
           startArr[i].hasTrait++
         }
       })
@@ -82,7 +84,6 @@ class RestaurantMenu extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log(this.props.dislikes.length, nextProps.dislikes.length)
     if (this.props.dislikes.length !== nextProps.dislikes.length) {
-      console.log("check")
       let filteredMenu =  this.filterIn(this.filterOut(nextProps.menu, nextProps.dislikes), nextProps.likes)
       console.log(filteredMenu)
       this.setState({filteredMenu: filteredMenu})
@@ -111,7 +112,7 @@ class RestaurantMenu extends React.Component {
         tags={this.props.dislikes}
         suggestions={["spicy", "vegetarian", "nut", "dairy"]}
         handleDelete={deleteDislike}
-        handleAddition={addLike}
+        handleAddition={addDislike}
         placeholder={"Dislikes"}
         />
         </div>
