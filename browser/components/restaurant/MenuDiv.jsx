@@ -4,18 +4,23 @@ import {addDishToCart, addRestaurantToCart, favoriteDish, fetchFavorites} from '
 
 class MenuDiv extends React.Component {
   componentDidMount(){
-    this.props.fetchFavorites()
+    this.props.fetchFavorites(this.props.currentUser.id)
   }
   render() {
   const {dish, handleClick, restaurant, currentUser, handleFavorite, favoriteDishes} = this.props
     return(
       <li>
-        <div className="dish-div shadow" style={{cursor: "pointer"}} onClick={()=>handleClick(dish, restaurant)}>
+        <div className="dish-div shadow" style={{cursor: "pointer"}} onClick={(event)=>{
+          // event.stopPropagation()
+          handleClick(dish, restaurant)}}>
           <h6>{dish.name}</h6><br/>
           <em>{dish.category.join(", ")}</em><br/>
           ${dish.price} 
           {favoriteDishes.find(item => item.dish_id === dish.id) ? "Favorited" : 
-         <button className="gen-btn" onClick={()=>handleFavorite(dish, restaurant, currentUser)}>Favorite</button>}
+         <button className="gen-btn" 
+         onClick={(event)=>{
+           event.stopPropagation();
+           handleFavorite(dish, restaurant, currentUser)}}>Favorite</button>}
         </div>
       </li>
     )

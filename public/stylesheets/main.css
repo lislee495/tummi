@@ -285,12 +285,16 @@ button.cart-btn {
   height: 2rem; 
 }
 
+.header {
+  font-size: 2rem;
+}
+
 /********RESTAURANT DETAIL**********/
 
 .restaurant-detail {
   background-color: #3b8284;
   width: 300px;
-  max-height: 600px;
+  max-height: 650px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -307,6 +311,7 @@ button.cart-btn {
 
 .restaurant-detail-image {
   flex: 1;
+  height: 10rem;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

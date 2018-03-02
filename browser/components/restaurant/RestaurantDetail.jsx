@@ -10,11 +10,11 @@ export default function RestaurantDetail(props){
       <div className="restaurant-detail-image" style={image_style}>
       </div>
       <div className="restaurant-detail-container">
-        <h4>{restaurant.name}</h4>
+        <div className="header">{restaurant.name}</div>
         <p>Price: {restaurant.price_range}</p>
         <p>Address: {restaurant.address}</p>
         <p>Rating: {restaurant.user_rating} ({restaurant.votes} user ratings)</p>
-        <p><button className="trns-btn"><NavLink to={url} activeClassName="active">See More</NavLink></button></p>
+        <button className="trns-btn"><NavLink to={url} activeClassName="active">See More</NavLink></button>
       </div>
     </div>
   );

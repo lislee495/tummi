@@ -95,5 +95,3 @@ const mapStateToProps = (state) => ({
   currentRestaurant: state.restaurants.currentRestaurant || {}
 })
 export default connect(mapStateToProps)(Map);
-
-// .slice(state.restaurants.foundRestaurantIndex, state.restaurants.foundRestaurantIndex+5)
