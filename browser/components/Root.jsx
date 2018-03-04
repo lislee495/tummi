@@ -15,8 +15,7 @@ import RestaurantMenu from './restaurant/RestaurantMenu'
 import RestaurantList from './restaurant/RestaurantList'
 import $ from 'jquery';
 window.jQuery = window.$ = $;
-
-import { fetchCurrentUser } from '../redux/auth';
+import { fetchCurrentUser} from '../redux';
 
 // remove tap delay, essential for MaterialUI to work properly
 injectTapEventPlugin();
@@ -27,10 +26,9 @@ class Root extends Component {
   constructor(props) {
     super(props);
   }
-
 	componentDidMount() {
-		this.props.fetchInitialData();
-	}
+    this.props.fetchInitialData();
+  }
 	render () {
     const {currentUser, showCart, foundRestaurants} = this.props
 		return (
@@ -77,7 +75,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  fetchInitialData: () => dispatch(fetchCurrentUser())
+  fetchInitialData: () => {
+    dispatch(fetchCurrentUser())},
 });
 
 export default connect(mapState, mapDispatch)(Root);

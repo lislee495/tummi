@@ -22,7 +22,7 @@ class Navbar extends React.Component {
             <ul className="right nav-items">
              <li><Searchbar history={this.props.history}/></li>
               <li><button class="cart-btn" onClick={()=>handleCartClick()}>
-              <i class="material-icons">shopping_cart</i></button></li>
+              <i className="material-icons">shopping_cart</i></button></li>
             </ul>
           </div>
         

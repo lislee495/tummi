@@ -49,7 +49,6 @@ class RestaurantMenu extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.dislikes.length, nextProps.dislikes.length)
     if (this.props.dislikes.length !== nextProps.dislikes.length) {
       let filteredMenu =  this.filterIn(this.filterOut(nextProps.menu, nextProps.dislikes), nextProps.likes)
       this.setState({filteredMenu: filteredMenu})
