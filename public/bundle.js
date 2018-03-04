@@ -49353,7 +49353,7 @@ var Navbar = function (_React$Component) {
             null,
             _react2.default.createElement(
               'button',
-              { 'class': 'cart-btn', onClick: function onClick() {
+              { className: 'cart-btn', onClick: function onClick() {
                   return handleCartClick();
                 } },
               _react2.default.createElement(
@@ -49558,7 +49558,6 @@ var TrendsPage = function (_React$Component) {
                 var compromisedWords = nlp(words).ngrams({ size: 1 }).data();
                 this.setState({ words: words });
                 this.setState({ compromisedWords: compromisedWords.slice(0, 15) });
-                console.log(compromisedWords);
             }
         }
     }, {
@@ -49568,50 +49567,159 @@ var TrendsPage = function (_React$Component) {
                 'div',
                 { className: 'trends-page' },
                 _react2.default.createElement(
-                    'h4',
-                    null,
-                    'Trends'
-                ),
-                _react2.default.createElement('hr', null),
-                _react2.default.createElement(
-                    _reactTagCloud2.default,
-                    {
-                        style: {
-                            fontFamily: 'sans-serif',
-                            fontSize: 30,
-                            fontWeight: 'bold',
-                            fontStyle: 'italic',
-                            color: function color() {
-                                return (0, _randomcolor2.default)();
-                            },
-                            padding: 5,
-                            width: '100%',
-                            height: '100%'
-                        } },
+                    'div',
+                    { className: 'app-outer' },
                     _react2.default.createElement(
                         'div',
-                        { style: { fontFamily: 'courier' } },
-                        'He man'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { style: { fontSize: 30 } },
-                        'World trigger'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { style: { fontStyle: 'italic' } },
-                        'Avengers'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { style: { fontWeight: 200 } },
-                        'Family Guy'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { style: { color: 'green' } },
-                        'American Dad'
+                        { className: 'app-inner' },
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            'react-tag-cloud demo'
+                        ),
+                        _react2.default.createElement(
+                            _reactTagCloud2.default,
+                            {
+                                className: 'tag-cloud',
+                                style: {
+                                    fontFamily: 'sans-serif',
+                                    //fontSize: () => Math.round(Math.random() * 50) + 16,
+                                    fontSize: 30,
+                                    color: function color() {
+                                        return (0, _randomcolor2.default)({
+                                            hue: 'blue'
+                                        });
+                                    },
+                                    padding: 5
+                                } },
+                            _react2.default.createElement(
+                                'div',
+                                {
+                                    style: {
+                                        fontFamily: 'serif',
+                                        fontSize: 40,
+                                        fontStyle: 'italic',
+                                        fontWeight: 'bold',
+                                        color: (0, _randomcolor2.default)()
+                                    } },
+                                'Futurama'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { style: { fontFamily: 'courier' } },
+                                'He man'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { style: { fontSize: 30 } },
+                                'World trigger'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { style: { fontStyle: 'italic' } },
+                                'Avengers'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { style: { fontWeight: 200 } },
+                                'Family Guy'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { style: { color: 'green' } },
+                                'American Dad'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Gobots'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Thundercats'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'M.A.S.K.'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'GI Joe'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Inspector Gadget'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Bugs Bunny'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Tom & Jerry'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Cowboy Bebop'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Evangelion'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Bleach'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'GITS'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Pokemon'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'She Ra'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Fullmetal Alchemist'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Gundam'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Uni Taisen'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Pinky and the Brain'
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                null,
+                                'Bobs Burgers'
+                            )
+                        )
                     )
                 )
             );
@@ -49637,6 +49745,30 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TrendsPage);
+
+
+{/* <h4>Trends</h4>
+                   <hr/>
+                   <TagCloud 
+                   style={{
+                   fontFamily: 'sans-serif',
+                   fontSize: 30,
+                   fontWeight: 'bold',
+                   fontStyle: 'italic',
+                   color: () => randomColor(),
+                   padding: 5,
+                   width: '100%',
+                   height: '100%',
+                   flex: 1
+                   }}>
+                   {/* {this.state.compromisedWords[0] && this.state.compromisedWords.map(
+                       ele => {
+                       return (
+                       <div style={{fontSize: ele.count * 6}} key={ele.normal}>
+                           {ele.normal}
+                       </div>)
+                       }
+                   )} */}
 
 /***/ }),
 /* 583 */

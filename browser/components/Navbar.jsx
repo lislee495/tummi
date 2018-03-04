@@ -21,7 +21,7 @@ class Navbar extends React.Component {
             <div className="brand-logo center">Tummi</div>
             <ul className="right nav-items">
              <li><Searchbar history={this.props.history}/></li>
-              <li><button class="cart-btn" onClick={()=>handleCartClick()}>
+              <li><button className="cart-btn" onClick={()=>handleCartClick()}>
               <i className="material-icons">shopping_cart</i></button></li>
             </ul>
           </div>
