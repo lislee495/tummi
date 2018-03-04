@@ -12,8 +12,8 @@ const ADD_LIKE = "ADD_LIKE"
 const ADD_DISLIKE = "ADD_DISLIKE"
 const DELETE_DISLIKE = "DELETE_DISLIKE"
 const DELETE_LIKE = "DELETE_LIKE"
-const SET_TRENDS = "SET_TRENDS"
 const SET_FAVORITES = "SET_FAVORITES"
+const SET_ORDERS = "SET_ORDERS"
 
 
 
@@ -26,7 +26,7 @@ export const deleteDislike = dislikeInd => ({type: DELETE_DISLIKE, dislikeInd})
 export const addDislike = dislike => ({type: ADD_DISLIKE, dislike})
 export const resetPref = () => ({type: RESET_PREF})
 export const setFavoriteDishes = favorites => ({type: SET_FAVORITES, favorites})
-export const setTrends = trends => ({type: SET_TRENDS, trends})
+export const setOrders = orders => ({type: SET_ORDERS, orders})
 
 
 // /* ------------          REDUCER         ------------------ */
@@ -35,7 +35,7 @@ export default function reducer (user_pref = {
   like: [],
   dislike: [],
   favoriteDishes: [],
-  trends: []
+  orders: []
 }, action) {
   switch (action.type) {
     case ADD_LIKE:
@@ -50,8 +50,8 @@ export default function reducer (user_pref = {
       return Object.assign({}, user_pref, {like: [], dislike: []})
     case SET_FAVORITES:
       return Object.assign({}, user_pref, {favoriteDishes: action.favorites})
-    case SET_TRENDS: 
-      return Object.assign({}, user_pref, {trends: action.trends})
+    case SET_ORDERS: 
+      return Object.assign({}, user_pref, {orders: action.trends})
     default:
       return user_pref;
   }
@@ -60,7 +60,6 @@ export default function reducer (user_pref = {
 // /* ------------       THUNK CREATORS     ------------------ */
 
 export const fetchTrends = currentUser => dispatch => {
-  const {currentUser} = currentUser
   axios.get(`/api/users/${currentUser.id}/orders`)
   .then(trends => [...trends.body].map(ele => ele.dish_id))
   .then(dishIds => Promise.map(dishIds, (dishId)=> {
@@ -70,7 +69,6 @@ export const fetchTrends = currentUser => dispatch => {
 }
 
 export const fetchFavoriteDishes = currentUser => dispatch => {
-  const {currentUser} = currentUser
   axios.get(`/api/users/${currentUser.id}/favorites`)
   .then(favorites => [...favorites.data].map(ele => ele.dish_id))
   .then(dishIds => Promise.map(dishIds, (dishId)=> {
@@ -80,15 +78,15 @@ export const fetchFavoriteDishes = currentUser => dispatch => {
 }
 
 export const fetchOrders =  currentUser => dispatch => {
-  const {currentUser} = currentUser
+  let order = {}
   axios.get(`/api/users/${currentUser.id}/orders`)
   .then(orders => {
-    return {orders: orders.data, dishIds: [...orders.data].map(ele => ele.dish_id)}})
-  // .then(orderInfo => {
-  //   orderInfo.dishArray =  Promise.map(orderInfo.dishIds, (dishId)=> {
-  //     axios.get(`/api/dishes/${dishId}`)
-  //   .then(dish => dish.data)})
-  //   return orderInfo
-  // })
-  .then(orders => dispatch(setOrders(orders)))
+    order = {orders: orders.data, dishIds: [...orders.data].map(ele => ele.dish_id)}
+    return order})
+  .then(orderInfo => Promise.map(orderInfo.dishIds, (dishId)=> {
+        return axios.get(`/api/dishes/${dishId}`)}
+      ))
+  .then(result => {
+    order.dishArray = result.map(dish => dish.data)
+    dispatch(setOrders(order))})
 }

@@ -45794,7 +45794,7 @@ module.exports = Array.isArray || function (arr) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchOrders = exports.fetchFavoriteDishes = exports.fetchTrends = exports.setTrends = exports.setFavoriteDishes = exports.resetPref = exports.addDislike = exports.deleteDislike = exports.deleteLike = exports.addLike = undefined;
+exports.fetchOrders = exports.fetchFavoriteDishes = exports.fetchTrends = exports.setOrders = exports.setFavoriteDishes = exports.resetPref = exports.addDislike = exports.deleteDislike = exports.deleteLike = exports.addLike = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(94);
@@ -45822,8 +45822,8 @@ var ADD_LIKE = "ADD_LIKE";
 var ADD_DISLIKE = "ADD_DISLIKE";
 var DELETE_DISLIKE = "DELETE_DISLIKE";
 var DELETE_LIKE = "DELETE_LIKE";
-var SET_TRENDS = "SET_TRENDS";
 var SET_FAVORITES = "SET_FAVORITES";
+var SET_ORDERS = "SET_ORDERS";
 
 // /* ------------     ACTION CREATORS      ------------------ */
 
@@ -45845,8 +45845,8 @@ var resetPref = exports.resetPref = function resetPref() {
 var setFavoriteDishes = exports.setFavoriteDishes = function setFavoriteDishes(favorites) {
   return { type: SET_FAVORITES, favorites: favorites };
 };
-var setTrends = exports.setTrends = function setTrends(trends) {
-  return { type: SET_TRENDS, trends: trends };
+var setOrders = exports.setOrders = function setOrders(orders) {
+  return { type: SET_ORDERS, orders: orders };
 };
 
 // /* ------------          REDUCER         ------------------ */
@@ -45856,7 +45856,7 @@ function reducer() {
     like: [],
     dislike: [],
     favoriteDishes: [],
-    trends: []
+    orders: []
   };
   var action = arguments[1];
 
@@ -45873,8 +45873,8 @@ function reducer() {
       return Object.assign({}, user_pref, { like: [], dislike: [] });
     case SET_FAVORITES:
       return Object.assign({}, user_pref, { favoriteDishes: action.favorites });
-    case SET_TRENDS:
-      return Object.assign({}, user_pref, { trends: action.trends });
+    case SET_ORDERS:
+      return Object.assign({}, user_pref, { orders: action.trends });
     default:
       return user_pref;
   }
@@ -45884,8 +45884,6 @@ function reducer() {
 
 var fetchTrends = exports.fetchTrends = function fetchTrends(currentUser) {
   return function (dispatch) {
-    var currentUser = currentUser.currentUser;
-
     _axios2.default.get('/api/users/' + currentUser.id + '/orders').then(function (trends) {
       return [].concat(_toConsumableArray(trends.body)).map(function (ele) {
         return ele.dish_id;
@@ -45906,8 +45904,6 @@ var fetchTrends = exports.fetchTrends = function fetchTrends(currentUser) {
 
 var fetchFavoriteDishes = exports.fetchFavoriteDishes = function fetchFavoriteDishes(currentUser) {
   return function (dispatch) {
-    var currentUser = currentUser.currentUser;
-
     _axios2.default.get('/api/users/' + currentUser.id + '/favorites').then(function (favorites) {
       return [].concat(_toConsumableArray(favorites.data)).map(function (ele) {
         return ele.dish_id;
@@ -45928,21 +45924,21 @@ var fetchFavoriteDishes = exports.fetchFavoriteDishes = function fetchFavoriteDi
 
 var fetchOrders = exports.fetchOrders = function fetchOrders(currentUser) {
   return function (dispatch) {
-    var currentUser = currentUser.currentUser;
-
+    var order = {};
     _axios2.default.get('/api/users/' + currentUser.id + '/orders').then(function (orders) {
-      return { orders: orders.data, dishIds: [].concat(_toConsumableArray(orders.data)).map(function (ele) {
+      order = { orders: orders.data, dishIds: [].concat(_toConsumableArray(orders.data)).map(function (ele) {
           return ele.dish_id;
         }) };
-    })
-    // .then(orderInfo => {
-    //   orderInfo.dishArray =  Promise.map(orderInfo.dishIds, (dishId)=> {
-    //     axios.get(`/api/dishes/${dishId}`)
-    //   .then(dish => dish.data)})
-    //   return orderInfo
-    // })
-    .then(function (orders) {
-      return dispatch(setOrders(orders));
+      return order;
+    }).then(function (orderInfo) {
+      return _bluebird2.default.map(orderInfo.dishIds, function (dishId) {
+        return _axios2.default.get('/api/dishes/' + dishId);
+      });
+    }).then(function (result) {
+      order.dishArray = result.map(function (dish) {
+        return dish.data;
+      });
+      dispatch(setOrders(order));
     });
   };
 };

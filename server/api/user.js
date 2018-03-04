@@ -8,9 +8,8 @@ const sequelize = require('sequelize')
 
 router.get('/:id/orders', (req, res, next)=> {
   const id = req.params.id
-  Order.findAll({ where: {user_id: id}, group: "createdAt"})
+  Order.findAll({ where: {user_id: id}})
   .then(result => {
-    console.log(result)
     res.status(201).json(result)})
 })
 
