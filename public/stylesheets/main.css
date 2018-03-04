@@ -359,6 +359,7 @@ div.filter-inputs {
   color: white; 
   z-index: 1;
   padding: 10px;
+  height: auto;
 }
 
 .shadow {

@@ -11,19 +11,21 @@ class CartBar extends React.Component {
   // }
   render(){
     const {currentUser, cart, cartRestaurant, removeItem} = this.props
+    const dishes = cart.dishes 
     return (
       <div className="cart-bar shadow">
         <ul className="cart">
         <h3>My Cart</h3>
           <li><a className="subheader">{cartRestaurant.name}</a></li>
-        {cart[0] ?
+        {dishes[0] ?
           (  <div>
-              {cart.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
-              <li><div className="divider"> Total: $ {cart.total.toFixed(2)} </div></li>
+              {dishes.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
+              <li> Total: $ {cart.total.toFixed(2)} </li>
+              <div className="divider"></div>
               <br/>
               <span> 
               <button className="gen-btn" onClick={()=>this.props.handleClear()}>Clear Cart</button>
-              <button className="gen-btn" onClick={()=>this.props.handleCheckout({cart, currentUser, cartRestaurant})}>Checkout Cart</button>
+              <button className="gen-btn" onClick={()=>this.props.handleCheckout({dishes, currentUser, cartRestaurant})}>Checkout Cart</button>
               </span>
             </div>
           ) : (<li>No items to show!</li>)
@@ -38,7 +40,7 @@ class CartBar extends React.Component {
 /* -----------------    CONTAINER     ------------------ */
 const mapStateToProps = function (state, ownProps) {
   return {
-    cart: state.cart.dishes,
+    cart: state.cart,
     currentUser: state.currentUser,
     cartRestaurant: state.cart.restaurant
   };

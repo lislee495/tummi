@@ -5,6 +5,7 @@ const Restaurant = require('./restaurant');
 const User = require('./user');
 const Menu = require('./menu');
 const Order = require('./order')
+const Favorites = require('./favorites')
 
 Restaurant.hasOne(Menu, {
   foreignKey: 'owner_id',
@@ -16,6 +17,8 @@ Menu.belongsToMany(Dish, {through: 'menu_dish'});
 Dish.belongsToMany(Menu, {through: 'menu_dish'});
 User.belongsToMany(Dish, {through: Order})
 Dish.belongsToMany(User, {through: Order})
+User.belongsToMany(Dish, {through: Favorites})
+Dish.belongsToMany(User, {through: Favorites})
 
 module.exports = {
 	db,
@@ -23,5 +26,6 @@ module.exports = {
 	User,
   Dish,
   Menu,
-  Order
+  Order,
+  Favorites
 };

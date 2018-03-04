@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import randomColor from 'randomcolor';
-import {fetchFavorites, fetchTrends} from '../redux/'
+import {fetchFavoriteDishes, fetchOrders} from '../redux/'
 
 class FavoritesPage extends React.Component {
     componentDidMount(){
-        this.props.fetchTrends(this.props.currentUser)
-        this.props.fetchFavorites(this.props.currentUser)
+        this.props.fetchOrders(this.props.currentUser)
+        this.props.fetchFavoriteDishes(this.props.currentUser)
     }
     render() {
         const {favorites, trends} = this.props
@@ -15,7 +15,7 @@ class FavoritesPage extends React.Component {
                 <div className="favorites-content">
                     <h4>Favorites</h4>
                     <hr/>
-                    <ul>
+                    {/* <ul>
                     {favorites.map(dish => {
                         <FavoriteDiv dish={dish} key={dish.id}/>
                     })}
@@ -24,10 +24,10 @@ class FavoritesPage extends React.Component {
                     <h4>Past Orders</h4>
                     <hr/>
                     <ul>
-                    {trends.map(dish => {
-                        <PastOrdersDiv dish={dish} key={dish.id}/>
+                    {trends.map(order => {
+                        <PastOrdersDiv order={order} key={dish.id}/>
                     })}
-                    </ul>
+                    </ul> */}
                 </div>
             </div>
         )
@@ -37,12 +37,12 @@ class FavoritesPage extends React.Component {
 const mapStateToProps = function (state) {
   return {
     currentUser: state.currentUser,
-    favorites: state.user_pref.favorites,
+    favoriteDishes: state.user_pref.favoriteDishes,
     trends: state.user_pref.trends
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchTrends: (currentUser) => dispatch(fetchTrends(currentUser)),
-    fetchFavorites: (currentUser) => dispatch(fetchFavorites(currentUser))
+    fetchOrders: (currentUser) => dispatch(fetchOrders(currentUser)),
+    fetchFavoriteDishes: (currentUser) => dispatch(fetchFavoriteDishes(currentUser))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

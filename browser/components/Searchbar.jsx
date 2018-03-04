@@ -23,7 +23,7 @@ function Searchbar(props) {
           placeholder="Location"
           required/>
         </div>
-        <button type="submit" className="search"><i class="material-icons">search</i></button>
+        <button type="submit" className="search"><i className="material-icons">search</i></button>
       </form>
     )
 }
@@ -45,7 +45,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
     handleSubmit (category, location, evt) {
       evt.preventDefault();
       dispatch(searchRestaurants({ category: category, location: location }));
-      // dispatch(searchMenus({ category: category, location: location }));
+      dispatch(searchMenus({ category: category, location: location }));
       dispatch(searchCategory(''));
       dispatch(searchLocation(''));
       ownProps.history.push('/')

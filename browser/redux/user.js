@@ -25,7 +25,7 @@ export const deleteLike = likeInd => ({type: DELETE_LIKE, likeInd})
 export const deleteDislike = dislikeInd => ({type: DELETE_DISLIKE, dislikeInd})
 export const addDislike = dislike => ({type: ADD_DISLIKE, dislike})
 export const resetPref = () => ({type: RESET_PREF})
-export const setFavorites = favorites => ({type: SET_FAVORITES, favorites})
+export const setFavoriteDishes = favorites => ({type: SET_FAVORITES, favorites})
 export const setTrends = trends => ({type: SET_TRENDS, trends})
 
 
@@ -34,7 +34,7 @@ export const setTrends = trends => ({type: SET_TRENDS, trends})
 export default function reducer (user_pref = {
   like: [],
   dislike: [],
-  favorites: [],
+  favoriteDishes: [],
   trends: []
 }, action) {
   switch (action.type) {
@@ -49,7 +49,7 @@ export default function reducer (user_pref = {
     case RESET_PREF:
       return Object.assign({}, user_pref, {like: [], dislike: []})
     case SET_FAVORITES:
-      return Object.assign({}, user_pref, {favorites: action.favorites})
+      return Object.assign({}, user_pref, {favoriteDishes: action.favorites})
     case SET_TRENDS: 
       return Object.assign({}, user_pref, {trends: action.trends})
     default:
@@ -69,12 +69,26 @@ export const fetchTrends = currentUser => dispatch => {
   .then(dishes => dispatch(setTrends(dishes)))
 }
 
-export const fetchFavorites = currentUser => dispatch => {
+export const fetchFavoriteDishes = currentUser => dispatch => {
   const {currentUser} = currentUser
   axios.get(`/api/users/${currentUser.id}/favorites`)
   .then(favorites => [...favorites.data].map(ele => ele.dish_id))
   .then(dishIds => Promise.map(dishIds, (dishId)=> {
     return axios.get(`/api/dishes/${dishId}`)
   })).then(result => result.map(ele => ele.data))
-  .then(dishes => dispatch(setFavorites(dishes)))
+  .then(dishes => dispatch(setFavoriteDishes(dishes)))
+}
+
+export const fetchOrders =  currentUser => dispatch => {
+  const {currentUser} = currentUser
+  axios.get(`/api/users/${currentUser.id}/orders`)
+  .then(orders => {
+    return {orders: orders.data, dishIds: [...orders.data].map(ele => ele.dish_id)}})
+  // .then(orderInfo => {
+  //   orderInfo.dishArray =  Promise.map(orderInfo.dishIds, (dishId)=> {
+  //     axios.get(`/api/dishes/${dishId}`)
+  //   .then(dish => dish.data)})
+  //   return orderInfo
+  // })
+  .then(orders => dispatch(setOrders(orders)))
 }

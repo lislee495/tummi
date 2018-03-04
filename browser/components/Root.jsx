@@ -47,7 +47,7 @@ class Root extends Component {
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
                     <Route path="/restaurants/:id" component={RestaurantPage} />
                   </Switch>
-                    </div>
+                </div>
                 <Route exact path="/" component={MapPage} />
                 <Route exact path="/trends" component={TrendsPage} />
                 <Route exact path="/favorites" component={FavoritesPage} />

@@ -83,7 +83,8 @@ class RestaurantMenu extends React.Component {
         </div>
         <h5>Menu</h5>
         {filteredMenu[0] ? <Menu menu={filteredMenu} restaurant={currentRestaurant}/> : 
-      "No items found. Please reset filters."}
+      // "No items found. Please reset filters."
+      <Menu menu={menu} restaurant={currentRestaurant}/>}
       </div>)
   }
 }

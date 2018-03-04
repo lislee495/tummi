@@ -4,7 +4,7 @@ import {addDishToCart, addRestaurantToCart, favoriteDish, fetchFavorites} from '
 
 class MenuDiv extends React.Component {
   componentDidMount(){
-    this.props.fetchFavorites(this.props.currentUser.id)
+    this.props.fetchFavorites(this.props.currentUser)
   }
   render() {
   const {dish, handleClick, restaurant, currentUser, handleFavorite, favoriteDishes} = this.props
@@ -36,6 +36,6 @@ const mapDispatchToProps = (dispatch)=> ({
     dispatch(addDishToCart(dish))
     dispatch(addRestaurantToCart(restaurant))},
   handleFavorite: (dish, restaurant, currentUser) => dispatch(favoriteDish({dish, restaurant, currentUser})),
-  fetchFavorites: (user_id) => dispatch(fetchFavorites(user_id))
+  fetchFavorites: (currentUser) => dispatch(fetchFavorites(currentUser))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(MenuDiv);

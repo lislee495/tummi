@@ -54,7 +54,6 @@ export default function reducer (cart = {
 
 /* ------------       THUNK CREATORS     ------------------ */
 export const checkoutCart = (terms) => (dispatch) => {
-  const {currentUser, cart, cartRestaurant} = terms
-  axios.post(`/api/users/${currentUser.id}/orders`, {terms})
+  axios.post(`/api/users/${terms.currentUser.id}/orders`, {terms})
   .then(res => dispatch(clearCart()))
 }
