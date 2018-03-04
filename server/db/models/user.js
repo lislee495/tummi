@@ -8,7 +8,7 @@ const User = db.define('user', {
     unique: true},
   password: Sequelize.STRING,
   googleId: Sequelize.STRING,
-  orders: {type: Sequelize.INTEGER, default: 0}
+  orders: {type: Sequelize.INTEGER, defaultValue: 0}
 })
 
 module.exports = User;

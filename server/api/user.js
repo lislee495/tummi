@@ -3,6 +3,7 @@ const router = require('express').Router();
 const HttpError = require('../utils/HttpError');
 const { Order, Favorites, User } = require('../db/models');
 const Promise = require('bluebird')
+const sequelize = require('sequelize')
 
 
 router.get('/:id/orders', (req, res, next)=> {
@@ -14,17 +15,16 @@ router.get('/:id/orders', (req, res, next)=> {
 })
 
 router.post('/:id/orders', async(req, res, next) => {
-  User.update({orders: sequelize.literal('order + 1')}, {where: {user_id: req.body.terms.currentUser.id}, returning: true, plain: true})
-  .then(user => {
-    const orderNum = user.orders 
+  User.findById(req.body.terms.currentUser.id)
+  .then(user => {return user.increment('orders')})
+  .then(userIncremented => {
+    const orderNum = userIncremented.orders 
     const {dishes, currentUser, cartRestaurant} = req.body.terms
     return Promise.each(dishes, (ele)=> {
       Order.create({user_id: currentUser.id, dish_id: ele.dish.id, restaurant_id: cartRestaurant.id, 
         quantity: ele.quantity, status: "ordered", orderNum: orderNum })
     })
   })
-    
-    
   .then(result => res.status(201).json(result))
 });
 
