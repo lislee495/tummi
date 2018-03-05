@@ -86,7 +86,7 @@ export const fetchOrders =  currentUser => dispatch => {
   axios.get(`/api/users/${currentUser.id}/orders`)
   .then(orders => order.orders = orders.data)
   .then(orderInfo => 
-    Promise.map(order.orders.map(ele => ele.restaurant_id), (dishId)=> {
+    Promise.map(order.orders.map(ele => ele.dish_id), (dishId)=> {
         return axios.get(`/api/dishes/${dishId}`)}
       ))
   .then(result => {

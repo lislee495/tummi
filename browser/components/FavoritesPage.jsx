@@ -22,12 +22,13 @@ class FavoritesPage extends React.Component {
           groups[val] = groups[val] || []
           groups[val].push(item)
           return groups
-        }, {})
+        }, [])
     }
     componentWillReceiveProps(nextProps) {
         if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
-            let orders = this.groupOrders(nextProps.orders.orders, 'orderNum')
-            this.setState({ groupOrders: orders})
+            let orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1)
+            console.log(orders)
+            this.setState({ groupedOrders: orders})
         }
     }
     render() {
@@ -46,9 +47,9 @@ class FavoritesPage extends React.Component {
                     <h4>Past Orders</h4>
                     <hr/>
                     <ul>
-                    {(orders.length > 0) && this.state.groupedOrders.map(order => {
-                        <PastOrdersDiv order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray}/>
-                    })}
+                    {orders.orders.length > 0 && this.state.groupedOrders.map(order => 
+                        <PastOrdersDiv order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray}/>)
+                    }
                     </ul>
                 </div>
             </div>

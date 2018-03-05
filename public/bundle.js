@@ -45922,7 +45922,7 @@ var fetchOrders = exports.fetchOrders = function fetchOrders(currentUser) {
       return order.orders = orders.data;
     }).then(function (orderInfo) {
       return _bluebird2.default.map(order.orders.map(function (ele) {
-        return ele.restaurant_id;
+        return ele.dish_id;
       }), function (dishId) {
         return _axios2.default.get('/api/dishes/' + dishId);
       });
@@ -51738,7 +51738,7 @@ var FavoritesPage = function (_React$Component) {
                 groups[val] = groups[val] || [];
                 groups[val].push(item);
                 return groups;
-            }, {});
+            }, []);
         };
 
         _this.state = { groupedOrders: [] };
@@ -51756,8 +51756,9 @@ var FavoritesPage = function (_React$Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
-                var orders = this.groupOrders(nextProps.orders.orders, 'orderNum');
-                this.setState({ groupOrders: orders });
+                var orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1);
+                console.log(orders);
+                this.setState({ groupedOrders: orders });
             }
         }
     }, {
@@ -51795,8 +51796,8 @@ var FavoritesPage = function (_React$Component) {
                     _react2.default.createElement(
                         'ul',
                         null,
-                        orders.length > 0 && this.state.groupedOrders.map(function (order) {
-                            _react2.default.createElement(_PastOrdersDiv2.default, { order: order, dishes: orders.dishArray, restaurants: orders.restaurantArray });
+                        orders.orders.length > 0 && this.state.groupedOrders.map(function (order) {
+                            return _react2.default.createElement(_PastOrdersDiv2.default, { order: order, dishes: orders.dishArray, restaurants: orders.restaurantArray });
                         })
                     )
                 )
@@ -51920,10 +51921,25 @@ var PastOrdersDiv = function (_React$Component) {
                     { className: "past-orders" },
                     "Restaurant: ",
                     restaurants.find(function (ele) {
-                        return ele.restaurant_id === order[0].restaurant_id;
-                    }),
+                        return ele.id === order[0].restaurant_id;
+                    }).name,
                     "When: ",
-                    order[0].createdAt
+                    order[0].createdAt,
+                    "Dishes: ",
+                    _react2.default.createElement(
+                        "ul",
+                        null,
+                        order.map(function (ele) {
+                            var dish = dishes.find(function (item) {
+                                return item.id === ele.dish_id;
+                            });
+                            return _react2.default.createElement(
+                                "li",
+                                null,
+                                dish.name
+                            );
+                        })
+                    )
                 )
             );
         }
