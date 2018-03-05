@@ -9,10 +9,9 @@ export default class PastOrdersDiv extends React.Component {
                 <div className="past-orders">
                     Restaurant: {restaurants.find(ele => ele.id === order[0].restaurant_id).name}
                     When: {order[0].createdAt}
-                    Dishes: <ul>{order.map(ele => {
-                        let dish = dishes.find(item=>item.id === ele.dish_id)
-                        return <li>{dish.name}</li>
-                    })}</ul>
+                    Dishes: <ul>{order.map(ele => 
+                        <li>{dishes.find(item=>item.id === ele.dish_id).name}</li>
+                    )}</ul>
                 </div>
             </li>
         )

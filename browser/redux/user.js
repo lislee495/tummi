@@ -63,14 +63,6 @@ export default function reducer (user_pref = {
 
 // /* ------------       THUNK CREATORS     ------------------ */
 
-// export const fetchTrends = currentUser => dispatch => {
-//   axios.get(`/api/users/${currentUser.id}/orders`)
-//   .then(trends => [...trends.body].map(ele => ele.dish_id))
-//   .then(dishIds => Promise.map(dishIds, (dishId)=> {
-//     return axios.get(`/api/dishes/${dishId}`)
-//   })).then(result => result.map(ele => ele.data))
-//   .then(dishes => dispatch(setTrends(dishes)))
-// }
 
 export const fetchFavoriteDishes = currentUser => dispatch => {
   axios.get(`/api/users/${currentUser.id}/favorites`)
