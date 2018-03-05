@@ -38,7 +38,7 @@ class TrendsPage extends React.Component {
             <div className="trends-page">
                 <div className='app-outer'>
                     <div className='app-inner'>
-                    <h1>react-tag-cloud demo</h1>
+                    <h1>Trends</h1>
                     <TagCloud 
                         className='tag-cloud'
                         style={{
@@ -50,38 +50,14 @@ class TrendsPage extends React.Component {
                         }),
                         padding: 5,
                         }}>
-                        <div
-                        style={{
-                            fontFamily: 'serif',
-                            fontSize: 40,
-                            fontStyle: 'italic',
-                            fontWeight: 'bold',
-                            color: randomColor()
-                        }}>Futurama</div>
-                        <div style={{fontFamily: 'courier'}}>He man</div>
-                        <div style={{fontSize: 30}}>World trigger</div>
-                        <div style={{fontStyle: 'italic'}}>Avengers</div>
-                        <div style={{fontWeight: 200}}>Family Guy</div>
-                        <div style={{color: 'green'}}>American Dad</div>
-                        <div>Gobots</div>
-                        <div>Thundercats</div>
-                        <div>M.A.S.K.</div>
-                        <div>GI Joe</div>
-                        <div>Inspector Gadget</div>
-                        <div>Bugs Bunny</div>
-                        <div>Tom & Jerry</div>
-                        <div>Cowboy Bebop</div>
-                        <div>Evangelion</div>
-                        <div>Bleach</div>
-                        <div>GITS</div>
-                        <div>Pokemon</div>
-                        <div>She Ra</div>
-                        <div>Fullmetal Alchemist</div>
-                        <div>Gundam</div>
-                        <div>Uni Taisen</div>
-                        <div>Pinky and the Brain</div>
-                        <div>Bobs Burgers</div>
-                    </TagCloud>
+                        {this.state.compromisedWords[0] && this.state.compromisedWords.map(
+                            ele => {
+                            return (
+                            <div style={{fontSize: ele.count * 10}} key={ele.normal}>
+                                {ele.normal}
+                            </div>)
+                            })}
+                        </TagCloud>
                     </div>
                 </div>
             </div>
@@ -107,26 +83,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 export default connect(mapStateToProps, mapDispatchToProps)(TrendsPage);
 
-{/* <h4>Trends</h4>
-                <hr/>
-                <TagCloud 
-                style={{
-                fontFamily: 'sans-serif',
-                fontSize: 30,
-                fontWeight: 'bold',
-                fontStyle: 'italic',
-                color: () => randomColor(),
-                padding: 5,
-                width: '100%',
-                height: '100%',
-                flex: 1
-                }}>
-                {/* {this.state.compromisedWords[0] && this.state.compromisedWords.map(
-                    ele => {
-                    return (
-                    <div style={{fontSize: ele.count * 6}} key={ele.normal}>
-                        {ele.normal}
-                    </div>)
-                    }
-                )} */}
+
                 

@@ -84,13 +84,19 @@ export const fetchFavoriteDishes = currentUser => dispatch => {
 export const fetchOrders =  currentUser => dispatch => {
   let order = {}
   axios.get(`/api/users/${currentUser.id}/orders`)
-  .then(orders => {
-    order = {orders: orders.data, dishIds: [...orders.data].map(ele => ele.dish_id)}
-    return order})
-  .then(orderInfo => Promise.map(orderInfo.dishIds, (dishId)=> {
+  .then(orders => order.orders = orders.data)
+  .then(orderInfo => 
+    Promise.map(order.orders.map(ele => ele.restaurant_id), (dishId)=> {
         return axios.get(`/api/dishes/${dishId}`)}
       ))
   .then(result => {
     order.dishArray = result.map(dish => dish.data)
-    dispatch(setOrders(order))})
+    return Promise.map(order.orders.map(ele => ele.restaurant_id), (restaurantId)=> {
+      return axios.get(`/api/restaurants/${restaurantId}`)
+    })  
+  }).then(restaurantArr => {
+    order.restaurantArray = restaurantArr.map(rest => rest.data).filter((thing, index, self) => 
+    self.findIndex(t => t.id === thing.id && t.name === thing.name) === index)
+    dispatch(setOrders(order))
+  })
 }
