@@ -51900,13 +51900,12 @@ var PastOrdersDiv = function (_React$Component) {
     _createClass(PastOrdersDiv, [{
         key: 'render',
         value: function render() {
-            var date = new Date();
-            date.format('dddd, mmmm dS, yyyy, h:MM:ss TT');
             var _props = this.props,
                 order = _props.order,
                 dishes = _props.dishes,
                 restaurants = _props.restaurants;
 
+            var date = new Date(Date.parse(order[0].createdAt));
             return _react2.default.createElement(
                 'li',
                 null,
@@ -51917,8 +51916,20 @@ var PastOrdersDiv = function (_React$Component) {
                     restaurants.find(function (ele) {
                         return ele.id === order[0].restaurant_id;
                     }).name,
+                    ' ',
+                    _react2.default.createElement('br', null),
                     'When: ',
-                    date('' + order[0].createdAt),
+                    date.getHours(),
+                    ':',
+                    date.getMinutes(),
+                    ', ',
+                    date.toLocaleString('en-us', { month: "long" }),
+                    ' ',
+                    date.getDate(),
+                    ', ',
+                    date.getFullYear(),
+                    ' ',
+                    _react2.default.createElement('br', null),
                     'Dishes: ',
                     _react2.default.createElement(
                         'ul',
@@ -51926,7 +51937,7 @@ var PastOrdersDiv = function (_React$Component) {
                         order.map(function (ele) {
                             return _react2.default.createElement(
                                 'li',
-                                null,
+                                { key: ele.dish_id },
                                 dishes.find(function (item) {
                                     return item.id === ele.dish_id;
                                 }).name
