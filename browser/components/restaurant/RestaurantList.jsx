@@ -12,7 +12,7 @@ function RestaurantList(props) {
       <ul>
       {foundRestaurants.slice(foundRestaurantIndex, foundRestaurantIndex+5).map(ele => {
         return(
-          <div className="restaurant-div active" onClick={() => selectRestaurant(ele)} key={ele.id}
+          <div className="restaurant-div" onClick={() => selectRestaurant(ele)} key={ele.id}
           style={{cursor: "pointer"}}>
             <RestaurantDiv restaurant={ele}/>
           </div>

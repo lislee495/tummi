@@ -7,7 +7,10 @@ export default function CartDish(props) {
   return(
     <li>
       <span>
-        {quantity}| <h6>{dish.name}</h6> | <h7>{dish.price * quantity}</h7> <button onClick={()=> removeItem(dish)}>X</button>
+        {quantity} {dish.name} | {dish.price * quantity}
+        <button className="cart-btn" onClick={()=> removeItem(dish)}>
+        <img src="/images/x.png" className="x-btn" alt="Delete Item"/>
+        </button>
       </span>
     </li>
   )

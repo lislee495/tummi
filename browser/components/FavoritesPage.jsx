@@ -44,7 +44,7 @@ class FavoritesPage extends React.Component {
                     
                     <h4>Past Orders</h4>
                     <hr/>
-                    <ul>
+                    <ul className="left-align">
                     {this.state.groupedOrders.length > 0 && this.state.groupedOrders.map(order => 
                         <PastOrdersDiv key={order[0].id} order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray}/>)
                     }

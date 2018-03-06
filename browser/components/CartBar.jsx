@@ -17,10 +17,14 @@ class CartBar extends React.Component {
         <ul className="cart">
         <h3>My Cart</h3>
           <li><a className="subheader">{cartRestaurant.name}</a></li>
-        {dishes[0] ?
+          <br/>
+        {dishes[0] ? 
           (  <div>
+              <div className="cart-content left-align">
               {dishes.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
+              </div>
               <li> Total: $ {cart.total.toFixed(2)} </li>
+              <br/>
               <div className="divider"></div>
               <br/>
               <span> 
