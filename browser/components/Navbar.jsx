@@ -16,12 +16,12 @@ class Navbar extends React.Component {
               <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
               <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
               <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
-              <li><NavLink to="/logout" onClick={this.props.logout}>Logout</NavLink></li>
+              <li><NavLink to="/logout" activeClassName="active" onClick={this.props.logout}>Logout</NavLink></li>
             </ul>
             <div className="brand-logo center">Tummi</div>
-            <ul className="right nav-items">
+            <ul className="right nav-items position">
              <li><Searchbar history={this.props.history}/></li>
-              <li><button className="cart-btn" onClick={()=>handleCartClick()}>
+              <li><button className="cart-btn position" onClick={()=>handleCartClick()}>
               <i className="material-icons">shopping_cart</i></button></li>
             </ul>
           </div>

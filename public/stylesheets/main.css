@@ -208,12 +208,28 @@ input.nav-bar {
 
 form.nav-bar {
   width: 25rem !important;
+  position: relative;
+  top: 0.25rem;
 }
 
 button.search {
   background-color: transparent;
   box-shadow: none;
   border-style: none;
+  position: relative;
+  top: 0.5rem;
+}
+
+button.cart-btn {
+  background-color: transparent;
+  box-shadow: none;
+  border-style: none;
+}
+
+.cart-btn.position {
+  position: relative; 
+  top: .5rem;
+  right: 1rem;
 }
 /********CONTENT_WRAPPER************/
 
@@ -305,7 +321,7 @@ button.search {
 .restaurant-detail {
   background-color: #3b8284;
   width: 300px;
-  max-height: 650px;
+  height: auto;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -315,7 +331,7 @@ button.search {
 }
 
 .restaurant-detail-container {
-  height: 17rem;
+  height: auto;
   margin: 15px;
   color: white;
 }
@@ -380,12 +396,6 @@ div.filter-inputs {
 
 .cart {
   text-align: center;
-}
-
-button.cart-btn {
-  background-color: transparent;
-  box-shadow: none;
-  border-style: none;
 }
 
 .x-btn {
