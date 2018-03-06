@@ -1,5 +1,6 @@
 html {
   background-color: #f8f8f8; 
+  height: 100%;
 }
 
 body {
@@ -352,6 +353,7 @@ div.filter-inputs {
 /********CART************/
 .cart-bar {
   width: 400px;
+  top: 5rem;
   right: 0;
   position: absolute;
   bottom: 0;

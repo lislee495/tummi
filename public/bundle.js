@@ -45886,14 +45886,6 @@ function reducer() {
 
 // /* ------------       THUNK CREATORS     ------------------ */
 
-// export const fetchTrends = currentUser => dispatch => {
-//   axios.get(`/api/users/${currentUser.id}/orders`)
-//   .then(trends => [...trends.body].map(ele => ele.dish_id))
-//   .then(dishIds => Promise.map(dishIds, (dishId)=> {
-//     return axios.get(`/api/dishes/${dishId}`)
-//   })).then(result => result.map(ele => ele.data))
-//   .then(dishes => dispatch(setTrends(dishes)))
-// }
 
 var fetchFavoriteDishes = exports.fetchFavoriteDishes = function fetchFavoriteDishes(currentUser) {
   return function (dispatch) {
@@ -51906,41 +51898,43 @@ var PastOrdersDiv = function (_React$Component) {
     }
 
     _createClass(PastOrdersDiv, [{
-        key: "render",
+        key: 'render',
         value: function render() {
+            var date = new Date();
+            date.format('dddd, mmmm dS, yyyy, h:MM:ss TT');
             var _props = this.props,
                 order = _props.order,
                 dishes = _props.dishes,
                 restaurants = _props.restaurants;
 
             return _react2.default.createElement(
-                "li",
+                'li',
                 null,
                 _react2.default.createElement(
-                    "div",
-                    { className: "past-orders" },
-                    "Restaurant: ",
+                    'div',
+                    { className: 'past-orders' },
+                    'Restaurant: ',
                     restaurants.find(function (ele) {
                         return ele.id === order[0].restaurant_id;
                     }).name,
-                    "When: ",
-                    order[0].createdAt,
-                    "Dishes: ",
+                    'When: ',
+                    date('' + order[0].createdAt),
+                    'Dishes: ',
                     _react2.default.createElement(
-                        "ul",
+                        'ul',
                         null,
                         order.map(function (ele) {
-                            var dish = dishes.find(function (item) {
-                                return item.id === ele.dish_id;
-                            });
                             return _react2.default.createElement(
-                                "li",
+                                'li',
                                 null,
-                                dish.name
+                                dishes.find(function (item) {
+                                    return item.id === ele.dish_id;
+                                }).name
                             );
                         })
                     )
-                )
+                ),
+                _react2.default.createElement('hr', null)
             );
         }
     }]);
