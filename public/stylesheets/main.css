@@ -1,22 +1,31 @@
 html {
   background-color: #f8f8f8; 
-  height: 100%;
+  height: auto;
 }
 
 body {
   padding: 0;
   text-align: center;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Arvo', serif;
   height: 100%;
+}
+
+#app {
+  height: inherit;
 }
 
 #main {
   padding: 0;
+  height: inherit;
 }
 
 a {
   color: white; 
   text-decoration: none !important;
+}
+
+.logged-in {
+  height: inherit;
 }
 
 /************LANDING PAGE************/
@@ -301,7 +310,7 @@ button.cart-btn {
   flex-direction: column;
   right: 50px;
   top: 100px;
-  z-index: 3;
+  z-index: 1;
 }
 
 .restaurant-detail-container {
@@ -359,7 +368,7 @@ div.filter-inputs {
   bottom: 0;
   background-color: #fad188;
   color: white; 
-  z-index: 1;
+  z-index: 2;
   padding: 10px;
   height: auto;
 }
@@ -413,14 +422,14 @@ button.gen-btn {
 	padding: 20px 0;
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: 5rem;
 }
 
 .app-inner {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	max-width: 1000px;
+	max-width: 100vh;
 	width: 100%;
 }
 
@@ -458,4 +467,15 @@ button.gen-btn {
 	left: 50%;
 	transform: translateX(-50%); 
     text-align: center;
+}
+
+/*************FAVORITES PAGE***************/
+.favorites-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+.favorites-content {
+  width: 50%;
 }

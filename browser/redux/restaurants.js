@@ -22,7 +22,7 @@ const RESET_RESTAURANT_INDEX = "RESET_RESTAURANT_INDEX"
 export const setCurrentRestaurant = restaurant => ({type: SET_CURRENT_RESTAURANT, restaurant})
 export const searchCategory = category => ({type: SEARCH_CATEGORY, category})
 export const searchLocation = location => ({type: SEARCH_LOCATION, location})
-const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
+export const foundRestaurants = restaurants => ({type: FOUND_RESTAURANTS, restaurants})
 export const getMenu = menu => ({ type: GET_MENU, menu})
 export const getDishes = dishes => ({type: GET_DISHES, dishes})
 export const getFavorites = favorites => ({type: GET_FAVORITES, favorites})

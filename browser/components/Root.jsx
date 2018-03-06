@@ -44,11 +44,11 @@ class Root extends Component {
                   <Switch>
                     <Route path="/restaurants/:id/menu" component={RestaurantMenu} />
                     <Route path="/restaurants/:id" component={RestaurantPage} />
+                    <Route exact path="/trends" component={TrendsPage} />
+                    <Route exact path="/favorites" component={FavoritesPage} />
                   </Switch>
                 </div>
                 <Route exact path="/" component={MapPage} />
-                <Route exact path="/trends" component={TrendsPage} />
-                <Route exact path="/favorites" component={FavoritesPage} />
               </div>) :
             (
               <div>

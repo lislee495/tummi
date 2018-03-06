@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import randomColor from 'randomcolor';
-import {fetchFavoriteDishes, fetchOrders} from '../redux/'
+import {fetchFavoriteDishes, fetchOrders, foundRestaurants} from '../redux/'
 import FavoritesDiv from './FavoritesDiv'
 import PastOrdersDiv from './PastOrdersDiv'
 
@@ -12,8 +12,7 @@ class FavoritesPage extends React.Component {
         this.groupOrders = this.groupOrders.bind(this)
     }
     componentDidMount(){
-        this.props.fetchOrders(this.props.currentUser)
-        this.props.fetchFavoriteDishes(this.props.currentUser)
+        this.props.fetchInitialData(this.props.currentUser)
     }
 
     groupOrders = function(arr, prop) {
@@ -27,7 +26,6 @@ class FavoritesPage extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
             let orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1)
-            console.log(orders)
             this.setState({ groupedOrders: orders})
         }
     }
@@ -47,8 +45,8 @@ class FavoritesPage extends React.Component {
                     <h4>Past Orders</h4>
                     <hr/>
                     <ul>
-                    {orders.orders.length > 0 && this.state.groupedOrders.map(order => 
-                        <PastOrdersDiv order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray}/>)
+                    {this.state.groupedOrders.length > 0 && this.state.groupedOrders.map(order => 
+                        <PastOrdersDiv key={order[0].id} order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray}/>)
                     }
                     </ul>
                 </div>
@@ -65,7 +63,10 @@ const mapStateToProps = function (state) {
   };
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchOrders: (currentUser) => dispatch(fetchOrders(currentUser)),
-    fetchFavoriteDishes: (currentUser) => dispatch(fetchFavoriteDishes(currentUser))
+    fetchInitialData: (currentUser) => {
+        dispatch(foundRestaurants([]))
+        dispatch(fetchOrders(currentUser))
+        dispatch(fetchFavoriteDishes(currentUser))
+    }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

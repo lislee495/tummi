@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TagCloud from 'react-tag-cloud';
 import randomColor from 'randomcolor';
-import {fetchFavoriteDishes, fetchOrders} from '../redux/'
+import {fetchFavoriteDishes, fetchOrders, foundRestaurants} from '../redux/'
 
 class TrendsPage extends React.Component {
     constructor(){
@@ -16,6 +16,9 @@ class TrendsPage extends React.Component {
 
     componentDidMount(){
         this.props.fetchInitialData(this.props.currentUser)
+        setInterval(() => {
+            this.forceUpdate();
+          }, 3000);
     }
 
     compileWords(favoriteDishes, orderDishes){
@@ -25,32 +28,32 @@ class TrendsPage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.favorites.length !== nextProps.favorites.length) {
-            let words = this.compileWords(this.props.favorites, this.props.orders.dishArray)
+        if (nextProps.orders.dishArray.length > 0) {
+            let words = this.compileWords(nextProps.favorites, nextProps.orders.dishArray)
             let compromisedWords = nlp(words).ngrams({size: 1}).data()
-            this.setState({words: words})
-            this.setState({compromisedWords: compromisedWords.slice(0, 15)})
+            this.setState({words: words, compromisedWords: compromisedWords.slice(0, 15)})
         }
     }
     
     render() {
+        console.log(this.state.compromisedWords.length)
         return (
             <div className="trends-page">
                 <div className='app-outer'>
                     <div className='app-inner'>
-                    <h1>Trends</h1>
+                    <h3>Trends</h3>
                     <TagCloud 
                         className='tag-cloud'
                         style={{
                         fontFamily: 'sans-serif',
-                        //fontSize: () => Math.round(Math.random() * 50) + 16,
                         fontSize: 30,
                         color: () => randomColor({
                             hue: 'blue'
                         }),
                         padding: 5,
                         }}>
-                        {this.state.compromisedWords[0] && this.state.compromisedWords.map(
+                        
+                        {this.state.compromisedWords.length > 0 && this.state.compromisedWords.map(
                             ele => {
                             return (
                             <div style={{fontSize: ele.count * 10}} key={ele.normal}>
@@ -77,6 +80,7 @@ const mapStateToProps = function (state) {
 };
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetchInitialData: (currentUser) => {
+        dispatch(foundRestaurants([]))
         dispatch(fetchOrders(currentUser))
         dispatch(fetchFavoriteDishes(currentUser))
     }

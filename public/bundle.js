@@ -4137,7 +4137,7 @@ module.exports = __webpack_require__(524);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.fetchFavorites = exports.favoriteDish = exports.resetRestaurauntIndex = exports.setFoundRestaurantIndex = exports.getFavorites = exports.getDishes = exports.getMenu = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
+exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.fetchFavorites = exports.favoriteDish = exports.resetRestaurauntIndex = exports.setFoundRestaurantIndex = exports.getFavorites = exports.getDishes = exports.getMenu = exports.foundRestaurants = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(94);
@@ -4181,7 +4181,7 @@ var searchCategory = exports.searchCategory = function searchCategory(category) 
 var searchLocation = exports.searchLocation = function searchLocation(location) {
   return { type: SEARCH_LOCATION, location: location };
 };
-var foundRestaurants = function foundRestaurants(restaurants) {
+var foundRestaurants = exports.foundRestaurants = function foundRestaurants(restaurants) {
   return { type: FOUND_RESTAURANTS, restaurants: restaurants };
 };
 var getMenu = exports.getMenu = function getMenu(menu) {
@@ -46072,12 +46072,12 @@ var Root = function (_Component) {
                 _reactRouterDom.Switch,
                 null,
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id/menu', component: _RestaurantMenu2.default }),
-                _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default })
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/restaurants/:id', component: _RestaurantPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/trends', component: _TrendsPage2.default }),
+                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/favorites', component: _FavoritesPage2.default })
               )
             ),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/trends', component: _TrendsPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/favorites', component: _FavoritesPage2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _MapPage2.default })
           ) : _react2.default.createElement(
             'div',
             null,
@@ -49541,7 +49541,12 @@ var TrendsPage = function (_React$Component) {
     _createClass(TrendsPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this2 = this;
+
             this.props.fetchInitialData(this.props.currentUser);
+            setInterval(function () {
+                _this2.forceUpdate();
+            }, 3000);
         }
     }, {
         key: 'compileWords',
@@ -49557,16 +49562,16 @@ var TrendsPage = function (_React$Component) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.favorites.length !== nextProps.favorites.length) {
-                var words = this.compileWords(this.props.favorites, this.props.orders.dishArray);
+            if (nextProps.orders.dishArray.length > 0) {
+                var words = this.compileWords(nextProps.favorites, nextProps.orders.dishArray);
                 var compromisedWords = nlp(words).ngrams({ size: 1 }).data();
-                this.setState({ words: words });
-                this.setState({ compromisedWords: compromisedWords.slice(0, 15) });
+                this.setState({ words: words, compromisedWords: compromisedWords.slice(0, 15) });
             }
         }
     }, {
         key: 'render',
         value: function render() {
+            console.log(this.state.compromisedWords.length);
             return _react2.default.createElement(
                 'div',
                 { className: 'trends-page' },
@@ -49577,7 +49582,7 @@ var TrendsPage = function (_React$Component) {
                         'div',
                         { className: 'app-inner' },
                         _react2.default.createElement(
-                            'h1',
+                            'h3',
                             null,
                             'Trends'
                         ),
@@ -49587,7 +49592,6 @@ var TrendsPage = function (_React$Component) {
                                 className: 'tag-cloud',
                                 style: {
                                     fontFamily: 'sans-serif',
-                                    //fontSize: () => Math.round(Math.random() * 50) + 16,
                                     fontSize: 30,
                                     color: function color() {
                                         return (0, _randomcolor2.default)({
@@ -49596,7 +49600,7 @@ var TrendsPage = function (_React$Component) {
                                     },
                                     padding: 5
                                 } },
-                            this.state.compromisedWords[0] && this.state.compromisedWords.map(function (ele) {
+                            this.state.compromisedWords.length > 0 && this.state.compromisedWords.map(function (ele) {
                                 return _react2.default.createElement(
                                     'div',
                                     { style: { fontSize: ele.count * 10 }, key: ele.normal },
@@ -49623,6 +49627,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     return {
         fetchInitialData: function fetchInitialData(currentUser) {
+            dispatch((0, _redux.foundRestaurants)([]));
             dispatch((0, _redux.fetchOrders)(currentUser));
             dispatch((0, _redux.fetchFavoriteDishes)(currentUser));
         }
@@ -51741,15 +51746,13 @@ var FavoritesPage = function (_React$Component) {
     _createClass(FavoritesPage, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.fetchOrders(this.props.currentUser);
-            this.props.fetchFavoriteDishes(this.props.currentUser);
+            this.props.fetchInitialData(this.props.currentUser);
         }
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
                 var orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1);
-                console.log(orders);
                 this.setState({ groupedOrders: orders });
             }
         }
@@ -51788,8 +51791,8 @@ var FavoritesPage = function (_React$Component) {
                     _react2.default.createElement(
                         'ul',
                         null,
-                        orders.orders.length > 0 && this.state.groupedOrders.map(function (order) {
-                            return _react2.default.createElement(_PastOrdersDiv2.default, { order: order, dishes: orders.dishArray, restaurants: orders.restaurantArray });
+                        this.state.groupedOrders.length > 0 && this.state.groupedOrders.map(function (order) {
+                            return _react2.default.createElement(_PastOrdersDiv2.default, { key: order[0].id, order: order, dishes: orders.dishArray, restaurants: orders.restaurantArray });
                         })
                     )
                 )
@@ -51809,11 +51812,10 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     return {
-        fetchOrders: function fetchOrders(currentUser) {
-            return dispatch((0, _redux.fetchOrders)(currentUser));
-        },
-        fetchFavoriteDishes: function fetchFavoriteDishes(currentUser) {
-            return dispatch((0, _redux.fetchFavoriteDishes)(currentUser));
+        fetchInitialData: function fetchInitialData(currentUser) {
+            dispatch((0, _redux.foundRestaurants)([]));
+            dispatch((0, _redux.fetchOrders)(currentUser));
+            dispatch((0, _redux.fetchFavoriteDishes)(currentUser));
         }
     };
 };
