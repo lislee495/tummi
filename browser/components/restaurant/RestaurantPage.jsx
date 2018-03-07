@@ -12,18 +12,23 @@ class RestaurantPage extends React.Component {
   return (
     <div className="restaurant-page">
       <div className="restaurant-page-banner" style={image_style}>
-      <div className="restaurant-page-banner header">{currentRestaurant.name}</div>
+        <div className="header">{currentRestaurant.name}</div>
       </div>
-      <em><h5>{currentRestaurant.category[1]}</h5></em>
-      <ul className="menu-ul left-align content">
-        <li>Price: {currentRestaurant.price_range}</li>
-        <li>Address: {currentRestaurant.address}</li>
-        <li>Ratings: {currentRestaurant.user_ratings} ({currentRestaurant.votes} ratings)</li>
-        <li>Phone Number: {currentRestaurant.phone_numbers}</li>
-        <li>Good For: {currentRestaurant.transactions.join(", ")}</li>
+      <div className="restaurant-page-content">
+      <em><div style={{fontSize:20}}>{currentRestaurant.category[1]}</div></em>
+      <br/>
+      <ul className="menu-ul content">
+        <li>Price: <p>{currentRestaurant.price_range}</p></li>
+        <li>Address: <p>{currentRestaurant.address}</p></li>
+        <li>Ratings: <p>{currentRestaurant.user_rating} ({currentRestaurant.votes} ratings)</p></li>
+        <li>Phone Number: <p>{currentRestaurant.phone_numbers}</p></li>
+        <li>Good For: <p>{currentRestaurant.transactions.join(", ")}</p></li>
       </ul>
 
       <p><button className="gen-btn" onClick={()=>this.props.handleClick(currentRestaurant)}>Get Menu</button></p>
+
+      </div>
+      
     </div>)
   }
 }

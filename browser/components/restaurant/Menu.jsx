@@ -7,7 +7,7 @@ export default class Menu extends React.Component {
     const restaurant=this.props.restaurant
     return (
       <div className="menu">
-        <ul className="menu-ul">
+        <ul className="menu-ul menu-items">
         { menu.map((dish) => {
           return <MenuDiv dish={dish} key={dish.id} restaurant={restaurant}/>
         }) }

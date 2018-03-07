@@ -52028,65 +52028,90 @@ var RestaurantPage = function (_React$Component) {
           { className: 'restaurant-page-banner', style: image_style },
           _react2.default.createElement(
             'div',
-            { className: 'restaurant-page-banner header' },
+            { className: 'header' },
             currentRestaurant.name
           )
         ),
         _react2.default.createElement(
-          'em',
-          null,
+          'div',
+          { className: 'restaurant-page-content' },
           _react2.default.createElement(
-            'h5',
+            'em',
             null,
-            currentRestaurant.category[1]
-          )
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'menu-ul left-align content' },
+            _react2.default.createElement(
+              'div',
+              { style: { fontSize: 20 } },
+              currentRestaurant.category[1]
+            )
+          ),
+          _react2.default.createElement('br', null),
           _react2.default.createElement(
-            'li',
-            null,
-            'Price: ',
-            currentRestaurant.price_range
+            'ul',
+            { className: 'menu-ul content' },
+            _react2.default.createElement(
+              'li',
+              null,
+              'Price: ',
+              _react2.default.createElement(
+                'p',
+                null,
+                currentRestaurant.price_range
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Address: ',
+              _react2.default.createElement(
+                'p',
+                null,
+                currentRestaurant.address
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Ratings: ',
+              _react2.default.createElement(
+                'p',
+                null,
+                currentRestaurant.user_rating,
+                ' (',
+                currentRestaurant.votes,
+                ' ratings)'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Phone Number: ',
+              _react2.default.createElement(
+                'p',
+                null,
+                currentRestaurant.phone_numbers
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Good For: ',
+              _react2.default.createElement(
+                'p',
+                null,
+                currentRestaurant.transactions.join(", ")
+              )
+            )
           ),
           _react2.default.createElement(
-            'li',
+            'p',
             null,
-            'Address: ',
-            currentRestaurant.address
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'Ratings: ',
-            currentRestaurant.user_ratings,
-            ' (',
-            currentRestaurant.votes,
-            ' ratings)'
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'Phone Number: ',
-            currentRestaurant.phone_numbers
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            'Good For: ',
-            currentRestaurant.transactions.join(", ")
-          )
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          _react2.default.createElement(
-            'button',
-            { className: 'gen-btn', onClick: function onClick() {
-                return _this2.props.handleClick(currentRestaurant);
-              } },
-            'Get Menu'
+            _react2.default.createElement(
+              'button',
+              { className: 'gen-btn', onClick: function onClick() {
+                  return _this2.props.handleClick(currentRestaurant);
+                } },
+              'Get Menu'
+            )
           )
         )
       );
@@ -52368,7 +52393,7 @@ var Menu = function (_React$Component) {
         { className: 'menu' },
         _react2.default.createElement(
           'ul',
-          { className: 'menu-ul' },
+          { className: 'menu-ul menu-items' },
           menu.map(function (dish) {
             return _react2.default.createElement(_MenuDiv2.default, { dish: dish, key: dish.id, restaurant: restaurant });
           })
