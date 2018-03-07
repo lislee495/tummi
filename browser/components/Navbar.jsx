@@ -13,10 +13,15 @@ class Navbar extends React.Component {
         <div className="nav-wrap shadow">
           
             <ul className="left nav-items">
-              <li><NavLink to="/" activeClassName="active">Home</NavLink></li>
-              <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li>
-              <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li>
+            <div className="left-nav-bar">
+              <li><NavLink to="/" activeClassName="active">Home</NavLink></li></div>
+            <div className="left-nav-bar">
+              <li><NavLink to="/favorites" activeClassName="active">Favorites</NavLink></li></div>
+            <div className="left-nav-bar">
+              <li><NavLink to="/trends" activeClassName="active">Trends</NavLink></li></div>
+            <div className="left-nav-bar">
               <li><NavLink to="/logout" activeClassName="active" onClick={this.props.logout}>Logout</NavLink></li>
+            </div>
             </ul>
             <div className="brand-logo center">Tummi</div>
             <ul className="right nav-items position">

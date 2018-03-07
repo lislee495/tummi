@@ -49300,39 +49300,55 @@ var Navbar = function (_React$Component) {
           'ul',
           { className: 'left nav-items' },
           _react2.default.createElement(
-            'li',
-            null,
+            'div',
+            { className: 'left-nav-bar' },
             _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { to: '/', activeClassName: 'active' },
-              'Home'
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                { to: '/', activeClassName: 'active' },
+                'Home'
+              )
             )
           ),
           _react2.default.createElement(
-            'li',
-            null,
+            'div',
+            { className: 'left-nav-bar' },
             _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { to: '/favorites', activeClassName: 'active' },
-              'Favorites'
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                { to: '/favorites', activeClassName: 'active' },
+                'Favorites'
+              )
             )
           ),
           _react2.default.createElement(
-            'li',
-            null,
+            'div',
+            { className: 'left-nav-bar' },
             _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { to: '/trends', activeClassName: 'active' },
-              'Trends'
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                { to: '/trends', activeClassName: 'active' },
+                'Trends'
+              )
             )
           ),
           _react2.default.createElement(
-            'li',
-            null,
+            'div',
+            { className: 'left-nav-bar' },
             _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { to: '/logout', activeClassName: 'active', onClick: this.props.logout },
-              'Logout'
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                { to: '/logout', activeClassName: 'active', onClick: this.props.logout },
+                'Logout'
+              )
             )
           )
         ),
@@ -52027,7 +52043,7 @@ var RestaurantPage = function (_React$Component) {
         ),
         _react2.default.createElement(
           'ul',
-          { className: 'menu-ul left-align' },
+          { className: 'menu-ul left-align content' },
           _react2.default.createElement(
             'li',
             null,

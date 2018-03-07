@@ -15,7 +15,7 @@ class RestaurantPage extends React.Component {
       <div className="restaurant-page-banner header">{currentRestaurant.name}</div>
       </div>
       <em><h5>{currentRestaurant.category[1]}</h5></em>
-      <ul className="menu-ul left-align">
+      <ul className="menu-ul left-align content">
         <li>Price: {currentRestaurant.price_range}</li>
         <li>Address: {currentRestaurant.address}</li>
         <li>Ratings: {currentRestaurant.user_ratings} ({currentRestaurant.votes} ratings)</li>
