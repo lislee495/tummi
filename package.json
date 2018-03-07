@@ -52,6 +52,7 @@
     "react-dom-factories": "^1.0.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-s-alert": "^1.4.1",
     "react-selectize": "^3.0.1",
     "react-tag-cloud": "^1.1.2",
     "react-tag-input": "^4.8.1",

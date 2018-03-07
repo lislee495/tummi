@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {addDishToCart, addRestaurantToCart, favoriteDish, fetchFavorites} from '../../redux'
-
+import Alert from 'react-s-alert';
 class MenuDiv extends React.Component {
   componentDidMount(){
     this.props.fetchFavorites(this.props.currentUser)
@@ -11,7 +11,13 @@ class MenuDiv extends React.Component {
     return(
       <li>
         <div className="dish-div shadow" style={{cursor: "pointer"}} onClick={(event)=>{
-          alert('Dish added.')
+          Alert.info('Added dish', {
+            timeout: 2000,
+            position: 'top-right',
+            effect: 'flip',
+            beep: false,
+            offset: 100
+        });
           handleClick(dish, restaurant)}}>
           <h6>{dish.name}</h6><br/>
           <em>{dish.category.join(", ")}</em><br/>

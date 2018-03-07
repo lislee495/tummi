@@ -6,7 +6,6 @@ import {ReactSelectize, SimpleSelect, MultiSelect} from 'react-selectize';
 import { WithContext as ReactTags } from 'react-tag-input';
 
 
-
 class RestaurantMenu extends React.Component {
   constructor(){
     super()

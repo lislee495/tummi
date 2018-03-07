@@ -13,6 +13,7 @@ import FavoritesPage from './FavoritesPage'
 import RestaurantPage from './restaurant/RestaurantPage'
 import RestaurantMenu from './restaurant/RestaurantMenu'
 import RestaurantList from './restaurant/RestaurantList'
+import Alert from 'react-s-alert';
 import $ from 'jquery';
 window.jQuery = window.$ = $;
 import { fetchCurrentUser} from '../redux';
@@ -47,6 +48,7 @@ class Root extends Component {
                     <Route exact path="/trends" component={TrendsPage} />
                     <Route exact path="/favorites" component={FavoritesPage} />
                   </Switch>
+                  <Alert stack={{limit: 3}} />
                 </div>
                 <Route exact path="/" component={MapPage} />
               </div>) :
@@ -60,7 +62,6 @@ class Root extends Component {
             )
           }
 			  </div>
-
 		  </Router>
 		)
 	}
