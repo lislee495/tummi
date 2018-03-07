@@ -4,24 +4,30 @@ import {checkoutCart, clearCart, removeItem} from '../redux/cart'
 import CartDish from './CartDish'
 
 class CartBar extends React.Component {
-  // componentWillReceiveProps(){
-  //   if (this.props.cart !== nextProps.cart) {
-
-  //   }
-  // }
+  constructor(){
+    super()
+    this.state = {
+      newCart: []
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if (this.props.cart.dishes.length !== nextProps.cart.dishes.length) {
+      this.setState({newCart: nextProps.cart})
+    }
+  }
   render(){
-    const {currentUser, cart, cartRestaurant, removeItem} = this.props
-    const dishes = cart.dishes 
+    const {currentUser, cartRestaurant, removeItem} = this.props
+    const {cart} = this.state
     return (
       <div className="cart-bar shadow">
         <ul className="cart">
         <h3>My Cart</h3>
           <li><a className="subheader">{cartRestaurant.name}</a></li>
           <br/>
-        {dishes[0] ? 
+        {cart.dishes[0] ? 
           (  <div>
               <div className="cart-content left-align">
-              {dishes.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
+              {cart.dishes.map(ele => <CartDish ele={ele} key={ele.dish.id} removeItem={removeItem}/>)}
               </div>
               <li> Total: $ {cart.total.toFixed(2)} </li>
               <br/>

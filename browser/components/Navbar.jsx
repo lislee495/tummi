@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink, withRouter, browserHistory } from 'react-router-dom';
 import Searchbar from './Searchbar'
+import CartBubble from './CartBubble'
 import { connect } from 'react-redux';
 import {logout} from '../redux/auth';
 import {showCart} from '../redux/cart'
 class Navbar extends React.Component {
   render() {
-    const name = this.props.currentUser.email
+    const {cart} = this.props
     const handleCartClick = this.props.handleCartClick
     return(
       
@@ -28,14 +29,17 @@ class Navbar extends React.Component {
              <li><Searchbar history={this.props.history}/></li>
               <li><button className="cart-btn position" onClick={()=>handleCartClick()}>
               <i className="material-icons">shopping_cart</i></button></li>
+              {cart.length > 0 ? <CartBubble cart={cart}/> : ""}
             </ul>
           </div>
         
     )
   }
 }
-const mapState = ({currentUser}) => ({ currentUser });
-//
+const mapState = (state) => ({ 
+  currentUser: state.currentUser, 
+  cart: state.cart.dishes
+});
 
 const mapDispatch = (dispatch, ownProps) => ({
   logout: () => dispatch(logout(ownProps.history)),

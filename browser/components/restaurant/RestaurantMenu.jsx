@@ -55,6 +55,8 @@ class RestaurantMenu extends React.Component {
     } else if (this.props.likes.length !== nextProps.likes.length) {
       let filteredMenu =  this.filterIn(this.filterOut(nextProps.menu, nextProps.dislikes), nextProps.likes)
       this.setState({filteredMenu: filteredMenu})
+    } else if (this.props.currentRestaurant.id !== nextProps.currentRestaurant.id) {
+        this.props.fetchMenu(nextProps.currentRestaurant.id)
     }
   }
   render() {
@@ -82,8 +84,8 @@ class RestaurantMenu extends React.Component {
         </div>
         <h5>Menu</h5>
         {filteredMenu[0] ? <Menu menu={filteredMenu} restaurant={currentRestaurant}/> : 
-      // "No items found. Please reset filters."
       <Menu menu={menu} restaurant={currentRestaurant}/>}
+      
       </div>)
   }
 }

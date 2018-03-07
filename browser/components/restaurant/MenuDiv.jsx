@@ -11,7 +11,7 @@ class MenuDiv extends React.Component {
     return(
       <li>
         <div className="dish-div shadow" style={{cursor: "pointer"}} onClick={(event)=>{
-          // event.stopPropagation()
+          alert('Dish added.')
           handleClick(dish, restaurant)}}>
           <h6>{dish.name}</h6><br/>
           <em>{dish.category.join(", ")}</em><br/>
