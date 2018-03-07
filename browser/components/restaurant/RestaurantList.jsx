@@ -9,6 +9,7 @@ function RestaurantList(props) {
   return(
     <div className='restaurant-list shadow'>
       <h5>Found {foundRestaurants.length} results:</h5>
+      <div className="h_line" style={{color:'gray'}}></div>
       <ul>
       {foundRestaurants.slice(foundRestaurantIndex, foundRestaurantIndex+5).map(ele => {
         return(

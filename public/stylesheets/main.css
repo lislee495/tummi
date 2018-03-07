@@ -37,6 +37,12 @@ a:hover {
   text-align: left;
 }
 
+.hline { 
+  width:60%; 
+  height:1px; 
+  margin: auto;
+}
+
 /************LANDING PAGE************/
 
 div.landing-page {

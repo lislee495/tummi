@@ -47679,32 +47679,35 @@ var CartBar = function (_React$Component) {
   function CartBar() {
     _classCallCheck(this, CartBar);
 
-    var _this = _possibleConstructorReturn(this, (CartBar.__proto__ || Object.getPrototypeOf(CartBar)).call(this));
-
-    _this.state = {
-      newCart: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (CartBar.__proto__ || Object.getPrototypeOf(CartBar)).apply(this, arguments));
   }
 
   _createClass(CartBar, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.props.cart.dishes.length !== nextProps.cart.dishes.length) {
-        this.setState({ newCart: nextProps.cart });
-      }
-    }
-  }, {
     key: 'render',
+
+    // constructor(){
+    //   super()
+    //   this.state = {
+    //     newCart: {
+    //     }
+    //   }
+    // }
+    // componentWillReceiveProps(nextProps){
+    //   if (this.props.cart.dishes.length !== nextProps.cart.dishes.length) {
+    //     console.log("check")
+    //     this.setState({newCart: nextProps.cart})
+    //   }
+    // }
     value: function render() {
       var _this2 = this;
 
       var _props = this.props,
           currentUser = _props.currentUser,
           cartRestaurant = _props.cartRestaurant,
-          removeItem = _props.removeItem;
-      var cart = this.state.cart;
+          removeItem = _props.removeItem,
+          cart = _props.cart;
 
+      var dishes = this.props.cart.dishes;
       return _react2.default.createElement(
         'div',
         { className: 'cart-bar shadow' },
@@ -47726,16 +47729,17 @@ var CartBar = function (_React$Component) {
             )
           ),
           _react2.default.createElement('br', null),
-          cart.dishes[0] ? _react2.default.createElement(
+          dishes[0] ? _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
               'div',
               { className: 'cart-content left-align' },
-              cart.dishes.map(function (ele) {
+              dishes.map(function (ele) {
                 return _react2.default.createElement(_CartDish2.default, { ele: ele, key: ele.dish.id, removeItem: removeItem });
               })
             ),
+            _react2.default.createElement('div', { className: 'h_line', style: { color: 'white' } }),
             _react2.default.createElement(
               'li',
               null,
@@ -66150,6 +66154,7 @@ function RestaurantList(props) {
       foundRestaurants.length,
       ' results:'
     ),
+    _react2.default.createElement('div', { className: 'h_line', style: { color: 'gray' } }),
     _react2.default.createElement(
       'ul',
       null,
