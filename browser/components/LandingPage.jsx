@@ -20,7 +20,7 @@ export default class LandingPage extends React.Component {
         </div>
         <div className="about">
           <div className="about-paragraph">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis omnis quia ut voluptates quas, eligendi qui laborum, corporis ipsam maxime, sed sunt dolore asperiores. Aspernatur nam quo possimus ea alias!
+              <p>A stylish food app that puts practical user experience first.
               </p>
           </div>
           <div className="about-image">
@@ -28,12 +28,12 @@ export default class LandingPage extends React.Component {
         </div>
         <div className="add-info">
           <div className="info">
-          <p>You should use this.</p>
+          <p>Easily scan and filter menus based on likes and dislikes.</p>
           </div>
           <div className="info">
-          <p>You should use this.</p></div>
+          <p>Save favorites to remember for later.</p></div>
           <div className="info">
-          <p>You should use this.</p></div>
+          <p>Natural language processing maps out your personal tastes.</p></div>
         </div>
         <div className="footer">
           <div className="footer-info">

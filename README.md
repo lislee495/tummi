@@ -7,3 +7,20 @@ Tummi is a food ordering app that offers a streamlined user interface for an imp
 ## Notes 
 
 Due to the scarcity of open-source menu information online, every restaurant uses a randomly generated basic menu of dishes, which do not reflect its real menu online. Additionally, since the app is just supposed to model the front-end user experience, its checkout button does not actually function. 
+
+##Instructions
+
+Download the folder from https://github.com/snickers495/foodie and navigate to it in your terminal:
+```
+$ npm install
+$ npm run start:dev
+```
+Open localhost:3000 on browser.
+
+##Contributors Guide
+
+To contribute, please create an issue at https://github.com/snickers495/foodie/issues.
+
+##License
+
+This project has been licensed under the MIT open source license. Visit it at: https://github.com/snickers495/myCalendar/blob/master/LICENSE.md
