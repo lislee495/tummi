@@ -62,7 +62,7 @@ router.post('/yelp', (req, res, next) => {
     .then(result => res.status(201).json(result.data.businesses))
     .catch(function(error) {
       if(error.response.status === 400) {
-        res.status(error.response.status)
+        return res.status(error.response.status)
       }
     })
 })

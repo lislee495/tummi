@@ -6,7 +6,7 @@ import {setCurrentRestaurant, setFoundRestaurantIndex} from '../../redux/restaur
 function RestaurantList(props) {
 
   const {foundRestaurants, selectRestaurant, foundRestaurantIndex, handleBack, handleNext} = props
-  const searchResults = foundRestaurants[0] === 'none' ? (<h1>No results found! Please try again.</h1>)
+  const searchResults = foundRestaurants[0] === 'none' ? (<h5>No results found! Please try again.</h5>)
   : (<div> 
   <h5>Found {foundRestaurants.length} results:</h5>
         <div className="h_line" style={{color:'gray'}}></div>
@@ -46,3 +46,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantList)
 // onClick={(restaurant)=> (selectRestaurant(restaurant))}
+

@@ -67244,7 +67244,7 @@ function RestaurantList(props) {
       handleNext = props.handleNext;
 
   var searchResults = foundRestaurants[0] === 'none' ? _react2.default.createElement(
-    'h1',
+    'h5',
     null,
     'No results found! Please try again.'
   ) : _react2.default.createElement(
