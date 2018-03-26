@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import randomColor from 'randomcolor';
 import {fetchFavoriteDishes, fetchOrders, foundRestaurants} from '../redux/'
 import FavoritesDiv from './FavoritesDiv'
 import PastOrdersDiv from './PastOrdersDiv'
@@ -35,7 +34,7 @@ class FavoritesPage extends React.Component {
             <div className="favorites-page">
                 <div className="favorites-content">
                     <h4>Favorites</h4>
-                    <hr/>
+                    <hr />
                     <ul>
                     {favoriteDishes[0] && favoriteDishes.map(dish => 
                         <FavoritesDiv dish={dish} key={dish.id}/>
@@ -43,7 +42,7 @@ class FavoritesPage extends React.Component {
                     </ul>
                     
                     <h4>Past Orders</h4>
-                    <hr/>
+                    <hr />
                     <ul className="left-align">
                     {this.state.groupedOrders.length > 0 && this.state.groupedOrders.map(order => 
                         <PastOrdersDiv key={order[0].id} order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray}/>)

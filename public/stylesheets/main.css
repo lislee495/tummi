@@ -93,16 +93,16 @@ div.about {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  align-items: center;
   width: 100%; 
   height: 100vh;
 }
 
 div.about-paragraph {
   width: 20rem;
-  height: 20rem;
-  margin: 10rem auto;
-  display:inline-block;
+  margin: auto; 
   font-size: 1.5rem;
+
 }
 
 div.about-image {
@@ -120,7 +120,7 @@ div.add-info {
   flex-flow: row wrap;
   justify-content: space-between;
   width: 100%; 
-  height: 50vh;
+  height: 60vh;
 }
 
 div.info {
@@ -137,7 +137,7 @@ div.info:hover {
 }
 
 div.footer {
-  height: 50vh;
+  height: 30vh;
   width: 100%;
   background-color: #3b8284;
   display: flex;
@@ -239,6 +239,14 @@ button.search {
   border-style: none;
   position: relative;
   top: 0.5rem;
+}
+
+input {
+  color: #cac9c9
+}
+input[type="text"], textarea{
+  color: #cac9c9;
+  background-color : #ec656d;
 }
 
 button.cart-btn {

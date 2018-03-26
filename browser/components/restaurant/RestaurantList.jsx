@@ -6,24 +6,28 @@ import {setCurrentRestaurant, setFoundRestaurantIndex} from '../../redux/restaur
 function RestaurantList(props) {
 
   const {foundRestaurants, selectRestaurant, foundRestaurantIndex, handleBack, handleNext} = props
+  const searchResults = foundRestaurants[0] === 'none' ? (<h1>No results found! Please try again.</h1>)
+  : (<div> 
+  <h5>Found {foundRestaurants.length} results:</h5>
+        <div className="h_line" style={{color:'gray'}}></div>
+        <ul>
+        {foundRestaurants.slice(foundRestaurantIndex, foundRestaurantIndex+5).map(ele => {
+          return(
+            <div className="restaurant-div" onClick={() => selectRestaurant(ele)} key={ele.id}
+            style={{cursor: "pointer"}}>
+              <RestaurantDiv restaurant={ele}/>
+            </div>
+          )
+          })}
+        </ul>
+        <span>
+          {(foundRestaurantIndex >= 4) && <button className="gen-btn" onClick={()=>handleBack()}>Back</button>}
+          {(foundRestaurantIndex <= 14) &&<button className="gen-btn" onClick={()=>handleNext()}>Next</button>}
+        </span>
+        </div>)
   return(
     <div className='restaurant-list shadow'>
-      <h5>Found {foundRestaurants.length} results:</h5>
-      <div className="h_line" style={{color:'gray'}}></div>
-      <ul>
-      {foundRestaurants.slice(foundRestaurantIndex, foundRestaurantIndex+5).map(ele => {
-        return(
-          <div className="restaurant-div" onClick={() => selectRestaurant(ele)} key={ele.id}
-          style={{cursor: "pointer"}}>
-            <RestaurantDiv restaurant={ele}/>
-          </div>
-        )
-        })}
-      </ul>
-      <span>
-        {(foundRestaurantIndex >= 4) && <button className="gen-btn" onClick={()=>handleBack()}>Back</button>}
-        {(foundRestaurantIndex <= 14) &&<button className="gen-btn" onClick={()=>handleNext()}>Next</button>}
-      </span>
+      {searchResults}    
     </div>
   )
 }
@@ -32,7 +36,7 @@ function RestaurantList(props) {
 const mapStateToProps = state => ({
   foundRestaurants: state.restaurants.foundRestaurants,
   foundRestaurantIndex: state.restaurants.foundRestaurantIndex,
-  showRestaurants: state.restaurants.showRestaurants
+  showRestaurants: state.restaurants.showRestaurants 
 })
 
 const mapDispatchToProps = (dispatch) => ({

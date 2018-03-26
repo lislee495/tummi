@@ -3,8 +3,6 @@ import config from '../config'
 import Promise from 'bluebird'
 import { browserHistory } from 'react-router'
 
-
-
 // /* -----------------    ACTION TYPES    ------------------ */
 
 const RESET_PREF = "RESET_PREF"
@@ -14,9 +12,6 @@ const DELETE_DISLIKE = "DELETE_DISLIKE"
 const DELETE_LIKE = "DELETE_LIKE"
 const SET_FAVORITES = "SET_FAVORITES"
 const SET_ORDERS = "SET_ORDERS"
-
-
-
 
 // /* ------------     ACTION CREATORS      ------------------ */
 
@@ -47,8 +42,13 @@ export default function reducer (user_pref = {
     case ADD_DISLIKE:
       return Object.assign({}, user_pref, {dislike: [...user_pref.dislike, {id: user_pref.dislike.length + 1, text: action.dislike}]})
     case DELETE_LIKE:
+      var newLike = [...user_pref.like]
+      newLike.splice(action.likeInd, 1)
+    return Object.assign({}, user_pref, {like: newLike})
       return Object.assign({}, user_pref, {like: [...user_pref.like].splice(action.likeInd, 1)})
     case DELETE_DISLIKE:
+      var newDislike = [...user_pref.dislike]
+      newDislike.splice(action.dislikeInd, 1)
       return Object.assign({}, user_pref, {dislike:  [...user_pref.dislike].splice(action.dislikeInd, 1)})
     case RESET_PREF:
       return Object.assign({}, user_pref, {like: [], dislike: []})
