@@ -8,6 +8,7 @@ const SHOW_CART = "SHOW_CART"
 const ADD_RESTAURANT = "ADD_RESTAURANT"
 const REMOVE_ITEM = "REMOVE_ITEM"
 const RESET_CART = "RESET_CART"
+const SHOW_MODAL = "SHOW_MODAL"
 
 /* ------------     ACTION CREATORS      ------------------ */
 
@@ -17,6 +18,7 @@ export const clearCart = () => ({ type: CLEAR_CART})
 export const showCart = () => ({type: SHOW_CART})
 export const removeItem = dish => ({ type: REMOVE_ITEM, dish})
 export const resetCart = () => ({ type: RESET_CART})
+export const showModal = () => ({type: SHOW_MODAL})
 
 /* ------------          REDUCER         ------------------ */
 
@@ -24,7 +26,8 @@ export default function reducer (cart = {
   dishes: [],
   showCart: false,
   restaurant: {},
-  total: 0
+  total: 0,
+  promptQuestion: false
 }, action) {
   switch (action.type) {
     case ADD_DISH:

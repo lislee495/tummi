@@ -1,7 +1,6 @@
 import axios from 'axios'
-import config from '../config'
 import Promise from 'bluebird'
-import { browserHistory } from 'react-router'
+
 
 // /* -----------------    ACTION TYPES    ------------------ */
 

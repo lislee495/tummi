@@ -24,9 +24,6 @@ injectTapEventPlugin();
 /* -----------------    COMPONENT     ------------------ */
 
 class Root extends Component {
-  constructor(props) {
-    super(props);
-  }
 	componentDidMount() {
     this.props.fetchInitialData();
   }
@@ -40,6 +37,7 @@ class Root extends Component {
               <div className="logged-in">
                 <Navbar/>
                 {showCart ? <CartBar/> : ""}
+                {showModal ? <MenuModal/> : ""}
                 <div className="content-wrapper">
                 { foundRestaurants[0] && <RestaurantList foundRestaurants={foundRestaurants}/>}
                   <Switch>
@@ -72,6 +70,7 @@ class Root extends Component {
 const mapState = state => ({
     currentUser: state.currentUser,
     showCart: state.cart.showCart,
+    showModal: state.cart.showModal,
     foundRestaurants: state.restaurants.foundRestaurants
 });
 
