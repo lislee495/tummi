@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import CartBar from './CartBar'
 import LandingPage from './LandingPage';
 import Login from './Login';
@@ -37,8 +37,8 @@ class Root extends Component {
              (
               <div className="logged-in">
                 <Navbar/>
-                {showCart ? <CartBar/> : ""}
-                {showModal ? <MenuModal/> : ""}
+                {showCart ? <CartBar /> : ''}
+                {showModal ? <MenuModal /> : ''}
                 <div className="content-wrapper">
                 { foundRestaurants[0] && <RestaurantList foundRestaurants={foundRestaurants}/>}
                   <Switch>

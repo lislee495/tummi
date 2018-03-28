@@ -4137,7 +4137,7 @@ module.exports = __webpack_require__(527);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.fetchFavorites = exports.favoriteDish = exports.resetRestaurauntIndex = exports.setFoundRestaurantIndex = exports.getFavorites = exports.getDishes = exports.getMenu = exports.foundRestaurants = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
+exports.searchRestaurants = exports.searchMenus = exports.fetchMenu = exports.changeRestaurant = exports.fetchFavorites = exports.favoriteDish = exports.resetRestaurants = exports.resetRestaurauntIndex = exports.setFoundRestaurantIndex = exports.getFavorites = exports.getDishes = exports.getMenu = exports.foundRestaurants = exports.searchLocation = exports.searchCategory = exports.setCurrentRestaurant = undefined;
 exports.default = reducer;
 
 var _axios = __webpack_require__(94);
@@ -4169,44 +4169,78 @@ var GET_DISHES = "GET_DISHES";
 var GET_FAVORITES = "GET_FAVORITES";
 var SET_FOUND_RESTAURANT_INDEX = "SET_FOUND_RESTAURANT_INDEX";
 var RESET_RESTAURANT_INDEX = "RESET_RESTAURANT_INDEX";
+var RESET_RESTAURANTS = 'RESET_RESTAURANTS';
 
 /* ------------     ACTION CREATORS      ------------------ */
 
 var setCurrentRestaurant = exports.setCurrentRestaurant = function setCurrentRestaurant(restaurant) {
-  return { type: SET_CURRENT_RESTAURANT, restaurant: restaurant };
+  return {
+    type: SET_CURRENT_RESTAURANT,
+    restaurant: restaurant
+  };
 };
 var searchCategory = exports.searchCategory = function searchCategory(category) {
-  return { type: SEARCH_CATEGORY, category: category };
+  return {
+    type: SEARCH_CATEGORY,
+    category: category
+  };
 };
 var searchLocation = exports.searchLocation = function searchLocation(location) {
-  return { type: SEARCH_LOCATION, location: location };
+  return {
+    type: SEARCH_LOCATION,
+    location: location
+  };
 };
 var foundRestaurants = exports.foundRestaurants = function foundRestaurants(restaurants) {
-  return { type: FOUND_RESTAURANTS, restaurants: restaurants };
+  return {
+    type: FOUND_RESTAURANTS,
+    restaurants: restaurants
+  };
 };
 var getMenu = exports.getMenu = function getMenu(menu) {
-  return { type: GET_MENU, menu: menu };
+  return {
+    type: GET_MENU,
+    menu: menu
+  };
 };
 var getDishes = exports.getDishes = function getDishes(dishes) {
-  return { type: GET_DISHES, dishes: dishes };
+  return {
+    type: GET_DISHES,
+    dishes: dishes
+  };
 };
 var getFavorites = exports.getFavorites = function getFavorites(favorites) {
-  return { type: GET_FAVORITES, favorites: favorites };
+  return {
+    type: GET_FAVORITES,
+    favorites: favorites
+  };
 };
 var setFoundRestaurantIndex = exports.setFoundRestaurantIndex = function setFoundRestaurantIndex(number) {
-  return { type: SET_FOUND_RESTAURANT_INDEX, number: number };
+  return {
+    type: SET_FOUND_RESTAURANT_INDEX,
+    number: number
+  };
 };
 var resetRestaurauntIndex = exports.resetRestaurauntIndex = function resetRestaurauntIndex() {
-  return { type: RESET_RESTAURANT_INDEX };
+  return {
+    type: RESET_RESTAURANT_INDEX
+  };
+};
+var resetRestaurants = exports.resetRestaurants = function resetRestaurants() {
+  return {
+    type: RESET_RESTAURANTS
+  };
 };
 
 /* ------------          REDUCER         ------------------ */
 
 function reducer() {
   var restaurants = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    currentRestaurant: {},
-    category: "",
-    location: "",
+    currentRestaurant: {
+      name: ''
+    },
+    category: '',
+    location: '',
     foundRestaurants: [],
     foundRestaurantIndex: 0,
     showRestaurants: [],
@@ -4218,24 +4252,52 @@ function reducer() {
 
   switch (action.type) {
     case SET_CURRENT_RESTAURANT:
-      return Object.assign({}, restaurants, { currentRestaurant: action.restaurant });
+      return Object.assign({}, restaurants, {
+        currentRestaurant: action.restaurant
+      });
     case SEARCH_CATEGORY:
-      return Object.assign({}, restaurants, { category: action.category });
+      return Object.assign({}, restaurants, {
+        category: action.category
+      });
     case SEARCH_LOCATION:
-      return Object.assign({}, restaurants, { location: action.location });
+      return Object.assign({}, restaurants, {
+        location: action.location
+      });
     case FOUND_RESTAURANTS:
-      return Object.assign({}, restaurants, { foundRestaurants: action.restaurants });
+      return Object.assign({}, restaurants, {
+        foundRestaurants: action.restaurants
+      });
     case SET_FOUND_RESTAURANT_INDEX:
-      return Object.assign({}, restaurants, { foundRestaurantIndex: restaurants.foundRestaurantIndex + action.number,
-        showRestaurants: restaurants.foundRestaurants.slice(restaurants.foundRestaurantIndex, restaurants.foundRestaurantIndex + 5) });
+      return Object.assign({}, restaurants, {
+        foundRestaurantIndex: restaurants.foundRestaurantIndex + action.number,
+        showRestaurants: restaurants.foundRestaurants.slice(restaurants.foundRestaurantIndex, restaurants.foundRestaurantIndex + 5)
+      });
     case RESET_RESTAURANT_INDEX:
-      return Object.assign({}, restaurants, { foundRestaurantIndex: 0, showRestaurants: restaurants.foundRestaurants.slice(0, 5) });
+      return Object.assign({}, restaurants, {
+        foundRestaurantIndex: 0,
+        showRestaurants: restaurants.foundRestaurants.slice(0, 5)
+      });
     case GET_MENU:
-      return Object.assign({}, restaurants, { menu: action.menu });
+      return Object.assign({}, restaurants, {
+        menu: action.menu
+      });
     case GET_DISHES:
-      return Object.assign({}, restaurants, { dishes: action.dishes });
+      return Object.assign({}, restaurants, {
+        dishes: action.dishes
+      });
     case GET_FAVORITES:
-      return Object.assign({}, restaurants, { favorites: [].concat(_toConsumableArray(restaurants.favorites), [action.favorites]) });
+      return Object.assign({}, restaurants, {
+        favorites: [].concat(_toConsumableArray(restaurants.favorites), [action.favorites])
+      });
+    case RESET_RESTAURANTS:
+      return Object.assign({}, restaurants, {
+        currentRestaurant: {
+          name: ''
+        },
+        foundRestaurants: [],
+        showRestaurants: [],
+        foundRestaurantIndex: 0
+      });
     default:
       return restaurants;
   }
@@ -4244,7 +4306,9 @@ function reducer() {
 /* ------------       THUNK CREATORS     ------------------ */
 var favoriteDish = exports.favoriteDish = function favoriteDish(terms) {
   return function (dispatch) {
-    _axios2.default.post('/api/users/' + terms.currentUser.id + '/favorites', { terms: terms }).then(function (res) {
+    _axios2.default.post('/api/users/' + terms.currentUser.id + '/favorites', {
+      terms: terms
+    }).then(function (res) {
       return dispatch(getFavorites(res.data));
     });
   };
@@ -4286,7 +4350,10 @@ var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
       }
     }).then(function (res) {
       return _bluebird2.default.map(res.data.results, function (dish) {
-        return _axios2.default.post('/api/dishes', { dish: dish, category: category.toLowerCase() });
+        return _axios2.default.post('/api/dishes', {
+          dish: dish,
+          category: category.toLowerCase()
+        });
       });
     }).then(function (res) {
       return res.map(function (ele) {
@@ -4304,7 +4371,10 @@ var searchRestaurants = exports.searchRestaurants = function searchRestaurants(s
         location = searchTerms.location;
 
     _axios2.default.post('/api/restaurants/yelp', searchTerms).then(function (res) {
-      return _axios2.default.post('/api/restaurants', { businesses: res.data, category: category });
+      return _axios2.default.post('/api/restaurants', {
+        businesses: res.data,
+        category: category
+      });
     }).then(function (restaurants) {
       return dispatch(foundRestaurants(restaurants.data));
     }).then(function () {
@@ -16790,28 +16860,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function MenuModal(props) {
   return _react2.default.createElement(
     'div',
-    { className: 'menu-modal' },
+    { className: 'module' },
     _react2.default.createElement(
       'div',
-      { className: 'content' },
-      'Your cart already has items from another restaurant. Clear cart?'
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'prompt' },
+      { className: 'menu-modal' },
       _react2.default.createElement(
-        'button',
-        { onClick: function onClick() {
-            return props.handleYes();
-          } },
-        'Yes'
+        'div',
+        { className: 'content' },
+        'Your cart already has items from another restaurant. Clear cart?'
       ),
       _react2.default.createElement(
-        'button',
-        { onClick: function onClick() {
-            return props.handleNo();
-          } },
-        'No'
+        'div',
+        { className: 'prompt' },
+        _react2.default.createElement(
+          'button',
+          { className: 'gen-btn', onClick: function onClick() {
+              return props.handleYes();
+            } },
+          'Yes'
+        ),
+        _react2.default.createElement(
+          'button',
+          { className: 'gen-btn', onClick: function onClick() {
+              return props.handleNo();
+            } },
+          'No'
+        )
       )
     )
   );
@@ -45873,7 +45947,7 @@ var setOrders = exports.setOrders = function setOrders(orders) {
 // /* ------------          REDUCER         ------------------ */
 
 function reducer() {
-  var user_pref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+  var userPref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     like: [],
     dislike: [],
     favoriteDishes: [],
@@ -45887,26 +45961,25 @@ function reducer() {
 
   switch (action.type) {
     case ADD_LIKE:
-      return Object.assign({}, user_pref, { like: [].concat(_toConsumableArray(user_pref.like), [{ id: user_pref.like.length + 1, text: action.like }]) });
+      return Object.assign({}, userPref, { like: [].concat(_toConsumableArray(userPref.like), [{ id: userPref.like.length + 1, text: action.like }]) });
     case ADD_DISLIKE:
-      return Object.assign({}, user_pref, { dislike: [].concat(_toConsumableArray(user_pref.dislike), [{ id: user_pref.dislike.length + 1, text: action.dislike }]) });
+      return Object.assign({}, userPref, { dislike: [].concat(_toConsumableArray(userPref.dislike), [{ id: userPref.dislike.length + 1, text: action.dislike }]) });
     case DELETE_LIKE:
-      var newLike = [].concat(_toConsumableArray(user_pref.like));
+      var newLike = [].concat(_toConsumableArray(userPref.like));
       newLike.splice(action.likeInd, 1);
-      return Object.assign({}, user_pref, { like: newLike });
-      return Object.assign({}, user_pref, { like: [].concat(_toConsumableArray(user_pref.like)).splice(action.likeInd, 1) });
+      return Object.assign({}, userPref, { like: [].concat(_toConsumableArray(userPref.like)).splice(action.likeInd, 1) });
     case DELETE_DISLIKE:
-      var newDislike = [].concat(_toConsumableArray(user_pref.dislike));
+      var newDislike = [].concat(_toConsumableArray(userPref.dislike));
       newDislike.splice(action.dislikeInd, 1);
-      return Object.assign({}, user_pref, { dislike: [].concat(_toConsumableArray(user_pref.dislike)).splice(action.dislikeInd, 1) });
+      return Object.assign({}, userPref, { dislike: [].concat(_toConsumableArray(userPref.dislike)).splice(action.dislikeInd, 1) });
     case RESET_PREF:
-      return Object.assign({}, user_pref, { like: [], dislike: [] });
+      return Object.assign({}, userPref, { like: [], dislike: [] });
     case SET_FAVORITES:
-      return Object.assign({}, user_pref, { favoriteDishes: [].concat(_toConsumableArray(action.favorites)) });
+      return Object.assign({}, userPref, { favoriteDishes: [].concat(_toConsumableArray(action.favorites)) });
     case SET_ORDERS:
-      return Object.assign({}, user_pref, { orders: action.orders });
+      return Object.assign({}, userPref, { orders: action.orders });
     default:
-      return user_pref;
+      return userPref;
   }
 }
 
@@ -46098,8 +46171,8 @@ var Root = function (_Component) {
             'div',
             { className: 'logged-in' },
             _react2.default.createElement(_Navbar2.default, null),
-            showCart ? _react2.default.createElement(_CartBar2.default, null) : "",
-            showModal ? _react2.default.createElement(_MenuModal2.default, null) : "",
+            showCart ? _react2.default.createElement(_CartBar2.default, null) : '',
+            showModal ? _react2.default.createElement(_MenuModal2.default, null) : '',
             _react2.default.createElement(
               'div',
               { className: 'content-wrapper' },
@@ -48361,6 +48434,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -48375,28 +48450,65 @@ var _RestaurantDetail = __webpack_require__(583);
 
 var _RestaurantDetail2 = _interopRequireDefault(_RestaurantDetail);
 
+var _redux = __webpack_require__(57);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function MapPage(props) {
-  var currentRestaurant = props.currentRestaurant;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'div',
-      { className: 'top-items' },
-      currentRestaurant.name && _react2.default.createElement(_RestaurantDetail2.default, { currentRestaurant: currentRestaurant })
-    ),
-    _react2.default.createElement(_Map2.default, null)
-  );
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MapPage = function (_React$Component) {
+  _inherits(MapPage, _React$Component);
+
+  function MapPage() {
+    _classCallCheck(this, MapPage);
+
+    return _possibleConstructorReturn(this, (MapPage.__proto__ || Object.getPrototypeOf(MapPage)).apply(this, arguments));
+  }
+
+  _createClass(MapPage, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.resetRestaurants();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var currentRestaurant = this.props.currentRestaurant;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'top-items' },
+          currentRestaurant.name ? _react2.default.createElement(_RestaurantDetail2.default, { currentRestaurant: currentRestaurant }) : null
+        ),
+        _react2.default.createElement(_Map2.default, null)
+      );
+    }
+  }]);
+
+  return MapPage;
+}(_react2.default.Component);
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentRestaurant: state.restaurants.currentRestaurant
   };
 };
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(MapPage);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    resetRestaurants: function resetRestaurants() {
+      return dispatch((0, _redux.resetRestaurants)());
+    }
+  };
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(MapPage);
 
 /***/ }),
 /* 579 */
@@ -48493,9 +48605,11 @@ var Map = function (_React$Component) {
 
       if (this.props.showRestaurants[0] !== nextProps.showRestaurants[0]) {
         var restaurantLocation = nextProps.showRestaurants[0];
-        this.state.map.flyTo({
-          center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
-        });
+        if (restaurantLocation) {
+          this.state.map.flyTo({
+            center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
+          });
+        }
         var geojson = {
           "type": "FeatureCollection",
           "features": nextProps.showRestaurants.map(function (ele) {
@@ -48524,9 +48638,11 @@ var Map = function (_React$Component) {
         });
       } else if (this.props.currentRestaurant !== nextProps.currentRestaurant) {
         var restaurantLocation = nextProps.currentRestaurant;
-        this.state.map.flyTo({
-          center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
-        });
+        if (restaurantLocation.name) {
+          this.state.map.flyTo({
+            center: [parseFloat(restaurantLocation.longitude), parseFloat(restaurantLocation.latitude)]
+          });
+        }
       }
     }
   }, {
@@ -48556,7 +48672,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     foundRestaurants: state.restaurants.foundRestaurants,
     showRestaurants: state.restaurants.showRestaurants,
-    currentRestaurant: state.restaurants.currentRestaurant || {}
+    currentRestaurant: state.restaurants.currentRestaurant
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Map);

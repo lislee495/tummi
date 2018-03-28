@@ -42,6 +42,4 @@ router.post('/:id/favorites', (req, res, next) => {
   })
 });
 
-
-
 module.exports = router;

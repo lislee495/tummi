@@ -25,7 +25,7 @@ export const setOrders = orders => ({type: SET_ORDERS, orders})
 
 // /* ------------          REDUCER         ------------------ */
 
-export default function reducer (user_pref = {
+export default function reducer (userPref = {
   like: [],
   dislike: [],
   favoriteDishes: [],
@@ -37,26 +37,25 @@ export default function reducer (user_pref = {
 }, action) {
   switch (action.type) {
     case ADD_LIKE:
-      return Object.assign({}, user_pref, {like: [...user_pref.like, {id: user_pref.like.length + 1, text: action.like}]})
+      return Object.assign({}, userPref, {like: [...userPref.like, {id: userPref.like.length + 1, text: action.like}]})
     case ADD_DISLIKE:
-      return Object.assign({}, user_pref, {dislike: [...user_pref.dislike, {id: user_pref.dislike.length + 1, text: action.dislike}]})
+      return Object.assign({}, userPref, {dislike: [...userPref.dislike, {id: userPref.dislike.length + 1, text: action.dislike}]})
     case DELETE_LIKE:
-      var newLike = [...user_pref.like]
+      var newLike = [...userPref.like]
       newLike.splice(action.likeInd, 1)
-    return Object.assign({}, user_pref, {like: newLike})
-      return Object.assign({}, user_pref, {like: [...user_pref.like].splice(action.likeInd, 1)})
+      return Object.assign({}, userPref, {like: [...userPref.like].splice(action.likeInd, 1)})
     case DELETE_DISLIKE:
-      var newDislike = [...user_pref.dislike]
+      var newDislike = [...userPref.dislike]
       newDislike.splice(action.dislikeInd, 1)
-      return Object.assign({}, user_pref, {dislike:  [...user_pref.dislike].splice(action.dislikeInd, 1)})
+      return Object.assign({}, userPref, {dislike:  [...userPref.dislike].splice(action.dislikeInd, 1)})
     case RESET_PREF:
-      return Object.assign({}, user_pref, {like: [], dislike: []})
+      return Object.assign({}, userPref, {like: [], dislike: []})
     case SET_FAVORITES:
-      return Object.assign({}, user_pref, {favoriteDishes: [...action.favorites]})
+      return Object.assign({}, userPref, {favoriteDishes: [...action.favorites]})
     case SET_ORDERS: 
-      return Object.assign({}, user_pref, {orders: action.orders})
+      return Object.assign({}, userPref, {orders: action.orders})
     default:
-      return user_pref;
+      return userPref;
   }
 }
 
@@ -86,7 +85,7 @@ export const fetchOrders =  currentUser => dispatch => {
       return axios.get(`/api/restaurants/${restaurantId}`)
     })  
   }).then(restaurantArr => {
-    order.restaurantArray = restaurantArr.map(rest => rest.data).filter((thing, index, self) => 
+    order.restaurantArray = restaurantArr.map(rest => rest.data).filter((thing, index, self) =>
     self.findIndex(t => t.id === thing.id && t.name === thing.name) === index)
     dispatch(setOrders(order))
   })

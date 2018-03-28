@@ -17,7 +17,7 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id/menu',  (req, res, next) => {
+router.get('/:id/menu', (req, res, next) => {
   const id = req.params.id;
   Menu.findOrCreate({
       where: {
@@ -60,16 +60,17 @@ router.post('/yelp', (req, res, next) => {
       }
     })
     .then(result => res.status(201).json(result.data.businesses))
-    .catch(function(error) {
-      if(error.response.status === 400) {
-        return res.status(error.response.status)
-      }
+    .catch(function (error) {
+      if (error.response.status === 400) res.status(error.response.status)
     })
 })
 
 router.post('/', (req, res, next) => {
-    const {businesses, category} = req.body
-    return Promise.map(businesses, (restaurant) => {
+  const {
+    businesses,
+    category
+  } = req.body
+  return Promise.map(businesses, (restaurant) => {
       const info = {
         name: restaurant.name,
         category: [category.toLowerCase(), restaurant.categories[0].title],
