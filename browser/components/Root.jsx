@@ -13,6 +13,7 @@ import FavoritesPage from './FavoritesPage'
 import RestaurantPage from './restaurant/RestaurantPage'
 import RestaurantMenu from './restaurant/RestaurantMenu'
 import RestaurantList from './restaurant/RestaurantList'
+import MenuModal from './restaurant/MenuModal'
 import Alert from 'react-s-alert';
 import $ from 'jquery';
 window.jQuery = window.$ = $;
@@ -28,7 +29,7 @@ class Root extends Component {
     this.props.fetchInitialData();
   }
 	render () {
-    const {currentUser, showCart, foundRestaurants} = this.props
+    const {currentUser, showCart, foundRestaurants, showModal} = this.props
 		return (
 	    <Router>
 				<div id="main" className="container-fluid">

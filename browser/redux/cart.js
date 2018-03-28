@@ -27,7 +27,7 @@ export default function reducer (cart = {
   showCart: false,
   restaurant: {},
   total: 0,
-  promptQuestion: false
+  showModal: false
 }, action) {
   switch (action.type) {
     case ADD_DISH:
@@ -47,6 +47,8 @@ export default function reducer (cart = {
       var dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.dish.id)
       cart.dishes[dishIndex].quantity -= 1
       return Object.assign({}, cart, {dishes: cart.dishes.filter(ele => ele.quantity !== 0), total: cart.total - action.dish.price})
+    case SHOW_MODAL:
+      return Object.assign({}, cart, {showModal: !cart.showModal})
     default:
       return cart;
   }
