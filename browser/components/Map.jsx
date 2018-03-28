@@ -23,8 +23,15 @@ class Map extends React.Component {
       center: [
         lng, lat
       ],
-      zoom: zoom
+      zoom: zoom,
+      trackUserLocation: true,
     })
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+          enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    }));
     this.setState({map: map})
     this.state.map.style && this.state.map.on('move', () => {
       const {lng, lat} = this.state.map.getCenter();
