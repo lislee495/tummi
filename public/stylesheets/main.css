@@ -1,5 +1,5 @@
 html {
-  background-color: #f8f8f8; 
+  background-color: #f8f8f8;
   height: 100%;
 }
 
@@ -9,7 +9,6 @@ body {
   font-family: 'Arvo', serif;
   height: 100%;
 }
-
 
 #app {
   height: inherit;
@@ -21,14 +20,15 @@ body {
 }
 
 a {
-  color: white; 
+  color: white;
   text-decoration: none !important;
 }
 
 a:hover {
-  color: #c5c1c2; 
+  color: #c5c1c2;
   text-decoration: none !important;
 }
+
 .logged-in {
   height: inherit;
 }
@@ -37,9 +37,9 @@ a:hover {
   text-align: left;
 }
 
-.hline { 
-  width:60%; 
-  height:1px; 
+.hline {
+  width: 60%;
+  height: 1px;
   margin: auto;
 }
 
@@ -49,8 +49,9 @@ div.landing-page {
   display: flex;
   flex-direction: column;
 }
+
 div.image-wrapper {
-  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("/images/pexels-photo-710916.jpeg");
+  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/images/pexels-photo-710916.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -62,13 +63,13 @@ div.image-wrapper {
 }
 
 a.landing-page {
-  color: white; 
+  color: white;
   text-decoration: none !important;
 }
 
 .banner {
   display: block;
-  color: white; 
+  color: white;
   width: 400px;
   float: none;
   align-self: center;
@@ -76,33 +77,33 @@ a.landing-page {
 
 .trns-btn {
   width: 100px;
-  color: white; 
+  color: white;
   padding: 10px;
   background-color: Transparent;
   margin: 20px;
-  outline:none;
-  border-style: solid; 
-  border-color: white; 
-  border-width: 2px; 
+  outline: none;
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
 }
 
 .logo {
   font-size: 70px;
 }
+
 div.about {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  width: 100%; 
+  width: 100%;
   height: 100vh;
 }
 
 div.about-paragraph {
   width: 20rem;
-  margin: auto; 
+  margin: auto;
   font-size: 1.5rem;
-
 }
 
 div.about-image {
@@ -112,14 +113,14 @@ div.about-image {
   background-position: center;
   height: 100vh;
   width: 50rem;
-  display:inline-block;
+  display: inline-block;
 }
 
 div.add-info {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  width: 100%; 
+  width: 100%;
   height: 60vh;
 }
 
@@ -159,11 +160,11 @@ img.flatiron-logo {
 
 .signin-container {
   width: 400px;
-  height: 500px;
-  margin: 300px auto; 
+  height: auto;
+  margin: 300px auto;
   z-index: 2;
   background-color: white;
-  padding: 30px;
+  padding: 3rem;
   position: absolute;
   margin: 150px auto;
   left: 0;
@@ -174,17 +175,23 @@ input.form-control.landing-page {
   text-align: center;
 }
 
+.login.demo {
+  font-style: italic;
+}
+
 /************NAVBAR************/
+
 div.nav-wrap {
   z-index: 2;
   display: flex;
-  width: 100%; 
+  width: 100%;
   height: 5rem;
   background-color: #ed303c;
-  color: white; 
+  color: white;
   justify-content: space-between;
   flex-flow: row wrap;
 }
+
 ul.nav-items {
   width: 430px;
   text-align: center;
@@ -196,6 +203,7 @@ ul.nav-items {
 ul.nav-items li {
   display: inline-block;
 }
+
 ul.left.nav-items li {
   align-self: center;
   font-size: 1rem;
@@ -208,8 +216,9 @@ div.left-nav-bar {
   align-content: center;
   justify-content: center;
 }
+
 div.left-nav-bar:hover {
-  background-color: #d1344d; 
+  background-color: #d1344d;
 }
 
 ul.right.nav-items li {
@@ -224,6 +233,7 @@ div.brand-logo.center {
 input.nav-bar {
   width: 80% !important;
 }
+
 .form-group.nav-bar {
   width: 10rem !important;
 }
@@ -244,9 +254,11 @@ button.search {
 input {
   color: #cac9c9
 }
-input[type="text"], textarea{
+
+input[type="text"],
+textarea {
   color: #cac9c9;
-  background-color : #ec656d;
+  background-color: #ec656d;
 }
 
 button.cart-btn {
@@ -256,7 +268,7 @@ button.cart-btn {
 }
 
 .cart-btn.position {
-  position: relative; 
+  position: relative;
   right: 1rem;
 }
 
@@ -274,18 +286,22 @@ button.cart-btn {
   text-align: center;
   line-height: 0.5;
 }
+
 /********CONTENT_WRAPPER************/
 
 .content-wrapper {
-  display: flex; 
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 100%;
 }
+
 /********MAP************/
+
 #map {
   z-index: -1 !important;
 }
+
 .marker {
   background-image: url('../images/mapbox-icon.png');
   background-size: cover;
@@ -294,15 +310,18 @@ button.cart-btn {
   border-radius: 50%;
   cursor: pointer;
 }
+
 .mapboxgl-popup {
   max-width: 200px;
 }
+
 .mapboxgl-map {
   position: absolute;
   top: 5rem;
   bottom: 0;
   width: 100%;
 }
+
 .mapboxgl-canvas {
   position: relative !important;
 }
@@ -310,6 +329,7 @@ button.cart-btn {
 .mapboxgl-popup-content {
   text-align: center;
 }
+
 /*****RESTAURANT LIST & DIV******/
 
 .restaurant-list {
@@ -322,10 +342,10 @@ button.cart-btn {
 }
 
 .restaurant-div-info {
-  width: 16rem; 
-  height: 5rem; 
-  display: flex; 
-  justify-content: space-around; 
+  width: 16rem;
+  height: 5rem;
+  display: flex;
+  justify-content: space-around;
   margin: 0.5rem;
   padding: 1rem;
 }
@@ -333,7 +353,7 @@ button.cart-btn {
 .restaurant-div:hover {
   width: 300px;
   height: auto;
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
   margin: 0 !important;
 }
 
@@ -348,7 +368,7 @@ button.cart-btn {
 
 .text {
   width: 7rem;
-  height: 2rem; 
+  height: 2rem;
 }
 
 .header {
@@ -384,10 +404,14 @@ button.cart-btn {
 }
 
 /*******MENU***************/
-.restaurant-page, .menu-page, .mapboxgl-canvas {
+
+.restaurant-page,
+.menu-page,
+.mapboxgl-canvas {
   justify-self: end;
   flex: 3;
 }
+
 .menu-ul {
   columns: 2;
   -webkit-columns: 2;
@@ -395,8 +419,8 @@ button.cart-btn {
 }
 
 .menu-ul.menu-items {
-  padding: 1rem; 
-  height: auto; 
+  padding: 1rem;
+  height: auto;
   width: auto;
 }
 
@@ -417,7 +441,7 @@ button.cart-btn {
 .ReactTags__tag {
   background-color: #79cfee;
   padding: 10px;
-  margin: 0.4rem !important; 
+  margin: 0.4rem !important;
   /* box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2); */
 }
 
@@ -426,11 +450,13 @@ div.ReactTags__tags {
 }
 
 div.filter-inputs {
-  display: flex; 
-  flex-flow: row wrap; 
+  display: flex;
+  flex-flow: row wrap;
   justify-content: space-around;
 }
+
 /********CART************/
+
 .cart-bar {
   width: 400px;
   top: 5rem;
@@ -438,14 +464,14 @@ div.filter-inputs {
   position: absolute;
   bottom: 0;
   background-color: #fad188;
-  color: white; 
+  color: white;
   z-index: 2;
   padding: 10px;
   height: auto;
 }
 
 .shadow {
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 .cart {
@@ -461,6 +487,7 @@ div.filter-inputs {
   max-width: 90%;
   margin: auto;
 }
+
 /********RESTAURANT PAGE************/
 
 .restaurant-page-banner {
@@ -474,13 +501,15 @@ div.filter-inputs {
   align-items: center;
   justify-content: center;
 }
+
 .menu-ul.content {
   width: 80%;
   margin: auto;
-  display: flex; 
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .restaurant-page-banner .header {
   font-size: 3rem !important;
   width: 70%;
@@ -488,114 +517,125 @@ div.filter-inputs {
 
 button.gen-btn {
   width: 100px;
-  color: #ed303c; 
+  color: #ed303c;
   padding: 10px;
   background-color: transparent;
   margin: 20px;
-  outline:none;
-  border-style: solid; 
-  border-color: #ed303c; 
-  border-width: 2px; 
+  outline: none;
+  border-style: solid;
+  border-color: #ed303c;
+  border-width: 2px;
 }
 
 .restaurant-page-content {
-  margin-top: 3rem; 
+  margin-top: 3rem;
   width: 100%;
   height: 100%;
 }
+
 /*************TAG CLOUD***************/
+
 .app-outer {
-	align-items: center; 
-	bottom: 0;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	left: 0;
-	padding: 20px 0;
-	position: absolute;
-	right: 0;
-	top: 5rem;
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  padding: 20px 0;
+  position: absolute;
+  right: 0;
+  top: 5rem;
 }
 
 .app-inner {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	max-width: 100vh;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 100vh;
+  width: 100%;
 }
 
 .tag-cloud {
-	flex: 1;
+  flex: 1;
 }
 
-.tag-cloud > div {
-	transition: 1.4s;
+.tag-cloud>div {
+  transition: 1.4s;
 }
 
 .tag-item-wrapper {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .tag-item-wrapper:hover {
-	z-index: 100;
+  z-index: 100;
 }
 
 .tag-item-wrapper:hover .tag-item-tooltip {
-	display: block;
+  display: block;
 }
 
 .tag-item-tooltip {
-	background: #c01916;
-	color: white;
-	margin-top: 5px;
-    z-index: 100;
-    display: none;
-	padding: 15px;
-	font-size: 14px;
-	line-height: 1;
-	position: absolute;
-	min-width: 60px;
-	left: 50%;
-	transform: translateX(-50%); 
-    text-align: center;
+  background: #c01916;
+  color: white;
+  margin-top: 5px;
+  z-index: 100;
+  display: none;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1;
+  position: absolute;
+  min-width: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 
 /*************FAVORITES PAGE***************/
+
 .favorites-page {
   display: flex;
   justify-content: center;
   flex-direction: row;
   width: 100%;
 }
+
 .favorites-content {
   width: 50%;
 }
+
 /*************MODULE***************/
 
-.module {
+.modal-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+}
+
+.modal-background {
   position: absolute;
   background: black;
   opacity: 0.6;
   top: 0;
-  right: 0; 
+  right: 0;
   height: 100%;
-  width: 100%; 
-  display: flex; 
-  flex-direction: row;
-  justify-content: center; 
-  align-items: center;
-  z-index: 3; 
-}
-.menu-module {
-  width: 40%; 
-  height: 40%;
-  background: white; 
-  opacity: 1 !important;
-  padding: 3rem; 
+  width: 100%;
+  z-index: 3;
 }
 
-.menu-module.prompt {
-  display: flex; 
-  flex-direction: row; 
+.menu-modal {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  max-width: 40%;
+  max-height: 30%;
+  background: white;
+  padding: 3rem;
 }

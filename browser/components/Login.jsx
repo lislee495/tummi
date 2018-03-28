@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login as loginFromReducer} from '../redux/auth';
+import { login as loginFromReducer } from '../redux/auth';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,6 +11,8 @@ class Login extends React.Component {
   render() {
     return (
       <div className="signin-container">
+        <div className="auth-error">
+        </div>
         <div className="local">
           <form onSubmit={this.onLoginSubmit}>
             <div className="form-group">
@@ -49,8 +51,13 @@ class Login extends React.Component {
               <span>{this.props.message} with Google</span>
             </a>
           </p>
+        </div>
+        <div className="login demo">
+          To demo, sign in with: <br />
+          email: first@first.com <br />
+          password: first
+        </div>
       </div>
-    </div>
     );
   }
   onLoginSubmit(event) {
@@ -66,7 +73,7 @@ class Login extends React.Component {
 
 const mapState = () => ({ message: 'Log in' });
 const mapDispatch = (dispatch, ownProps) => ({
-login: (credentials) => (dispatch(loginFromReducer(credentials, ownProps.history)))
+  login: (credentials) => (dispatch(loginFromReducer(credentials, ownProps.history)))
 });
 
 export default connect(mapState, mapDispatch)(Login);
