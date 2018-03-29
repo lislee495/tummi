@@ -153,6 +153,8 @@ export function getLocation() {
           type: GET_LOCATION,
           payload: location
         });
+      }, (err) => {
+        throw new Error('Cannot find location', err)
       });
     }
   };
