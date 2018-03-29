@@ -8,11 +8,17 @@ class Login extends React.Component {
     this.onLoginSubmit = this.onLoginSubmit.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.errorMessage !== nextProps.errorMessage
+  }
+
   render() {
+    const errorMessage = this.props.errorMessage
     return (
       <div className="signin-container">
-        <div className="auth-error">
-        </div>
+        {errorMessage && <div className="auth-error">
+          {errorMessage}
+        </div>}
         <div className="local">
           <form onSubmit={this.onLoginSubmit}>
             <div className="form-group">
@@ -71,7 +77,10 @@ class Login extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapState = () => ({ message: 'Log in' });
+const mapState = (state) => ({
+  message: 'Log in',
+  errorMessage: state.currentUser
+});
 const mapDispatch = (dispatch, ownProps) => ({
   login: (credentials) => (dispatch(loginFromReducer(credentials, ownProps.history)))
 });

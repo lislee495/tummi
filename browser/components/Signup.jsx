@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signup as signupFromReducer} from '../redux/auth';
+import { signup as signupFromReducer } from '../redux/auth';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -8,9 +8,17 @@ class Signup extends React.Component {
     this.onSignupSubmit = this.onSignupSubmit.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.errorMessage !== nextProps.errorMessage
+  }
+
   render() {
+    const errorMessage = this.props.errorMessage
     return (
       <div className="signin-container">
+        {errorMessage && <div className="auth-error">
+          {errorMessage}
+        </div>}
         <div className="buffer local">
           <form onSubmit={this.onSignupSubmit}>
             <div className="form-group">
@@ -35,38 +43,40 @@ class Signup extends React.Component {
           </form>
         </div>
         <div className="or buffer">
-        <div className="back-line">
-          <span>OR</span>
+          <div className="back-line">
+            <span>OR</span>
+          </div>
+        </div>
+        <div className="buffer oauth">
+          <p>
+            <a
+              target="_self"
+              href="/auth/google"
+              className="btn btn-social btn-google">
+              <i className="fa fa-google" />
+              <span>{this.props.message} with Google</span>
+            </a>
+          </p>
         </div>
       </div>
-      <div className="buffer oauth">
-        <p>
-          <a
-            target="_self"
-            href="/auth/google"
-            className="btn btn-social btn-google">
-            <i className="fa fa-google" />
-            <span>{this.props.message} with Google</span>
-          </a>
-        </p>
-        </div>
-      </div>
-    )}
-    onSignupSubmit(event) {
-      event.preventDefault();
-      this.props.signup({
-        email: event.target.email.value,
-        password: event.target.password.value
-      })
-    }
+    )
+  }
+  onSignupSubmit(event) {
+    event.preventDefault();
+    this.props.signup({
+      email: event.target.email.value,
+      password: event.target.password.value
+    })
+  }
 
 }
 
-
-
-const mapState = () => ({ message: 'Signup' });
+const mapState = (state) => ({
+  message: 'Signup',
+  errorMessage: state.currentUser
+});
 const mapDispatch = (dispatch, ownProps) => ({
-signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history)),
+  signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history)),
 });
 
 export default connect(mapState, mapDispatch)(Signup);
