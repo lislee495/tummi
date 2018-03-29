@@ -95,8 +95,8 @@ const mapStateToProps = function (state, ownProps) {
     restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant,
     menu: state.restaurants.menu,
-    likes: state.user_pref.like,
-    dislikes: state.user_pref.dislike
+    likes: state.userPref.like,
+    dislikes: state.userPref.dislike
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -104,8 +104,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMenu: (id) => dispatch(fetchMenu(id)),
   addLike: (value) => dispatch(addLike(value)),
   addDislike: (value) => dispatch(addDislike(value)),
-  deleteLike: (like_ind) => dispatch(deleteLike(like_ind)),
-  deleteDislike: (dislike_ind) => dispatch(deleteDislike(dislike_ind)),
+  deleteLike: (likeInd) => dispatch(deleteLike(likeInd)),
+  deleteDislike: (dislikeInd) => dispatch(deleteDislike(dislikeInd)),
   resetPref: () => dispatch(resetPref())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RestaurantMenu);

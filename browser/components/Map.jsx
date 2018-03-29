@@ -26,12 +26,12 @@ class Map extends React.Component {
       zoom: zoom,
       trackUserLocation: true,
     })
-    // map.addControl(new mapboxgl.GeolocateControl({
-    //   positionOptions: {
-    //     enableHighAccuracy: true
-    //   },
-    //   trackUserLocation: true
-    // }));
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    }));
     this.setState({ map: map })
     this.state.map.style && this.state.map.on('move', () => {
       const { lng, lat } = this.state.map.getCenter();
@@ -40,6 +40,16 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.currentLocation !== nextProps.currentLocation) {
+      this.setState({ lat: nextProps.currentLocation.lat, lng: nextProps.currentLocation.long })
+      this.state.map.flyTo({
+        center: [
+          parseFloat(nextProps.currentLocation.long),
+          parseFloat(nextProps.currentLocation.lat)
+        ]
+      })
+    }
+
     if (this.props.showRestaurants[0] !== nextProps.showRestaurants[0]) {
       var restaurantLocation = nextProps.showRestaurants[0];
       if (restaurantLocation) {
@@ -103,6 +113,7 @@ class Map extends React.Component {
 const mapStateToProps = (state) => ({
   foundRestaurants: state.restaurants.foundRestaurants,
   showRestaurants: state.restaurants.showRestaurants,
-  currentRestaurant: state.restaurants.currentRestaurant
+  currentRestaurant: state.restaurants.currentRestaurant,
+  currentLocation: state.userPref.currentLocation
 })
 export default connect(mapStateToProps)(Map);

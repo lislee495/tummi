@@ -1,17 +1,13 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter, browserHistory } from 'react-router-dom';
 import Searchbar from './Searchbar'
 import CartBubble from './CartBubble'
 import { connect } from 'react-redux';
-import { logout, getLocation, showCart } from '../redux';
-
+import { logout } from '../redux/auth';
+import { showCart } from '../redux/cart'
 class Navbar extends React.Component {
-  componentDidMount() {
-    this.props.getLocation()
-  }
   render() {
-    const { cart } = this.props
-    const handleCartClick = this.props.handleCartClick
+    const { cart, handleCartClick } = this.props
     return (
 
       <div className="nav-wrap shadow">
@@ -46,7 +42,6 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch, ownProps) => ({
   logout: () => dispatch(logout(ownProps.history)),
-  handleCartClick: () => dispatch(showCart()),
-  getLocation: () => dispatch(getLocation())
+  handleCartClick: () => dispatch(showCart())
 });
 export default withRouter(connect(mapState, mapDispatch)(Navbar));

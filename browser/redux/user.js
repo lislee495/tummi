@@ -47,7 +47,10 @@ export const setOrders = orders => ({
 // /* ------------          REDUCER         ------------------ */
 
 export default function reducer(userPref = {
-  currentLocation: {},
+  currentLocation: {
+    lat: null,
+    long: null
+  },
   like: [],
   dislike: [],
   favoriteDishes: [],
@@ -99,7 +102,10 @@ export default function reducer(userPref = {
       })
     case GET_LOCATION:
       return Object.assign({}, userPref, {
-        currentLocation: action.payload
+        currentLocation: {
+          lat: action.location.lat,
+          long: action.location.long
+        }
       })
     default:
       return userPref;
@@ -142,20 +148,19 @@ export function getLocation() {
   return dispatch => {
     const geolocation = navigator.geolocation;
     if (!geolocation) {
-      throw new Error('Location not supported')
+      console.log('Location not supported')
     } else {
       geolocation.getCurrentPosition((position) => {
+        console.log(position)
         const location = {
           lat: position.coords.latitude,
           long: position.coords.longitude
         }
         dispatch({
           type: GET_LOCATION,
-          payload: location
-        });
-      }, (err) => {
-        throw new Error('Cannot find location', err)
-      });
+          location: location
+        })
+      }, (err) => console.log(err));
     }
   };
 }

@@ -1,10 +1,17 @@
-import { combineReducers } from 'redux';
+import {
+    combineReducers
+} from 'redux';
 import currentUser from './auth';
 import restaurants from './restaurants'
 import cart from './cart'
-import user_pref from './user'
+import userPref from './user'
 
-export default combineReducers({ currentUser, restaurants, cart, user_pref });
+export default combineReducers({
+    currentUser,
+    restaurants,
+    cart,
+    userPref
+});
 
 export * from './auth';
 export * from './restaurants'
