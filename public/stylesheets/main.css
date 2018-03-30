@@ -178,6 +178,15 @@ input.form-control.landing-page {
   font-style: italic;
 }
 
+.auth-error {
+  font-size: 0.8rem;
+  font-style: italic;
+  background: #f3acb4;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  color: #636363;
+}
+
 /************NAVBAR************/
 
 div.nav-wrap {

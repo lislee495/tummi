@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Map from './Map'
 import RestaurantDetail from './restaurant/RestaurantDetail'
-import { resetRestaurants } from '../redux'
+import { resetRestaurants, getLocation } from '../redux'
 
 class MapPage extends React.Component {
   componentDidMount() {
     this.props.resetRestaurants()
+    this.props.getLocation()
   }
 
   render() {
@@ -27,6 +28,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetRestaurants: () => dispatch(resetRestaurants())
+  resetRestaurants: () => dispatch(resetRestaurants()),
+  getLocation: () => dispatch(getLocation())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MapPage)

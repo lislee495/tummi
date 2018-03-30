@@ -2226,55 +2226,55 @@ module.exports = function (key) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _auth = __webpack_require__(93);
 
 Object.keys(_auth).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _auth[key];
-    }
-  });
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+            return _auth[key];
+        }
+    });
 });
 
 var _restaurants = __webpack_require__(95);
 
 Object.keys(_restaurants).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _restaurants[key];
-    }
-  });
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+            return _restaurants[key];
+        }
+    });
 });
 
 var _cart = __webpack_require__(149);
 
 Object.keys(_cart).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _cart[key];
-    }
-  });
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+            return _cart[key];
+        }
+    });
 });
 
 var _user = __webpack_require__(554);
 
 Object.keys(_user).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _user[key];
-    }
-  });
+    if (key === "default" || key === "__esModule") return;
+    Object.defineProperty(exports, key, {
+        enumerable: true,
+        get: function get() {
+            return _user[key];
+        }
+    });
 });
 
 var _redux = __webpack_require__(92);
@@ -2289,7 +2289,12 @@ var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.combineReducers)({ currentUser: _auth2.default, restaurants: _restaurants2.default, cart: _cart2.default, user_pref: _user2.default });
+exports.default = (0, _redux.combineReducers)({
+    currentUser: _auth2.default,
+    restaurants: _restaurants2.default,
+    cart: _cart2.default,
+    userPref: _user2.default
+});
 
 /***/ }),
 /* 45 */
@@ -4043,17 +4048,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var SET_CURRENT_USER = 'SET_CURRENT_USER';
 var REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER';
+var SET_ERROR_MESSAGE = 'SET_ERROR_MESSAGE';
 
 /* ------------     ACTION CREATORS      ------------------ */
 
 var setCurrentUser = function setCurrentUser(user) {
-  return { type: SET_CURRENT_USER,
-    user: user };
+  return {
+    type: SET_CURRENT_USER,
+    user: user
+  };
 };
 var removeCurrentUser = function removeCurrentUser() {
-  return { type: REMOVE_CURRENT_USER };
+  return {
+    type: REMOVE_CURRENT_USER
+  };
 };
-
+var setErrorMessage = function setErrorMessage(errorMessage) {
+  return {
+    type: SET_ERROR_MESSAGE,
+    errorMessage: errorMessage
+  };
+};
 /* ------------          REDUCER         ------------------ */
 
 function reducer() {
@@ -4065,6 +4080,8 @@ function reducer() {
       return action.user;
     case REMOVE_CURRENT_USER:
       return {};
+    case SET_ERROR_MESSAGE:
+      return action.errorMessage;
     default:
       return currentUser;
   }
@@ -4077,7 +4094,8 @@ var login = exports.login = function login(credentials, history) {
     _axios2.default.put('/auth/local/login', credentials).then(function (res) {
       return setUserAndRedirect(res.data, history, dispatch);
     }).catch(function (err) {
-      return console.error('Logging in with ' + credentials.email + ' and ' + credentials.password + ' was unsuccesful', err);
+      dispatch(setErrorMessage('Logging in with ' + credentials.email + ' was unsuccessful'));
+      console.log(err);
     });
   };
 };
@@ -4099,7 +4117,8 @@ var signup = exports.signup = function signup(credentials, history) {
     _axios2.default.post('/auth/local/signup', credentials).then(function (res) {
       return setUserAndRedirect(res.data, history, dispatch);
     }).catch(function (err) {
-      return console.error('Signing up with ' + credentials.email + ' and ' + credentials.password + ' was unsuccesful', err);
+      dispatch(setErrorMessage('Signing up with ' + credentials.email + ' was unsuccessful'));
+      console.error(err);
     });
   };
 };
@@ -4118,7 +4137,7 @@ var fetchCurrentUser = exports.fetchCurrentUser = function fetchCurrentUser() {
 
 function setUserAndRedirect(user, history, dispatch) {
   dispatch(setCurrentUser(user));
-  history.push("/");
+  history.push('/');
 }
 
 /***/ }),
@@ -6910,25 +6929,45 @@ var SHOW_MODAL = "SHOW_MODAL";
 /* ------------     ACTION CREATORS      ------------------ */
 
 var addDishToCart = exports.addDishToCart = function addDishToCart(dish) {
-  return { type: ADD_DISH, payload: { quantity: 1, dish: dish } };
+  return {
+    type: ADD_DISH,
+    payload: {
+      quantity: 1,
+      dish: dish
+    }
+  };
 };
 var addRestaurantToCart = exports.addRestaurantToCart = function addRestaurantToCart(restaurant) {
-  return { type: ADD_RESTAURANT, restaurant: restaurant };
+  return {
+    type: ADD_RESTAURANT,
+    restaurant: restaurant
+  };
 };
 var clearCart = exports.clearCart = function clearCart() {
-  return { type: CLEAR_CART };
+  return {
+    type: CLEAR_CART
+  };
 };
 var showCart = exports.showCart = function showCart() {
-  return { type: SHOW_CART };
+  return {
+    type: SHOW_CART
+  };
 };
 var removeItem = exports.removeItem = function removeItem(dish) {
-  return { type: REMOVE_ITEM, dish: dish };
+  return {
+    type: REMOVE_ITEM,
+    dish: dish
+  };
 };
 var resetCart = exports.resetCart = function resetCart() {
-  return { type: RESET_CART };
+  return {
+    type: RESET_CART
+  };
 };
 var showModal = exports.showModal = function showModal() {
-  return { type: SHOW_MODAL };
+  return {
+    type: SHOW_MODAL
+  };
 };
 
 /* ------------          REDUCER         ------------------ */
@@ -6950,26 +6989,44 @@ function reducer() {
       });
       if (dishIndex > -1) {
         cart.dishes[dishIndex].quantity += 1;
-        return Object.assign({}, cart, { total: cart.total + action.payload.dish.price });
+        return Object.assign({}, cart, {
+          total: cart.total + action.payload.dish.price
+        });
       } else {
-        return Object.assign({}, cart, { dishes: [].concat(_toConsumableArray(cart.dishes), [action.payload]), total: cart.total + action.payload.dish.price });
+        return Object.assign({}, cart, {
+          dishes: [].concat(_toConsumableArray(cart.dishes), [action.payload]),
+          total: cart.total + action.payload.dish.price
+        });
       }
     case CLEAR_CART:
-      return Object.assign({}, cart, { dishes: [], restaurant: {}, total: 0 });
+      return Object.assign({}, cart, {
+        dishes: [],
+        restaurant: {},
+        total: 0
+      });
     case SHOW_CART:
-      return Object.assign({}, cart, { showCart: !cart.showCart });
+      return Object.assign({}, cart, {
+        showCart: !cart.showCart
+      });
     case ADD_RESTAURANT:
-      return Object.assign({}, cart, { restaurant: action.restaurant });
+      return Object.assign({}, cart, {
+        restaurant: action.restaurant
+      });
     case REMOVE_ITEM:
       var dishIndex = cart.dishes.findIndex(function (ele) {
         return ele.dish.id === action.dish.id;
       });
       cart.dishes[dishIndex].quantity -= 1;
-      return Object.assign({}, cart, { dishes: cart.dishes.filter(function (ele) {
+      return Object.assign({}, cart, {
+        dishes: cart.dishes.filter(function (ele) {
           return ele.quantity !== 0;
-        }), total: cart.total - action.dish.price });
+        }),
+        total: cart.total - action.dish.price
+      });
     case SHOW_MODAL:
-      return Object.assign({}, cart, { showModal: !cart.showModal });
+      return Object.assign({}, cart, {
+        showModal: !cart.showModal
+      });
     default:
       return cart;
   }
@@ -6978,7 +7035,9 @@ function reducer() {
 /* ------------       THUNK CREATORS     ------------------ */
 var checkoutCart = exports.checkoutCart = function checkoutCart(terms) {
   return function (dispatch) {
-    _axios2.default.post("/api/users/" + terms.currentUser.id + "/orders", { terms: terms }).then(function (res) {
+    _axios2.default.post("/api/users/" + terms.currentUser.id + "/orders", {
+      terms: terms
+    }).then(function (res) {
       return dispatch(clearCart());
     });
   };
@@ -45898,6 +45957,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchOrders = exports.fetchFavoriteDishes = exports.setOrders = exports.setFavoriteDishes = exports.resetPref = exports.addDislike = exports.deleteDislike = exports.deleteLike = exports.addLike = undefined;
 exports.default = reducer;
+exports.getLocation = getLocation;
 
 var _axios = __webpack_require__(94);
 
@@ -45920,35 +45980,60 @@ var DELETE_DISLIKE = "DELETE_DISLIKE";
 var DELETE_LIKE = "DELETE_LIKE";
 var SET_FAVORITES = "SET_FAVORITES";
 var SET_ORDERS = "SET_ORDERS";
+var GET_LOCATION = 'GET_LOCATION';
 
 // /* ------------     ACTION CREATORS      ------------------ */
 
 var addLike = exports.addLike = function addLike(like) {
-  return { type: ADD_LIKE, like: like };
+  return {
+    type: ADD_LIKE,
+    like: like
+  };
 };
 var deleteLike = exports.deleteLike = function deleteLike(likeInd) {
-  return { type: DELETE_LIKE, likeInd: likeInd };
+  return {
+    type: DELETE_LIKE,
+    likeInd: likeInd
+  };
 };
 var deleteDislike = exports.deleteDislike = function deleteDislike(dislikeInd) {
-  return { type: DELETE_DISLIKE, dislikeInd: dislikeInd };
+  return {
+    type: DELETE_DISLIKE,
+    dislikeInd: dislikeInd
+  };
 };
 var addDislike = exports.addDislike = function addDislike(dislike) {
-  return { type: ADD_DISLIKE, dislike: dislike };
+  return {
+    type: ADD_DISLIKE,
+    dislike: dislike
+  };
 };
 var resetPref = exports.resetPref = function resetPref() {
-  return { type: RESET_PREF };
+  return {
+    type: RESET_PREF
+  };
 };
 var setFavoriteDishes = exports.setFavoriteDishes = function setFavoriteDishes(favorites) {
-  return { type: SET_FAVORITES, favorites: favorites };
+  return {
+    type: SET_FAVORITES,
+    favorites: favorites
+  };
 };
 var setOrders = exports.setOrders = function setOrders(orders) {
-  return { type: SET_ORDERS, orders: orders };
+  return {
+    type: SET_ORDERS,
+    orders: orders
+  };
 };
 
 // /* ------------          REDUCER         ------------------ */
 
 function reducer() {
   var userPref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    currentLocation: {
+      lat: null,
+      long: null
+    },
     like: [],
     dislike: [],
     favoriteDishes: [],
@@ -45962,23 +46047,51 @@ function reducer() {
 
   switch (action.type) {
     case ADD_LIKE:
-      return Object.assign({}, userPref, { like: [].concat(_toConsumableArray(userPref.like), [{ id: userPref.like.length + 1, text: action.like }]) });
+      return Object.assign({}, userPref, {
+        like: [].concat(_toConsumableArray(userPref.like), [{
+          id: userPref.like.length + 1,
+          text: action.like
+        }])
+      });
     case ADD_DISLIKE:
-      return Object.assign({}, userPref, { dislike: [].concat(_toConsumableArray(userPref.dislike), [{ id: userPref.dislike.length + 1, text: action.dislike }]) });
+      return Object.assign({}, userPref, {
+        dislike: [].concat(_toConsumableArray(userPref.dislike), [{
+          id: userPref.dislike.length + 1,
+          text: action.dislike
+        }])
+      });
     case DELETE_LIKE:
       var newLike = [].concat(_toConsumableArray(userPref.like));
       newLike.splice(action.likeInd, 1);
-      return Object.assign({}, userPref, { like: [].concat(_toConsumableArray(userPref.like)).splice(action.likeInd, 1) });
+      return Object.assign({}, userPref, {
+        like: [].concat(_toConsumableArray(userPref.like)).splice(action.likeInd, 1)
+      });
     case DELETE_DISLIKE:
       var newDislike = [].concat(_toConsumableArray(userPref.dislike));
       newDislike.splice(action.dislikeInd, 1);
-      return Object.assign({}, userPref, { dislike: [].concat(_toConsumableArray(userPref.dislike)).splice(action.dislikeInd, 1) });
+      return Object.assign({}, userPref, {
+        dislike: [].concat(_toConsumableArray(userPref.dislike)).splice(action.dislikeInd, 1)
+      });
     case RESET_PREF:
-      return Object.assign({}, userPref, { like: [], dislike: [] });
+      return Object.assign({}, userPref, {
+        like: [],
+        dislike: []
+      });
     case SET_FAVORITES:
-      return Object.assign({}, userPref, { favoriteDishes: [].concat(_toConsumableArray(action.favorites)) });
+      return Object.assign({}, userPref, {
+        favoriteDishes: [].concat(_toConsumableArray(action.favorites))
+      });
     case SET_ORDERS:
-      return Object.assign({}, userPref, { orders: action.orders });
+      return Object.assign({}, userPref, {
+        orders: action.orders
+      });
+    case GET_LOCATION:
+      return Object.assign({}, userPref, {
+        currentLocation: {
+          lat: action.location.lat,
+          long: action.location.long
+        }
+      });
     default:
       return userPref;
   }
@@ -46039,6 +46152,29 @@ var fetchOrders = exports.fetchOrders = function fetchOrders(currentUser) {
     });
   };
 };
+
+function getLocation() {
+  return function (dispatch) {
+    var geolocation = navigator.geolocation;
+    if (!geolocation) {
+      console.log('Location not supported');
+    } else {
+      geolocation.getCurrentPosition(function (position) {
+        console.log(position);
+        var location = {
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        };
+        dispatch({
+          type: GET_LOCATION,
+          location: location
+        });
+      }, function (err) {
+        return console.log(err);
+      });
+    }
+  };
+}
 
 /***/ }),
 /* 555 */
@@ -47944,8 +48080,7 @@ function CartDish(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+exports.default = LandingPage;
 
 var _react = __webpack_require__(1);
 
@@ -47955,136 +48090,112 @@ var _reactRouterDom = __webpack_require__(99);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LandingPage = function (_React$Component) {
-  _inherits(LandingPage, _React$Component);
-
-  function LandingPage() {
-    _classCallCheck(this, LandingPage);
-
-    return _possibleConstructorReturn(this, (LandingPage.__proto__ || Object.getPrototypeOf(LandingPage)).apply(this, arguments));
-  }
-
-  _createClass(LandingPage, [{
-    key: 'render',
-    value: function render() {
-
-      return _react2.default.createElement(
+function LandingPage() {
+  return _react2.default.createElement(
+    'div',
+    { className: 'landing-page' },
+    _react2.default.createElement(
+      'div',
+      { className: 'image-wrapper' },
+      _react2.default.createElement(
         'div',
-        { className: 'landing-page' },
+        { className: 'banner text-center' },
         _react2.default.createElement(
-          'div',
-          { className: 'image-wrapper' },
-          _react2.default.createElement(
-            'div',
-            { className: 'banner text-center' },
-            _react2.default.createElement(
-              'h1',
-              { className: 'logo' },
-              'Tummi'
-            ),
-            _react2.default.createElement(
-              'h5',
-              null,
-              'A stomach\'s best friend.'
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'span',
-              null,
-              _react2.default.createElement(
-                'button',
-                { className: 'trns-btn' },
-                _react2.default.createElement(
-                  _reactRouterDom.NavLink,
-                  { to: '/signup', activeClassName: 'active landing-page' },
-                  'Signup'
-                )
-              ),
-              _react2.default.createElement(
-                'button',
-                { className: 'trns-btn' },
-                _react2.default.createElement(
-                  _reactRouterDom.NavLink,
-                  { to: '/login', activeClassName: 'active landing-page' },
-                  'Login'
-                )
-              )
-            )
-          )
+          'h1',
+          { className: 'logo' },
+          'Tummi'
         ),
         _react2.default.createElement(
-          'div',
-          { className: 'about' },
-          _react2.default.createElement(
-            'div',
-            { className: 'about-paragraph' },
-            _react2.default.createElement(
-              'p',
-              null,
-              'A stylish food app that puts practical user experience first.'
-            )
-          ),
-          _react2.default.createElement('div', { className: 'about-image' })
+          'h5',
+          null,
+          'A stomach\'s best friend.'
         ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
         _react2.default.createElement(
-          'div',
-          { className: 'add-info' },
+          'span',
+          null,
           _react2.default.createElement(
-            'div',
-            { className: 'info' },
+            'button',
+            { className: 'trns-btn' },
             _react2.default.createElement(
-              'p',
-              null,
-              'Easily scan and filter menus based on likes and dislikes.'
+              _reactRouterDom.NavLink,
+              { to: '/signup', activeClassName: 'active landing-page' },
+              'Signup'
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'info' },
+            'button',
+            { className: 'trns-btn' },
             _react2.default.createElement(
-              'p',
-              null,
-              'Save favorites to remember for later.'
+              _reactRouterDom.NavLink,
+              { to: '/login', activeClassName: 'active landing-page' },
+              'Login'
             )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'info' },
-            _react2.default.createElement(
-              'p',
-              null,
-              'Natural language processing maps out your personal tastes.'
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'footer' },
-          _react2.default.createElement(
-            'div',
-            { className: 'footer-info' },
-            'Created by Lisa Lee',
-            _react2.default.createElement('br', null),
-            'with',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('img', { src: '/images/flatiron-logo.png', className: 'flatiron-logo' })
           )
         )
-      );
-    }
-  }]);
-
-  return LandingPage;
-}(_react2.default.Component);
-
-exports.default = LandingPage;
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'about' },
+      _react2.default.createElement(
+        'div',
+        { className: 'about-paragraph' },
+        _react2.default.createElement(
+          'p',
+          null,
+          'A stylish food app that puts practical user experience first.'
+        )
+      ),
+      _react2.default.createElement('div', { className: 'about-image' })
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'add-info' },
+      _react2.default.createElement(
+        'div',
+        { className: 'info' },
+        _react2.default.createElement(
+          'p',
+          null,
+          'Easily scan and filter menus based on likes and dislikes.'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'info' },
+        _react2.default.createElement(
+          'p',
+          null,
+          'Save favorites to remember for later.'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'info' },
+        _react2.default.createElement(
+          'p',
+          null,
+          'Natural language processing maps out your personal tastes.'
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'footer' },
+      _react2.default.createElement(
+        'div',
+        { className: 'footer-info' },
+        'Created by Lisa Lee',
+        _react2.default.createElement('br', null),
+        'with',
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('img', { src: '/images/flatiron-logo.png', className: 'flatiron-logo' })
+      )
+    )
+  );
+}
 
 /***/ }),
 /* 576 */
@@ -48128,12 +48239,26 @@ var Login = function (_React$Component) {
   }
 
   _createClass(Login, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.errorMessage !== nextProps.errorMessage;
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var errorMessage = this.props.errorMessage;
       return _react2.default.createElement(
         'div',
         { className: 'signin-container' },
+<<<<<<< HEAD
         _react2.default.createElement('div', { className: 'auth-error' }),
+=======
+        errorMessage && _react2.default.createElement(
+          'div',
+          { className: 'auth-error' },
+          errorMessage
+        ),
+>>>>>>> installGeolocation
         _react2.default.createElement(
           'div',
           { className: 'local' },
@@ -48236,8 +48361,11 @@ var Login = function (_React$Component) {
 
 /* -----------------    CONTAINER     ------------------ */
 
-var mapState = function mapState() {
-  return { message: 'Log in' };
+var mapState = function mapState(state) {
+  return {
+    message: 'Log in',
+    errorMessage: state.currentUser
+  };
 };
 var mapDispatch = function mapDispatch(dispatch, ownProps) {
   return {
@@ -48291,11 +48419,22 @@ var Signup = function (_React$Component) {
   }
 
   _createClass(Signup, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.errorMessage !== nextProps.errorMessage;
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var errorMessage = this.props.errorMessage;
       return _react2.default.createElement(
         'div',
         { className: 'signin-container' },
+        errorMessage && _react2.default.createElement(
+          'div',
+          { className: 'auth-error' },
+          errorMessage
+        ),
         _react2.default.createElement(
           'div',
           { className: 'buffer local' },
@@ -48386,8 +48525,11 @@ var Signup = function (_React$Component) {
   return Signup;
 }(_react2.default.Component);
 
-var mapState = function mapState() {
-  return { message: 'Signup' };
+var mapState = function mapState(state) {
+  return {
+    message: 'Signup',
+    errorMessage: state.currentUser
+  };
 };
 var mapDispatch = function mapDispatch(dispatch, ownProps) {
   return {
@@ -48449,6 +48591,7 @@ var MapPage = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.resetRestaurants();
+      this.props.getLocation();
     }
   }, {
     key: 'render',
@@ -48481,6 +48624,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     resetRestaurants: function resetRestaurants() {
       return dispatch((0, _redux.resetRestaurants)());
+    },
+    getLocation: function getLocation() {
+      return dispatch((0, _redux.getLocation)());
     }
   };
 };
@@ -48579,6 +48725,13 @@ var Map = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
+      if (this.props.currentLocation !== nextProps.currentLocation) {
+        this.setState({ lat: nextProps.currentLocation.lat, lng: nextProps.currentLocation.long });
+        this.state.map.flyTo({
+          center: [parseFloat(nextProps.currentLocation.long), parseFloat(nextProps.currentLocation.lat)]
+        });
+      }
+
       if (this.props.showRestaurants[0] !== nextProps.showRestaurants[0]) {
         var restaurantLocation = nextProps.showRestaurants[0];
         if (restaurantLocation) {
@@ -48648,7 +48801,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     foundRestaurants: state.restaurants.foundRestaurants,
     showRestaurants: state.restaurants.showRestaurants,
-    currentRestaurant: state.restaurants.currentRestaurant
+    currentRestaurant: state.restaurants.currentRestaurant,
+    currentLocation: state.userPref.currentLocation
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(Map);
@@ -49441,9 +49595,10 @@ var Navbar = function (_React$Component) {
   _createClass(Navbar, [{
     key: 'render',
     value: function render() {
-      var cart = this.props.cart;
+      var _props = this.props,
+          cart = _props.cart,
+          handleCartClick = _props.handleCartClick;
 
-      var handleCartClick = this.props.handleCartClick;
       return _react2.default.createElement(
         'div',
         { className: 'nav-wrap shadow' },
@@ -49553,7 +49708,7 @@ var mapDispatch = function mapDispatch(dispatch, ownProps) {
       return dispatch((0, _auth.logout)(ownProps.history));
     },
     handleCartClick: function handleCartClick() {
-      dispatch((0, _cart.showCart)());
+      return dispatch((0, _cart.showCart)());
     }
   };
 };
@@ -49814,8 +49969,8 @@ var TrendsPage = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
-        favorites: state.user_pref.favoriteDishes,
-        orders: state.user_pref.orders
+        favorites: state.userPref.favoriteDishes,
+        orders: state.userPref.orders
     };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -52456,8 +52611,8 @@ var FavoritesPage = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
-        favoriteDishes: state.user_pref.favoriteDishes,
-        orders: state.user_pref.orders
+        favoriteDishes: state.userPref.favoriteDishes,
+        orders: state.userPref.orders
     };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -52956,8 +53111,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     restaurantId: restaurantId,
     currentRestaurant: state.restaurants.currentRestaurant,
     menu: state.restaurants.menu,
-    likes: state.user_pref.like,
-    dislikes: state.user_pref.dislike
+    likes: state.userPref.like,
+    dislikes: state.userPref.dislike
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -52974,11 +53129,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     addDislike: function addDislike(value) {
       return dispatch((0, _redux.addDislike)(value));
     },
-    deleteLike: function deleteLike(like_ind) {
-      return dispatch((0, _redux.deleteLike)(like_ind));
+    deleteLike: function deleteLike(likeInd) {
+      return dispatch((0, _redux.deleteLike)(likeInd));
     },
-    deleteDislike: function deleteDislike(dislike_ind) {
-      return dispatch((0, _redux.deleteDislike)(dislike_ind));
+    deleteDislike: function deleteDislike(dislikeInd) {
+      return dispatch((0, _redux.deleteDislike)(dislikeInd));
     },
     resetPref: function resetPref() {
       return dispatch((0, _redux.resetPref)());
@@ -52997,8 +53152,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+exports.default = Menu;
 
 var _react = __webpack_require__(1);
 
@@ -53012,47 +53166,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Menu = function (_React$Component) {
-  _inherits(Menu, _React$Component);
-
-  function Menu() {
-    _classCallCheck(this, Menu);
-
-    return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
-  }
-
-  _createClass(Menu, [{
-    key: 'render',
-    value: function render() {
-      var menu = [].concat(_toConsumableArray(this.props.menu));
-      var restaurant = this.props.restaurant;
-      return _react2.default.createElement(
-        'div',
-        { className: 'menu' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'menu-ul menu-items' },
-          menu.map(function (dish) {
-            return _react2.default.createElement(_MenuDiv2.default, { dish: dish, key: dish.id, restaurant: restaurant });
-          })
-        )
-      );
-    }
-  }]);
-
-  return Menu;
-}(_react2.default.Component);
-
-/* -----------------    CONTAINER     ------------------ */
-
-
-exports.default = Menu;
+function Menu(props) {
+  var menu = [].concat(_toConsumableArray(props.menu));
+  var restaurant = props.restaurant;
+  return _react2.default.createElement(
+    'div',
+    { className: 'menu' },
+    _react2.default.createElement(
+      'ul',
+      { className: 'menu-ul menu-items' },
+      menu.map(function (dish) {
+        return _react2.default.createElement(_MenuDiv2.default, { dish: dish, key: dish.id, restaurant: restaurant });
+      })
+    )
+  );
+}
 
 /***/ }),
 /* 604 */

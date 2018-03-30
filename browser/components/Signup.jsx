@@ -8,9 +8,17 @@ class Signup extends React.Component {
     this.onSignupSubmit = this.onSignupSubmit.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.errorMessage !== nextProps.errorMessage
+  }
+
   render() {
+    const errorMessage = this.props.errorMessage
     return (
       <div className="signin-container">
+        {errorMessage && <div className="auth-error">
+          {errorMessage}
+        </div>}
         <div className="buffer local">
           <form onSubmit={this.onSignupSubmit}>
             <div className="form-group">
@@ -36,7 +44,11 @@ class Signup extends React.Component {
         </div>
         <div className="or buffer">
           <div className="back-line">
+<<<<<<< HEAD
             <div className="divider" style={{ margin: '1rem' }} />
+=======
+            <span>OR</span>
+>>>>>>> installGeolocation
           </div>
         </div>
         <div className="buffer oauth">
@@ -63,9 +75,10 @@ class Signup extends React.Component {
 
 }
 
-
-
-const mapState = () => ({ message: 'Signup' });
+const mapState = (state) => ({
+  message: 'Signup',
+  errorMessage: state.currentUser
+});
 const mapDispatch = (dispatch, ownProps) => ({
   signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history)),
 });

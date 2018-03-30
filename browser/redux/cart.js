@@ -12,17 +12,37 @@ const SHOW_MODAL = "SHOW_MODAL"
 
 /* ------------     ACTION CREATORS      ------------------ */
 
-export const addDishToCart = dish => ({type: ADD_DISH, payload: {quantity: 1, dish: dish}})
-export const addRestaurantToCart = restaurant => ({type: ADD_RESTAURANT, restaurant})
-export const clearCart = () => ({ type: CLEAR_CART})
-export const showCart = () => ({type: SHOW_CART})
-export const removeItem = dish => ({ type: REMOVE_ITEM, dish})
-export const resetCart = () => ({ type: RESET_CART})
-export const showModal = () => ({type: SHOW_MODAL})
+export const addDishToCart = dish => ({
+  type: ADD_DISH,
+  payload: {
+    quantity: 1,
+    dish: dish
+  }
+})
+export const addRestaurantToCart = restaurant => ({
+  type: ADD_RESTAURANT,
+  restaurant
+})
+export const clearCart = () => ({
+  type: CLEAR_CART
+})
+export const showCart = () => ({
+  type: SHOW_CART
+})
+export const removeItem = dish => ({
+  type: REMOVE_ITEM,
+  dish
+})
+export const resetCart = () => ({
+  type: RESET_CART
+})
+export const showModal = () => ({
+  type: SHOW_MODAL
+})
 
 /* ------------          REDUCER         ------------------ */
 
-export default function reducer (cart = {
+export default function reducer(cart = {
   dishes: [],
   showCart: false,
   restaurant: {},
@@ -34,21 +54,40 @@ export default function reducer (cart = {
       var dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.payload.dish.id)
       if (dishIndex > -1) {
         cart.dishes[dishIndex].quantity += 1;
-        return Object.assign({}, cart, {total: cart.total + action.payload.dish.price}) 
+        return Object.assign({}, cart, {
+          total: cart.total + action.payload.dish.price
+        })
       } else {
-      return Object.assign({}, cart, {dishes: [...cart.dishes, action.payload], total: cart.total + action.payload.dish.price})}
+        return Object.assign({}, cart, {
+          dishes: [...cart.dishes, action.payload],
+          total: cart.total + action.payload.dish.price
+        })
+      }
     case CLEAR_CART:
-      return Object.assign({}, cart, {dishes: [], restaurant: {}, total: 0})
+      return Object.assign({}, cart, {
+        dishes: [],
+        restaurant: {},
+        total: 0
+      })
     case SHOW_CART:
-      return Object.assign({}, cart, {showCart: !cart.showCart})
+      return Object.assign({}, cart, {
+        showCart: !cart.showCart
+      })
     case ADD_RESTAURANT:
-      return Object.assign({}, cart, {restaurant: action.restaurant})
+      return Object.assign({}, cart, {
+        restaurant: action.restaurant
+      })
     case REMOVE_ITEM:
       var dishIndex = cart.dishes.findIndex(ele => ele.dish.id === action.dish.id)
       cart.dishes[dishIndex].quantity -= 1
-      return Object.assign({}, cart, {dishes: cart.dishes.filter(ele => ele.quantity !== 0), total: cart.total - action.dish.price})
+      return Object.assign({}, cart, {
+        dishes: cart.dishes.filter(ele => ele.quantity !== 0),
+        total: cart.total - action.dish.price
+      })
     case SHOW_MODAL:
-      return Object.assign({}, cart, {showModal: !cart.showModal})
+      return Object.assign({}, cart, {
+        showModal: !cart.showModal
+      })
     default:
       return cart;
   }
@@ -56,6 +95,8 @@ export default function reducer (cart = {
 
 /* ------------       THUNK CREATORS     ------------------ */
 export const checkoutCart = (terms) => (dispatch) => {
-  axios.post(`/api/users/${terms.currentUser.id}/orders`, {terms})
-  .then(res => dispatch(clearCart()))
+  axios.post(`/api/users/${terms.currentUser.id}/orders`, {
+      terms
+    })
+    .then(res => dispatch(clearCart()))
 }
