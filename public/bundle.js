@@ -47763,8 +47763,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -47779,124 +47777,90 @@ var _CartDish2 = _interopRequireDefault(_CartDish);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function CartBar(props) {
+  var currentUser = props.currentUser,
+      cartRestaurant = props.cartRestaurant,
+      removeItem = props.removeItem,
+      cart = props.cart;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CartBar = function (_React$Component) {
-  _inherits(CartBar, _React$Component);
-
-  function CartBar() {
-    _classCallCheck(this, CartBar);
-
-    return _possibleConstructorReturn(this, (CartBar.__proto__ || Object.getPrototypeOf(CartBar)).apply(this, arguments));
-  }
-
-  _createClass(CartBar, [{
-    key: 'render',
-
-    // constructor(){
-    //   super()
-    //   this.state = {
-    //     newCart: {
-    //     }
-    //   }
-    // }
-    // componentWillReceiveProps(nextProps){
-    //   if (this.props.cart.dishes.length !== nextProps.cart.dishes.length) {
-    //     console.log("check")
-    //     this.setState({newCart: nextProps.cart})
-    //   }
-    // }
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          currentUser = _props.currentUser,
-          cartRestaurant = _props.cartRestaurant,
-          removeItem = _props.removeItem,
-          cart = _props.cart;
-
-      var dishes = this.props.cart.dishes;
-      return _react2.default.createElement(
-        'div',
-        { className: 'cart-bar shadow' },
+  var dishes = props.cart.dishes;
+  return _react2.default.createElement(
+    'div',
+    { className: 'cart-page' },
+    _react2.default.createElement('div', { className: 'modal-background' }),
+    _react2.default.createElement(
+      'div',
+      { className: 'cart-bar shadow' },
+      _react2.default.createElement(
+        'ul',
+        { className: 'cart' },
         _react2.default.createElement(
-          'ul',
-          { className: 'cart' },
+          'h3',
+          null,
+          'My Cart'
+        ),
+        _react2.default.createElement('div', { className: 'divider', style: { margin: "1rem" } }),
+        _react2.default.createElement(
+          'li',
+          null,
           _react2.default.createElement(
-            'h3',
-            null,
-            'My Cart'
+            'span',
+            { className: 'sub-header' },
+            cartRestaurant.name
+          )
+        ),
+        _react2.default.createElement('br', null),
+        dishes[0] ? _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'cart-content left-align' },
+            dishes.map(function (ele) {
+              return _react2.default.createElement(_CartDish2.default, { ele: ele, key: ele.dish.id, removeItem: removeItem });
+            })
           ),
+          _react2.default.createElement('div', { className: 'h_line', style: { color: 'white' } }),
           _react2.default.createElement(
             'li',
             null,
-            _react2.default.createElement(
-              'a',
-              { className: 'subheader' },
-              cartRestaurant.name
-            )
+            ' Total: $ ',
+            cart.total.toFixed(2),
+            ' '
           ),
           _react2.default.createElement('br', null),
-          dishes[0] ? _react2.default.createElement(
+          _react2.default.createElement('div', { className: 'divider' }),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
             'div',
-            null,
+            { className: 'cart buttons' },
             _react2.default.createElement(
-              'div',
-              { className: 'cart-content left-align' },
-              dishes.map(function (ele) {
-                return _react2.default.createElement(_CartDish2.default, { ele: ele, key: ele.dish.id, removeItem: removeItem });
-              })
+              'button',
+              { className: 'cart gen-btn', onClick: function onClick() {
+                  return props.handleClear();
+                } },
+              'Clear Cart'
             ),
-            _react2.default.createElement('div', { className: 'h_line', style: { color: 'white' } }),
             _react2.default.createElement(
-              'li',
-              null,
-              ' Total: $ ',
-              cart.total.toFixed(2),
-              ' '
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement('div', { className: 'divider' }),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'span',
-              null,
-              _react2.default.createElement(
-                'button',
-                { className: 'gen-btn', onClick: function onClick() {
-                    return _this2.props.handleClear();
-                  } },
-                'Clear Cart'
-              ),
-              _react2.default.createElement(
-                'button',
-                { className: 'gen-btn', onClick: function onClick() {
-                    return _this2.props.handleCheckout({ dishes: dishes, currentUser: currentUser, cartRestaurant: cartRestaurant });
-                  } },
-                'Checkout Cart'
-              )
+              'button',
+              { className: 'cart gen-btn', onClick: function onClick() {
+                  return props.handleCheckout({ dishes: dishes, currentUser: currentUser, cartRestaurant: cartRestaurant });
+                } },
+              'Checkout Cart'
             )
-          ) : _react2.default.createElement(
-            'li',
-            null,
-            'No items to show!'
           )
+        ) : _react2.default.createElement(
+          'li',
+          null,
+          'No items to show!'
         )
-      );
-    }
-  }]);
-
-  return CartBar;
-}(_react2.default.Component);
+      )
+    )
+  );
+}
 
 /* -----------------    CONTAINER     ------------------ */
-
-
-var mapStateToProps = function mapStateToProps(state, ownProps) {
+var mapStateToProps = function mapStateToProps(state) {
   return {
     cart: state.cart,
     currentUser: state.currentUser,
@@ -47944,19 +47908,27 @@ function CartDish(props) {
     "li",
     null,
     _react2.default.createElement(
-      "span",
-      null,
-      quantity,
-      " ",
-      dish.name,
-      " | ",
-      dish.price * quantity,
+      "div",
+      { className: "cart item" },
       _react2.default.createElement(
-        "button",
-        { className: "cart-btn", onClick: function onClick() {
-            return removeItem(dish);
-          } },
-        _react2.default.createElement("img", { src: "/images/x.png", className: "x-btn", alt: "Delete Item" })
+        "div",
+        { className: "cart dish" },
+        quantity,
+        " ",
+        dish.name
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "cart price" },
+        "$",
+        dish.price * quantity,
+        _react2.default.createElement(
+          "button",
+          { className: "cart-btn", onClick: function onClick() {
+              return removeItem(dish);
+            } },
+          _react2.default.createElement("img", { src: "/images/x.png", className: "x-btn", alt: "Delete Item" })
+        )
       )
     )
   );
@@ -48161,6 +48133,7 @@ var Login = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'signin-container' },
+        _react2.default.createElement('div', { className: 'auth-error' }),
         _react2.default.createElement(
           'div',
           { className: 'local' },
@@ -48210,11 +48183,7 @@ var Login = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'back-line' },
-            _react2.default.createElement(
-              'span',
-              null,
-              'OR'
-            )
+            _react2.default.createElement('div', { className: 'divider', style: { margin: '1rem' } })
           )
         ),
         _react2.default.createElement(
@@ -48233,6 +48202,7 @@ var Login = function (_React$Component) {
               _react2.default.createElement(
                 'span',
                 null,
+                '   ',
                 this.props.message,
                 ' with Google'
               )
@@ -48375,11 +48345,7 @@ var Signup = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'back-line' },
-            _react2.default.createElement(
-              'span',
-              null,
-              'OR'
-            )
+            _react2.default.createElement('div', { className: 'divider', style: { margin: '1rem' } })
           )
         ),
         _react2.default.createElement(
@@ -49707,7 +49673,9 @@ function CartBubble(props) {
   return _react2.default.createElement(
     "div",
     { className: "cart-badge" },
-    props.cart.length
+    props.cart.reduce(function (acc, curr) {
+      return acc + curr.quantity;
+    }, 0)
   );
 }
 
@@ -52767,7 +52735,9 @@ var RestaurantPage = function (_React$Component) {
               _react2.default.createElement(
                 'p',
                 null,
-                currentRestaurant.transactions.join(", ")
+                currentRestaurant.transactions.map(function (ele) {
+                  return ele.split('_').join(' ');
+                }).join(', ')
               )
             )
           ),
@@ -67477,7 +67447,7 @@ function RestaurantList(props) {
     null,
     _react2.default.createElement(
       'h5',
-      null,
+      { style: { marginTop: '2rem' } },
       'Found ',
       foundRestaurants.length,
       ' results:'

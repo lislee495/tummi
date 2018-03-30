@@ -11,8 +11,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="signin-container">
-        <div className="auth-error">
-        </div>
+        <div className="auth-error" />
         <div className="local">
           <form onSubmit={this.onLoginSubmit}>
             <div className="form-group">
@@ -38,7 +37,7 @@ class Login extends React.Component {
         </div>
         <div className="or buffer">
           <div className="back-line">
-            <span>OR</span>
+            <div className="divider" style={{ margin: '1rem' }} />
           </div>
         </div>
         <div className="buffer oauth">
@@ -48,7 +47,7 @@ class Login extends React.Component {
               href="/auth/google"
               className="btn btn-social btn-google">
               <i className="fa fa-google" />
-              <span>{this.props.message} with Google</span>
+              <span>   {this.props.message} with Google</span>
             </a>
           </p>
         </div>

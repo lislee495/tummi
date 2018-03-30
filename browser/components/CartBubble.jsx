@@ -1,9 +1,11 @@
 import React from 'react';
 
 export default function CartBubble(props) {
-  return(
+  return (
     <div className="cart-badge">
-        {props.cart.length}
+      {props.cart.reduce((acc, curr) => {
+        return acc + curr.quantity
+      }, 0)}
     </div>
   )
 }

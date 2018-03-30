@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signup as signupFromReducer} from '../redux/auth';
+import { signup as signupFromReducer } from '../redux/auth';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -35,30 +35,31 @@ class Signup extends React.Component {
           </form>
         </div>
         <div className="or buffer">
-        <div className="back-line">
-          <span>OR</span>
+          <div className="back-line">
+            <div className="divider" style={{ margin: '1rem' }} />
+          </div>
+        </div>
+        <div className="buffer oauth">
+          <p>
+            <a
+              target="_self"
+              href="/auth/google"
+              className="btn btn-social btn-google">
+              <i className="fa fa-google" />
+              <span>{this.props.message} with Google</span>
+            </a>
+          </p>
         </div>
       </div>
-      <div className="buffer oauth">
-        <p>
-          <a
-            target="_self"
-            href="/auth/google"
-            className="btn btn-social btn-google">
-            <i className="fa fa-google" />
-            <span>{this.props.message} with Google</span>
-          </a>
-        </p>
-        </div>
-      </div>
-    )}
-    onSignupSubmit(event) {
-      event.preventDefault();
-      this.props.signup({
-        email: event.target.email.value,
-        password: event.target.password.value
-      })
-    }
+    )
+  }
+  onSignupSubmit(event) {
+    event.preventDefault();
+    this.props.signup({
+      email: event.target.email.value,
+      password: event.target.password.value
+    })
+  }
 
 }
 
@@ -66,7 +67,7 @@ class Signup extends React.Component {
 
 const mapState = () => ({ message: 'Signup' });
 const mapDispatch = (dispatch, ownProps) => ({
-signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history)),
+  signup: credentials => dispatch(signupFromReducer(credentials, ownProps.history)),
 });
 
 export default connect(mapState, mapDispatch)(Signup);
