@@ -44,11 +44,7 @@ class Signup extends React.Component {
         </div>
         <div className="or buffer">
           <div className="back-line">
-<<<<<<< HEAD
             <div className="divider" style={{ margin: '1rem' }} />
-=======
-            <span>OR</span>
->>>>>>> installGeolocation
           </div>
         </div>
         <div className="buffer oauth">

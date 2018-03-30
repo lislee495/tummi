@@ -7,7 +7,7 @@ export default function CartDish(props) {
   return (
     <li>
       <div className="cart item">
-        <div className="cart dish">{quantity} {dish.name}
+        <div className="cart dish">{quantity} {dish.name.substring(0, 30)}...
         </div>
         <div className="cart price">
           ${dish.price * quantity}

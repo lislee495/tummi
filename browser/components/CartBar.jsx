@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { checkoutCart, clearCart, removeItem } from '../redux/cart'
+import { checkoutCart, clearCart, removeItem, showCart } from '../redux/cart'
 import CartDish from './CartDish'
 
 function CartBar(props) {
@@ -8,7 +8,7 @@ function CartBar(props) {
   const dishes = props.cart.dishes
   return (
     <div className="cart-page">
-      <div className="modal-background" />
+      <div className="modal-background" onClick={() => props.handleCart()} />
       <div className="cart-bar shadow">
         <ul className="cart">
           <h3>My Cart</h3>
@@ -27,7 +27,7 @@ function CartBar(props) {
               <br />
               <div className="cart buttons">
                 <button className="cart gen-btn" onClick={() => props.handleClear()}>Clear Cart</button>
-                <button className="cart gen-btn" onClick={() => props.handleCheckout({ dishes, currentUser, cartRestaurant })}>Checkout Cart</button>
+                <button className="cart gen-btn" onClick={() => props.handleCheckout({ cart, currentUser })}>Checkout Cart</button>
               </div>
             </div>
             ) : (<li>No items to show!</li>)
@@ -50,6 +50,7 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (dish) => dispatch(removeItem(dish)),
   handleCheckout: (terms) => dispatch(checkoutCart(terms)),
-  handleClear: () => dispatch(clearCart())
+  handleClear: () => dispatch(clearCart()),
+  handleCart: () => dispatch(showCart())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(CartBar);

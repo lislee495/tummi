@@ -25,7 +25,7 @@ class FavoritesPage extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
             let orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1)
-            this.setState({ groupedOrders: orders })
+            this.setState({ groupedOrders: orders.reverse() })
         }
     }
     render() {
