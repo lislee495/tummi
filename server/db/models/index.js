@@ -12,18 +12,42 @@ Restaurant.hasOne(Menu, {
   onDelete: 'cascade',
   hooks: true
 });
-Menu.belongsTo(Restaurant, {as: 'owner'});
-Menu.belongsToMany(Dish, {through: 'menu_dish'});
-Dish.belongsToMany(Menu, {through: 'menu_dish'});
-User.belongsToMany(Dish, {through: Order})
-Dish.belongsToMany(User, {through: Order})
-User.belongsToMany(Dish, {through: Favorites})
-Dish.belongsToMany(User, {through: Favorites})
+
+
+Menu.belongsTo(Restaurant, {
+  as: 'owner'
+});
+Menu.belongsToMany(Dish, {
+  through: 'menu_dish'
+});
+Dish.belongsToMany(Menu, {
+  through: 'menu_dish'
+});
+User.belongsTo(Dish, {
+  through: {
+    model: Order,
+    unique: false
+  },
+  constraints: false
+}, )
+Dish.belongsToMany(User, {
+  through: {
+    model: Order,
+    unique: false
+  },
+  constraints: false
+})
+User.belongsToMany(Dish, {
+  through: Favorites
+})
+Dish.belongsToMany(User, {
+  through: Favorites
+})
 
 module.exports = {
-	db,
-	Restaurant,
-	User,
+  db,
+  Restaurant,
+  User,
   Dish,
   Menu,
   Order,

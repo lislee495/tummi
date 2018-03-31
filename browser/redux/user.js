@@ -12,7 +12,7 @@ const DELETE_LIKE = "DELETE_LIKE"
 const SET_FAVORITES = "SET_FAVORITES"
 const SET_ORDERS = "SET_ORDERS"
 const GET_LOCATION = 'GET_LOCATION'
-
+const REORDER = 'REORDER'
 // /* ------------     ACTION CREATORS      ------------------ */
 
 export const addLike = like => ({
@@ -42,6 +42,7 @@ export const setOrders = orders => ({
   type: SET_ORDERS,
   orders
 })
+
 
 
 // /* ------------          REDUCER         ------------------ */
@@ -114,7 +115,12 @@ export default function reducer(userPref = {
 
 // /* ------------       THUNK CREATORS     ------------------ */
 
-
+export const orderAgain = terms => dispatch => {
+  axios.post(`/api/users/${terms.order[0].user_id}/orders`, {
+      terms
+    })
+    .then(res => console.log(res))
+}
 export const fetchFavoriteDishes = currentUser => dispatch => {
   axios.get(`/api/users/${currentUser.id}/favorites`)
     .then(favorites => [...favorites.data].map(ele => ele.dish_id))

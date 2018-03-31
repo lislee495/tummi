@@ -22,29 +22,44 @@ router.get('/:id/orders', (req, res, next) => {
 })
 
 router.post('/:id/orders', async (req, res, next) => {
-  User.findById(req.body.terms.currentUser.id)
+  User.findById(req.params.id)
     .then(user => {
       return user.increment('orders')
     })
     .then(userIncremented => {
       const orderNum = userIncremented.orders
-      const {
-        cart,
-        currentUser
-      } = req.body.terms
-      return Promise.each(cart.dishes, (ele) => {
-        Order.create({
-          user_id: currentUser.id,
-          dish_id: ele.dish.id,
-          restaurant_id: cart.restaurant.id,
-          quantity: ele.quantity,
-          status: "ordered",
-          orderNum: orderNum,
-          total: cart.total
+      if (req.body.terms.cart) {
+        const {
+          cart,
+          currentUser
+        } = req.body.terms
+        return Promise.each(cart.dishes, (ele) => {
+          Order.create({
+            user_id: currentUser.id,
+            dish_id: ele.dish.id,
+            restaurant_id: cart.restaurant.id,
+            quantity: ele.quantity,
+            status: "ordered",
+            orderNum: orderNum,
+            total: cart.total
+          })
         })
-      })
+      } else {
+        return Promise.each(req.body.terms.order, (ele) => {
+          Order.create({
+            orderNum: orderNum,
+            user_id: ele.user_id,
+            dish_id: ele.dish_id,
+            restaurant_id: ele.restaurant_id,
+            quantity: ele.quantity,
+            status: "ordered",
+            total: ele.total
+          }).catch(err => console.log(err))
+        })
+      }
     })
     .then(result => res.status(201).json(result))
+
 });
 
 router.get('/:id/favorites', (req, res, next) => {

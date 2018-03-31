@@ -1,9 +1,9 @@
 import React from 'react';
-import { checkoutCart } from '../redux/'
+import { orderAgain } from '../redux/'
 import { connect } from 'react-redux';
 
 function PastOrdersDiv(props) {
-    const { order, dishes, restaurants, currentUser, checkoutCart } = props
+    const { order, dishes, restaurants, currentUser, reorder } = props
     const date = new Date(Date.parse(order[0].createdAt))
     return (
         <li >
@@ -17,7 +17,7 @@ function PastOrdersDiv(props) {
                     )}</ul>
 
                 </div>
-                <button className="gen-btn" onClick={() => checkoutCart(order, currentUser)}>Order Again</button>
+                <button className="gen-btn" onClick={() => reorder({ order })}>Order Again</button>
             </div>
             <hr />
         </li>
@@ -31,8 +31,8 @@ const mapStateToProps = function (state) {
     };
 };
 const mapDispatchToProps = (dispatch) => ({
-    checkoutCart: (terms) =>
-        dispatch(checkoutCart(terms))
+    reorder: (terms) =>
+        dispatch(orderAgain(terms))
 
 })
 export default connect(mapStateToProps, mapDispatchToProps)(PastOrdersDiv);
