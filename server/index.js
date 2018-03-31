@@ -4,7 +4,9 @@ const path = require('path');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const { User } = require('./db/models');
+const {
+  User
+} = require('./db/models');
 const passport = require('passport')
 
 
@@ -52,7 +54,9 @@ app.use(function (req, res, next) {
 
 app.use(volleyball);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use('/api', require('./api'));
 app.use('/auth', require('./auth'))
@@ -70,8 +74,8 @@ app.use(express.static(path.join(__dirname, '../public')))
 app.use(express.static(path.join(__dirname, '../node_modules')))
 
 app.use((err, req, res, next) => {
-	console.error(err.stack);
-	res.status(err.status || 500).send(err.message || 'Internal Error');
+  console.error(err.stack);
+  res.status(err.status || 500).send(err.message || 'Internal Error');
 });
 
 module.exports = app;

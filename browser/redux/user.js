@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Promise from 'bluebird'
+import config from '../config'
 
 
 // /* -----------------    ACTION TYPES    ------------------ */
@@ -150,23 +151,21 @@ export const fetchOrders = currentUser => dispatch => {
     })
 }
 
-export function getLocation() {
-  return dispatch => {
-    const geolocation = navigator.geolocation;
-    if (!geolocation) {
-      console.log('Location not supported')
-    } else {
-      geolocation.getCurrentPosition((position) => {
-        console.log(position)
-        const location = {
-          lat: position.coords.latitude,
-          long: position.coords.longitude
-        }
-        dispatch({
-          type: GET_LOCATION,
-          location: location
-        })
-      }, (err) => console.log(err));
-    }
-  };
+export const getLocation = () => dispatch => {
+  const geolocation = navigator.geolocation;
+  if (!geolocation) {
+    console.log('Location not supported')
+  } else {
+    geolocation.getCurrentPosition((position) => {
+      console.log(position)
+      const location = {
+        lat: position.coords.latitude,
+        long: position.coords.longitude
+      }
+      dispatch({
+        type: GET_LOCATION,
+        location: location
+      })
+    }, (err) => console.log(err));
+  }
 }

@@ -159,8 +159,7 @@ export const fetchMenu = (id) => dispatch => {
 
 export const searchMenus = (searchTerms) => dispatch => {
   const {
-    category,
-    location
+    category
   } = searchTerms
   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${category}&instructionsRequired=false&number=20`, {
       headers: {
@@ -180,8 +179,7 @@ export const searchMenus = (searchTerms) => dispatch => {
 
 export const searchRestaurants = (searchTerms, history) => dispatch => {
   const {
-    category,
-    location
+    category
   } = searchTerms
   axios.post('/api/restaurants/yelp', searchTerms)
     .then(res => axios.post('/api/restaurants', {

@@ -4359,8 +4359,7 @@ var fetchMenu = exports.fetchMenu = function fetchMenu(id) {
 
 var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
   return function (dispatch) {
-    var category = searchTerms.category,
-        location = searchTerms.location;
+    var category = searchTerms.category;
 
     _axios2.default.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=' + category + '&instructionsRequired=false&number=20', {
       headers: {
@@ -4386,8 +4385,7 @@ var searchMenus = exports.searchMenus = function searchMenus(searchTerms) {
 
 var searchRestaurants = exports.searchRestaurants = function searchRestaurants(searchTerms, history) {
   return function (dispatch) {
-    var category = searchTerms.category,
-        location = searchTerms.location;
+    var category = searchTerms.category;
 
     _axios2.default.post('/api/restaurants/yelp', searchTerms).then(function (res) {
       return _axios2.default.post('/api/restaurants', {
@@ -10665,7 +10663,8 @@ var config = {
   GOOGLE_GEOCODE_API_KEY: "AIzaSyDPZASh_7KpOEq0U3somO7gVqKYN6zFj50",
   ZOMATO_KEY: "d7cff0aba466d344a25b2f423de86439",
   MASHAPE_KEY: "t8yWIvxXdzmsh503QvP2h4I3PDR8p12Lw9OjsnKqrxjMTjJfhY", //need API key and restaurant id
-  YELP_API_KEY: "xMFWhdNs-xzkVfrYSAel_ggJPG9MBUHZwN6O697GeQ2EHjsZGALNjUHwIdTRgx5yTLU2_dfxIWOfAV39yq8fLHvOqxU8PhssAeah6olGrl-TLNEkq-xCtA4e2ml8WnYx"
+  YELP_API_KEY: "xMFWhdNs-xzkVfrYSAel_ggJPG9MBUHZwN6O697GeQ2EHjsZGALNjUHwIdTRgx5yTLU2_dfxIWOfAV39yq8fLHvOqxU8PhssAeah6olGrl-TLNEkq-xCtA4e2ml8WnYx",
+  GOOGLE_LOCATION_API_KEY: "AIzaSyA6QQQquu4MWfXhwIqzOYyH2q3DWrIhiqs"
 };
 module.exports = config;
 
@@ -45955,9 +45954,8 @@ module.exports = Array.isArray || function (arr) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchOrders = exports.fetchFavoriteDishes = exports.orderAgain = exports.setOrders = exports.setFavoriteDishes = exports.resetPref = exports.addDislike = exports.deleteDislike = exports.deleteLike = exports.addLike = undefined;
+exports.getLocation = exports.fetchOrders = exports.fetchFavoriteDishes = exports.orderAgain = exports.setOrders = exports.setFavoriteDishes = exports.resetPref = exports.addDislike = exports.deleteDislike = exports.deleteLike = exports.addLike = undefined;
 exports.default = reducer;
-exports.getLocation = getLocation;
 
 var _axios = __webpack_require__(94);
 
@@ -45966,6 +45964,10 @@ var _axios2 = _interopRequireDefault(_axios);
 var _bluebird = __webpack_require__(227);
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
+
+var _config = __webpack_require__(226);
+
+var _config2 = _interopRequireDefault(_config);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46161,7 +46163,7 @@ var fetchOrders = exports.fetchOrders = function fetchOrders(currentUser) {
   };
 };
 
-function getLocation() {
+var getLocation = exports.getLocation = function getLocation() {
   return function (dispatch) {
     var geolocation = navigator.geolocation;
     if (!geolocation) {
@@ -46182,7 +46184,7 @@ function getLocation() {
       });
     }
   };
-}
+};
 
 /***/ }),
 /* 555 */
@@ -49746,7 +49748,11 @@ var _restaurants = __webpack_require__(95);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Searchbar(props) {
-  var location = props.location,
+  function combine(location) {
+    return location.lat + ' ' + location.long;
+  }
+  var currentLocation = props.currentLocation,
+      location = props.location,
       category = props.category,
       handleLocationChange = props.handleLocationChange,
       handleCategoryChange = props.handleCategoryChange,
@@ -49775,7 +49781,13 @@ function Searchbar(props) {
         value: location,
         onChange: handleLocationChange,
         placeholder: 'Location',
-        required: true })
+        list: currentLocation.lat ? "nearme" : null,
+        required: true }),
+      _react2.default.createElement(
+        'datalist',
+        { id: 'nearme' },
+        _react2.default.createElement('option', { 'data-value': combine(currentLocation), value: 'Near Me' })
+      )
     ),
     _react2.default.createElement(
       'button',
@@ -49788,10 +49800,12 @@ function Searchbar(props) {
     )
   );
 }
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
     location: state.restaurants.location,
-    category: state.restaurants.category
+    category: state.restaurants.category,
+    currentLocation: state.userPref.currentLocation
   };
 };
 
@@ -49805,8 +49819,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     handleSubmit: function handleSubmit(category, location, evt) {
       evt.preventDefault();
+      if (location === 'Near Me') {
+        var option = document.getElementsByTagName('option')[0];
+        var newLoc = option.getAttribute('data-value');
+        location = newLoc;
+      }
       dispatch((0, _restaurants.searchRestaurants)({ category: category, location: location }));
-      dispatch((0, _restaurants.searchMenus)({ category: category, location: location }));
+      dispatch((0, _restaurants.searchMenus)({ category: category }));
       dispatch((0, _restaurants.searchCategory)(''));
       dispatch((0, _restaurants.searchLocation)(''));
       ownProps.history.push('/');
