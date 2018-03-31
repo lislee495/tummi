@@ -644,10 +644,16 @@ button.gen-btn {
   justify-content: center;
   flex-direction: row;
   width: 100%;
+  background-color: #FAFAFA;
 }
 
 .favorites-content {
   width: 50%;
+  background-color: white;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  border: .002rem solid;
+  border-color: #E0E0E0;
 }
 
 .favorites-content .favorites-div {
@@ -666,6 +672,7 @@ button.gen-btn {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  width: 100%;
 }
 
 /*************MODAL***************/
@@ -701,4 +708,14 @@ button.gen-btn {
   max-height: 30%;
   background: white;
   padding: 3rem;
+}
+
+/*************TRENDS***************/
+
+.trends-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  background-color: #FAFAFA;
 }

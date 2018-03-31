@@ -23,11 +23,12 @@ class FavoritesPage extends React.Component {
         }, [])
     }
     componentWillReceiveProps(nextProps) {
-        if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
+        if (this.props.orders.orders.length !== nextProps.orders.orders.length || this.refs.orderRef) {
             let orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1)
             this.setState({ groupedOrders: orders.reverse() })
         }
     }
+
     render() {
         const { favoriteDishes, orders } = this.props
         return (
@@ -36,17 +37,17 @@ class FavoritesPage extends React.Component {
                     <h4>Favorites</h4>
                     <hr />
                     <ul>
-                        {favoriteDishes[0] && favoriteDishes.map(dish =>
+                        {favoriteDishes[0] ? favoriteDishes.map(dish =>
                             <FavoritesDiv dish={dish} key={dish.id} />
-                        )}
+                        ) : <em>No favorites found.</em>}
                     </ul>
 
                     <h4>Past Orders</h4>
                     <hr />
-                    <ul className="left-align">
-                        {this.state.groupedOrders.length > 0 && this.state.groupedOrders.map(order =>
+                    <ul className="left-align" ref="orderRef">
+                        {this.state.groupedOrders.length > 0 ? this.state.groupedOrders.map(order =>
                             <PastOrdersDiv key={order[0].id} order={order} dishes={orders.dishArray} restaurants={orders.restaurantArray} />)
-                        }
+                            : <em className="center-align">No orders found </em>}
                     </ul>
                 </div>
             </div>
@@ -61,7 +62,7 @@ const mapStateToProps = function (state) {
         orders: state.userPref.orders
     };
 };
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     fetchInitialData: (currentUser) => {
         dispatch(foundRestaurants([]))
         dispatch(fetchOrders(currentUser))

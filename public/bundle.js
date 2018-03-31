@@ -49930,7 +49930,6 @@ var TrendsPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log(this.state.compromisedWords.length);
             return _react2.default.createElement(
                 'div',
                 { className: 'trends-page' },
@@ -52566,7 +52565,7 @@ var FavoritesPage = function (_React$Component) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            if (this.props.orders.orders.length !== nextProps.orders.orders.length) {
+            if (this.props.orders.orders.length !== nextProps.orders.orders.length || this.refs.orderRef) {
                 var orders = this.groupOrders(nextProps.orders.orders, 'orderNum').slice(1);
                 this.setState({ groupedOrders: orders.reverse() });
             }
@@ -52593,9 +52592,13 @@ var FavoritesPage = function (_React$Component) {
                     _react2.default.createElement(
                         'ul',
                         null,
-                        favoriteDishes[0] && favoriteDishes.map(function (dish) {
+                        favoriteDishes[0] ? favoriteDishes.map(function (dish) {
                             return _react2.default.createElement(_FavoritesDiv2.default, { dish: dish, key: dish.id });
-                        })
+                        }) : _react2.default.createElement(
+                            'em',
+                            null,
+                            'No favorites found.'
+                        )
                     ),
                     _react2.default.createElement(
                         'h4',
@@ -52605,10 +52608,14 @@ var FavoritesPage = function (_React$Component) {
                     _react2.default.createElement('hr', null),
                     _react2.default.createElement(
                         'ul',
-                        { className: 'left-align' },
-                        this.state.groupedOrders.length > 0 && this.state.groupedOrders.map(function (order) {
+                        { className: 'left-align', ref: 'orderRef' },
+                        this.state.groupedOrders.length > 0 ? this.state.groupedOrders.map(function (order) {
                             return _react2.default.createElement(_PastOrdersDiv2.default, { key: order[0].id, order: order, dishes: orders.dishArray, restaurants: orders.restaurantArray });
-                        })
+                        }) : _react2.default.createElement(
+                            'em',
+                            { className: 'center-align' },
+                            'No orders found '
+                        )
                     )
                 )
             );
@@ -52625,7 +52632,7 @@ var mapStateToProps = function mapStateToProps(state) {
         orders: state.userPref.orders
     };
 };
-var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         fetchInitialData: function fetchInitialData(currentUser) {
             dispatch((0, _redux.foundRestaurants)([]));

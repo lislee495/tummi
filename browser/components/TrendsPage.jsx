@@ -36,7 +36,6 @@ class TrendsPage extends React.Component {
     }
 
     render() {
-        console.log(this.state.compromisedWords.length)
         return (
             <div className="trends-page">
                 <div className='app-outer'>
