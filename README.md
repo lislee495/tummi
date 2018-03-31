@@ -10,7 +10,7 @@ Due to the scarcity of open-source menu information online, every restaurant use
 
 ## Instructions
 
-Download the folder from https://github.com/snickers495/tummi and navigate to it in your terminal:
+Download the folder from https://github.com/lislee495/tummi and navigate to it in your terminal:
 ```
 $ npm install
 $ npm run start:dev
@@ -19,7 +19,7 @@ Open localhost:3000 on browser.
 
 ## Contributors Guide
 
-To contribute, please create an issue at https://github.com/snickers495/tummi/issues.
+To contribute, please create an issue at https://github.com/lislee495/tummi/issues.
 
 ## License
 
