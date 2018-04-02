@@ -33,6 +33,8 @@
     "bootstrap-social": "^5.0.0",
     "compromise": "^11.5.2",
     "css-loader": "^0.28.9",
+    "dotenv": "^5.0.1",
+    "dotenv-webpack": "^1.5.5",
     "eslint": "^4.19.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-fullstack": "^3.0.0",

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import config from '../config'
 import Promise from 'bluebird'
 import {
   browserHistory
@@ -163,7 +162,7 @@ export const searchMenus = (searchTerms) => dispatch => {
   } = searchTerms
   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?cuisine=${category}&instructionsRequired=false&number=20`, {
       headers: {
-        "X-Mashape-Key": config.MASHAPE_KEY,
+        "X-Mashape-Key": process.env.MASHAPE_KEY,
         "X-Mashape-Host": "spoonacular-recipe-food-nutrition-v1.p.mashape.com"
       }
     }).then(res => {

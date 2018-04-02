@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Promise from 'bluebird'
-import config from '../config'
 
 
 // /* -----------------    ACTION TYPES    ------------------ */

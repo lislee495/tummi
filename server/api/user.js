@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const HttpError = require('../utils/HttpError');
-const config = require('../config')
 const axios = require('axios')
 const {
   Order,

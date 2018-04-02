@@ -1,9 +1,9 @@
 const app = require('./server');
+require('dotenv').config()
 const PORT = process.env.PORT || 3000;
 const {
 	db
 } = require('./server/db/models');
-
 
 db.sync({})
 	.then(() => {

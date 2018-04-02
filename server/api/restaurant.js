@@ -5,7 +5,6 @@ const {
   Menu,
 } = require('../db/models');
 const axios = require('axios')
-const config = require('../config')
 const Promise = require('bluebird')
 const sequelize = require('sequelize')
 
@@ -56,7 +55,7 @@ router.post('/yelp', (req, res, next) => {
   const newLoc = location.split(' ').join('+')
   axios.get(`https://api.yelp.com/v3/businesses/search?term=food+${category}&location=${newLoc}`, {
       headers: {
-        "Authorization": "Bearer " + config.YELP_API_KEY
+        "Authorization": "Bearer " + process.env.YELP_API_KEY
       }
     })
     .then(result => res.status(201).json(result.data.businesses))
