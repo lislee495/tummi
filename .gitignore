@@ -1,4 +1,5 @@
 server/config.js
 browser/config.js
 node_modules
-.envnpm-debug.log
+.env
+npm-debug.log

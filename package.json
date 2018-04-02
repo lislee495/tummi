@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "webpack -w & nodemon index.js -e js,html --watch",
-    "start": "NODE_ENV=production webpack --progress & nodemon index.js -e js,html --watch",
+    "start": "NODE_ENV=production webpack --progress & node index.js",
     "seed": "node seed",
     "db-init": "pg-init auth",
     "postinstall": "npm run db-init"
