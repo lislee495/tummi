@@ -1,5 +1,7 @@
 # Tummi : Your stomach's best friend
 
+_To view a demo, visit this [video](https://youtu.be/rCbJM9vsktk)_
+
 ## About
 
 Tummi is a food ordering app that offers a streamlined user interface for an improved food ordering experience. Utilizing the Yelp API, it allows users to search and view food options in any vicinity. A map displays all results and updates as the user moves from one restaurant to another. Upon choosing a restaurant, users can then see its basic information, as well as a menu where they can filter out food aversions (i.e. nuts) and filter in their preferences (i.e. vegan). Users can save favorite dishes and view past orders. The app also implements a light-weight natural language processing module to sort through the user's favorites and past orders to highlight the users' preferences, which it arranges in a visual word cloud on the trends page.
